@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List avec HTMX et Node.js</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<body>
+    <h1>To-Do List</h1>
+
+    <!-- Formulaire pour ajouter une tâche -->
+    <form hx-post="/add-task" hx-target="#task-list" hx-swap="outerHTML">
+        <input type="text" name="task" placeholder="Nouvelle tâche" required>
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <!-- Liste des tâches -->
+    <div id="task-list">
+        <%- include('task_list', { tasks: tasks }); %>
+    </div>
+
+</body>
+</html>
