@@ -1,8 +1,9 @@
-<ul>
+<form>
     <% tasks.forEach((task, index) => { %>
-        <li>
-            <span><%= task %></span>
-            <button hx-delete="/delete-task/<%= index %>" hx-target="#task-list" hx-swap="innerHTML">Supprimer</button>
-        </li>
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <input type="checkbox" id="task-<%= index %>">
+            <label for="task-<%= index %>" style="margin-left: 10px;"><%= task %></label>
+            <button style="margin-left: 20px;" hx-delete="/delete-task/<%= index %>" hx-target="#task-list" hx-swap="innerHTML">Supprimer</button>
+        </div>
     <% }); %>
-</ul>
+</form>

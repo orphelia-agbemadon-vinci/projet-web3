@@ -3,22 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List avec HTMX et Node.js</title>
+    <title>DunDeal</title>
     <script src="https://unpkg.com/htmx.org"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>To-Do List</h1>
+    <div class="container">
+        <h1>To-Do List</h1>
 
-    <!-- Formulaire pour ajouter une tâche -->
-    <form hx-post="/add-task" hx-target="#task-list" hx-swap="innerHTML">
-        <input type="text" name="task" placeholder="Nouvelle tâche" required>
-        <button type="submit">Ajouter</button>
-    </form>
+        <!-- Formulaire pour ajouter une tâche -->
+        <form hx-post="/add-task" hx-target="#task-list" hx-swap="innerHTML">
+            <input type="text" name="task" placeholder="Nouvelle tâche..." required>
+            <button type="submit">Ajouter</button>
+        </form>
 
-    <!-- Liste des tâches -->
-    <div id="task-list">
-        <%- include('task_list', { tasks: tasks }); %>
+        <!-- Liste des tâches -->
+        <div id="task-list">
+            <%- include('task_list', { tasks: tasks }); %>
+        </div>
     </div>
-
 </body>
 </html>
