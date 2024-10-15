@@ -10,7 +10,7 @@
     <h1>To-Do List</h1>
 
     <!-- Formulaire pour ajouter une tâche -->
-    <form hx-post="/add-task" hx-target="#task-list" hx-swap="outerHTML">
+    <form hx-post="/add-task" hx-target="#task-list" hx-swap="innerHTML">
         <input type="text" name="task" placeholder="Nouvelle tâche" required>
         <button type="submit">Ajouter</button>
     </form>
