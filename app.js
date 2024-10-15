@@ -1,9 +1,14 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const path = require('path');
+
+// Configuration pour utiliser le moteur de templates EJS
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Liste des tâches en mémoire (pour ce projet simple)
 let tasks = [];
@@ -35,9 +40,7 @@ app.delete('/delete-task/:index', (req, res) => {
     res.render('task_list', { tasks });
 });
 
-// Configuration pour utiliser le moteur de templates EJS
-app.set('view engine', 'ejs');
-app.set('views', './views');
+
 
 // Lancement du serveur
 app.listen(port, () => {
