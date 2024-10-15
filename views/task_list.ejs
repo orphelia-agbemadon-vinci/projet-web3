@@ -1,0 +1,8 @@
+<ul>
+    <% tasks.forEach((task, index) => { %>
+        <li>
+            <span><%= task %></span>
+            <button hx-delete="/delete-task/<%= index %>" hx-target="#task-list" hx-swap="innerHTML">Supprimer</button>
+        </li>
+    <% }); %>
+</ul>
