@@ -1,41 +1,48 @@
-/* public/styles.css */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-h1 {
-    color: #333;
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
 }
 
 form {
     margin-bottom: 20px;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+.todolist {
+    border: 1px solid black;
+    margin: auto;
 }
 
-li {
-    background-color: #fff;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+.todolist tr {
+    vertical-align: middle;
 }
 
-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
+.check-box {
+    width: 10%;
+    text-align: center;
+}
+
+.task-col {
+    width: 70%;
+}
+
+.delete-col {
+    width: 20%;
+    text-align: right;
+}
+
+.delete-col button {
+    color: red;
+    border: 1px solid red;
+    background-color: transparent;
     cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
 }

@@ -1,8 +1,23 @@
-<ul>
+<table class="todolist">
     <% tasks.forEach((task, index) => { %>
-        <li>
-            <span><%= task %></span>
-            <button hx-delete="/delete-task/<%= index %>" hx-target="#task-list" hx-swap="innerHTML">Supprimer</button>
-        </li>
+        <tr>
+            <!-- Colonne pour la case à cocher -->
+            <td class="check-box">
+                <input type="checkbox" id="task-<%= index %>">
+            </td>
+            <!-- Colonne pour le texte de la tâche -->
+            <td class="task-col">
+                <label for="task-<%= index %>"><%= task %></label>
+            </td>
+            <!-- Colonne pour le bouton "Supprimer" -->
+            <td class="delete-col">
+                <button 
+                    hx-delete="/delete-task/<%= index %>" 
+                    hx-target="#task-list" 
+                    hx-swap="innerHTML">
+                    Supprimer
+                </button>
+            </td>
+        </tr>
     <% }); %>
-</ul>
+</table>
