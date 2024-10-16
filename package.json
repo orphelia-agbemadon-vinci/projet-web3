@@ -1,21 +1,29 @@
 {
-  "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.21.1",
-    "htmx.org": "^1.9.12"
-  },
   "name": "projet-web3",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "node app.js"
+    "dev": "nodemon app.js"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orphelia-agbemadon-vinci/projet-web3.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orphelia-agbemadon-vinci/projet-web3/issues"
+  },
+  "homepage": "https://github.com/orphelia-agbemadon-vinci/projet-web3#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "htmx.org": "^2.0.3"
+  },
+  "keywords": [],
   "devDependencies": {
     "nodemon": "^3.1.7"
   }
