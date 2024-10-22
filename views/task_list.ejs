@@ -2,7 +2,7 @@
     <% tasks.forEach((task, index) => { %>
         <tr>
             <!-- Colonne pour la case à cocher -->
-            <td class="check-box">
+            <td>
                 <input
                     type="checkbox" 
                     id="task-<%= index %>" 
@@ -11,8 +11,8 @@
                     hx-target="#task-list" 
                     hx-swap="innerHTML">
             </td>
-            <!-- Colonne pour le texte de la tâche -->
-            <td class="task-col">
+            <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
+            <td class="task-col <%= task.completed ? 'completed' : '' %>">
                 <label for="task-<%= index %>"><%= task.description %></label>
             </td>
             <!-- Colonne pour le bouton "Supprimer" -->
