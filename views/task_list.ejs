@@ -1,31 +1,37 @@
-<table class="todolist">
-    <% tasks.forEach((task, index) => { %>
-        <tr>
-            <!-- Colonne pour le texte de la tâche -->
-            
-            <td class="check-box">
-                <a href="/<%= index %>"><input
-                    type="checkbox" 
-                    id="task-<%= index %>" 
-                    <%= task.completed ? 'checked' : '' %>
-                    hx-post="/toggle-task/<%= index %>" 
-                    hx-target="#task-list" 
-                    hx-swap="innerHTML"></a>
-            </td>
-            <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
-            <td class="task-col <%= task.completed ? 'completed' : '' %>">
-                <label for="task-<%= index %>"><a href="/<%= index %>"><%= task.description %></a></label>
-
-            </td>
-            <!-- Colonne pour le bouton "Supprimer" -->
-            <td class="delete-col">
-                <button 
-                    hx-delete="/delete-task/<%= index %>" 
-                    hx-target="#task-list" 
-                    hx-swap="innerHTML">
-                    Supprimer
-                </button>
-            </td>
-        </tr>
-    <% }); %>
-</table>
+<% if (tasks.length === 0) { %>
+    <p></p>
+<% } else { %>
+    <table class="todolist">
+        <% tasks.forEach((task, index) => { %>
+            <tr>
+                <!-- Colonne pour le texte de la tâche -->
+                <td class="check-box">
+                    <a href="/<%= index %>">
+                        <input
+                            type="checkbox" 
+                            id="task-<%= index %>" 
+                            <%= task.completed ? 'checked' : '' %>
+                            hx-post="/toggle-task/<%= index %>" 
+                            hx-target="#task-list" 
+                            hx-swap="innerHTML">
+                    </a>
+                </td>
+                <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
+                <td class="task-col <%= task.completed ? 'completed' : '' %>">
+                    <label for="task-<%= index %>">
+                        <a href="/<%= index %>"><%= task.description %></a>
+                    </label>
+                </td>
+                <!-- Colonne pour le bouton "Supprimer" -->
+                <td class="delete-col">
+                    <button 
+                        hx-delete="/delete-task/<%= index %>" 
+                        hx-target="#task-list" 
+                        hx-swap="innerHTML">
+                        Supprimer
+                    </button>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+<% } %>
