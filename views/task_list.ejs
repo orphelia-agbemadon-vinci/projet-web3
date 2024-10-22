@@ -6,7 +6,6 @@
             <tr>
                 <!-- Colonne pour le texte de la tâche -->
                 <td class="check-box">
-                    <a href="/<%= index %>">
                         <input
                             type="checkbox" 
                             id="task-<%= index %>" 
@@ -14,7 +13,6 @@
                             hx-post="/toggle-task/<%= index %>" 
                             hx-target="#task-list" 
                             hx-swap="innerHTML">
-                    </a>
                 </td>
                 <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
                 <td class="task-col <%= task.completed ? 'completed' : '' %>">
