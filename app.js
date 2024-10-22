@@ -10,7 +10,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Liste des tâches en mémoire (pour ce projet simple)
+// Liste des tâches en mémoire
 let tasks = [];
 
 // Affiche la page principale avec la liste des tâches
@@ -20,13 +20,14 @@ app.get('/', (req, res) => {
 
 // Route pour ajouter une tâche
 app.post('/add-task', (req, res) => {
-    const task = req.body.task;
-    /*if (task) {
+    const taskDescription = req.body.task;
+    if (taskDescription) {
+        const task = { description: taskDescription, completed: false };
         tasks.push(task);
-    }*/
-   tasks.push(task);
+    }
     res.render('task_list', { tasks });
 });
+
 
 // Route pour supprimer une tâche
 app.delete('/delete-task/:index', (req, res) => {
@@ -37,6 +38,14 @@ app.delete('/delete-task/:index', (req, res) => {
     res.render('task_list', { tasks });
 });
 
+// Route pour cocher une tâche
+app.post('/toggle-task/:index', (req, res) => {
+    const index = parseInt(req.params.index);
+    if (index >= 0 && index < tasks.length) {
+        tasks[index].completed = !tasks[index].completed;
+    }
+    res.render('task_list', { tasks });
+});
 
 // Lancement du serveur
 app.listen(port, () => {
