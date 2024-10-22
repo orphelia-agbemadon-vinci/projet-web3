@@ -47,13 +47,6 @@ app.post('/toggle-task/:index', (req, res) => {
     res.render('task_list', { tasks });
 });
 
-
-// Route pour afficher les tâches complétées
-app.get('/tasks/completed', (req, res) => {
-    const completedTasks = tasks.filter(task => task.completed);
-    res.render('index', { tasks: completedTasks });
-});
-
 // Lancement du serveur
 app.listen(port, () => {
     console.log(`App running at http://localhost:${port}`);
