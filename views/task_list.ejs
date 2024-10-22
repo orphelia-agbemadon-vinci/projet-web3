@@ -3,11 +3,11 @@
         <tr>
             <!-- Colonne pour la case à cocher -->
             <td class="check-box">
-                <input type="checkbox" id="task-<%= index %>">
+                <input type="checkbox" id="checkbox-<%= index %>">
             </td>
             <!-- Colonne pour le texte de la tâche -->
             <td class="task-col">
-                <label for="task-<%= index %>"><%= task %></label>
+                <a href="/<%= index %>"><%= task %></a>
             </td>
             <!-- Colonne pour le bouton "Supprimer" -->
             <td class="delete-col">

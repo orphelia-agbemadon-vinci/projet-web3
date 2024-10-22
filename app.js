@@ -36,6 +36,27 @@ app.delete('/delete-task/:index', (req, res) => {
     }
     res.render('task_list', { tasks });
 });
+// Route pour afficher les détails d'une tâche
+/*app.get('/:index', (req, res) => {
+    const index = parseInt(req.params.index);
+    if (index >= 0 && index < tasks.length) {
+        const task = tasks[index];
+        res.render('task_detail', { task, index });
+    } else {
+        res.status(404).send('Tâche non trouvée');
+    }
+});*/
+// 
+app.get('/:index', (req, res) => {
+    const index = parseInt(req.params.index);
+    if (index >= 0 && index < tasks.length) {
+        const task = tasks[index];
+        res.render('task_details', { task, index });
+    } else {
+        res.status(404).send('Tâche non trouvée');
+    }
+});
+
 
 
 // Lancement du serveur
