@@ -20,15 +20,36 @@
                         <a href="/<%= index %>"><%= task.description %></a>
                     </label>
                 </td>
+                <!-- Colonne pour le bouton "Modifier" -->
+                <td>
+                    <a 
+                        class="edit-button" 
+                        hx-get="/edit-task/<%= index %>" 
+                        hx-target="#task-list" 
+                        hx-swap="innerHTML">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                </td>
+                <!-- Colonne pour le bouton "Important" -->
+                <td>
+                    <a 
+                        class="star-button"
+                        hx-post="/toggle-important/<%= index %>" 
+                        hx-target="#task-list" 
+                        hx-swap="innerHTML">
+                        <i class="fa <%= task.important ? 'fa-star' : 'fa-star-o' %>"></i>
+                    </a>
+                </td>
                 <!-- Colonne pour le bouton "Supprimer" -->
-                <td class="delete-col">
-                    <button 
+                <td class="">
+                    <button class="delete-button"
                         hx-delete="/delete-task/<%= index %>" 
                         hx-target="#task-list" 
                         hx-swap="innerHTML">
-                        Supprimer
+                        <i class="fa fa-trash"></i>
                     </button>
                 </td>
+                
             </tr>
         <% }); %>
     </table>

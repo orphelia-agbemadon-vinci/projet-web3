@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<body>
+    <nav class="menu" id="menu">
+        <!-- 
+        <div class="logo">
+            <img src="logo.png" alt="Logo" id="logo">       
+        </div>
+        -->
+        <ul>
+            <li><i class="fa fa-check icon"></i>Tâches</li>
+            <li><i class="fa fa-star icon"></i>Important</li>
+        </ul>
+    </nav>
+    <div class="container">
+        <%- body %>
+    </div>
+</body>
+</html>

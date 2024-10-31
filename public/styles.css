@@ -35,18 +35,6 @@ form {
     width: 70%;
 }
 
-.delete-col {
-    width: 20%;
-    text-align: right;
-}
-
-.delete-col button {
-    color: red;
-    border: 1px solid red;
-    background-color: transparent;
-    cursor: pointer;
-}
-
 .completed label {
     text-decoration: line-through;
     color: gray;
@@ -72,14 +60,13 @@ form {
 }
 
 .menu li {
-    margin: 10px 0;
+    margin: 20px 10px;
     display: flex;
-    align-items: center;
 }
 
 .icon {
-    margin-right: 10px;
-    width:20px;
+    margin-right: 5px;
+    width:30px;
     height: auto;
 }
 
@@ -93,13 +80,29 @@ form {
     height: auto;
 }
 
-.container {
-    margin-left: 220px;
-    padding: 20px;
-    flex-grow: 1;
-    transition: margin-left 0.3s ease;
-}
-
 .container.menu-closed {
     margin-left: 20px;
+}
+
+.star-button, .delete-button, .edit-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 5px;
+    font-size: 24px;
+    color: inherit;
+}
+
+.star-button {
+    color: gold;
+    margin-right: 20px;
+}
+
+.delete-button {
+    color: red;
+}
+
+.edit-button {
+    color: lightblue;
 }
