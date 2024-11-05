@@ -18,7 +18,13 @@
 #### JSON : Utilisé comme base de données légère pour stocker les tâches de manière persistante.
 
 ## Installation du projet
-#### 1. Cloner le projet : git clone https://github.com/orphelia-agbemadon-vinci/projet-web3
+#### 1. Cloner le projet : ‘
+‘
+‘
+‘‘‘git clone https://github.com/orphelia-agbemadon-vinci/projet-web3‘
+‘
+‘
+‘‘‘
 #### 2. Installer les dépendances : npm i, npm i express ejs, npm i express-ejs-layouts
 #### 3. Lancer l'application : npm run dev
 #### Le serveur sera disponible sur http://localhost:3000
