@@ -21,14 +21,17 @@
 #### 1. Cloner le projet : 
 ```bash
 git clone https://github.com/orphelia-agbemadon-vinci/projet-web3
+```
 #### 2. Installer les dépendances :
 ```bash
 npm i
 npm i express ejs
 npm i express-ejs-layouts
+```
 #### 3. Lancer l'application : 
 ```bash
 npm run dev
+```
 #### Le serveur sera disponible sur http://localhost:3000
 
 ## Architecture de l'application
