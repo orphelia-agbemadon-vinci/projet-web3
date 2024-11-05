@@ -35,14 +35,74 @@ form {
     width: 70%;
 }
 
-.delete-col {
-    width: 20%;
-    text-align: right;
+.completed label {
+    text-decoration: line-through;
+    color: gray;
 }
 
-.delete-col button {
-    color: red;
-    border: 1px solid red;
-    background-color: transparent;
+.menu {
+    width: 15%;
+    background-color: #f4f4f4;
+    padding: 10px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    margin: 20px 10px;
+    display: flex;
+}
+
+.icon {
+    margin-right: 5px;
+    width:30px;
+    height: auto;
+}
+
+.logo {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container.menu-closed {
+    margin-left: 20px;
+}
+
+.star-button, .delete-button, .edit-button {
+    background: none;
+    border: none;
     cursor: pointer;
+    padding: 0;
+    margin: 0 5px;
+    font-size: 24px;
+    color: inherit;
+}
+
+.star-button {
+    color: gold;
+    margin-right: 20px;
+}
+
+.delete-button {
+    color: red;
+}
+
+.edit-button {
+    color: lightblue;
 }
