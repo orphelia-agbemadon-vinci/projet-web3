@@ -5,12 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de la tâche</title>
     <link rel="stylesheet" href="/styles.css">
+    <script src="https://unpkg.com/htmx.org"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Détails de la tâche</h1>
-        <p><strong>Tâche :</strong> <%= task.description %></p>
-        <a href="/">Retour à la liste des tâches</a>
+        <h1>Détails de la tâche <%= task.description %></h1>
+        
+        <!-- Formulaire pour ajouter une tâche -->
+        <form hx-post="/add-task-details/<%= index %>" hx-target="#task-list" hx-swap="innerHTML">
+            <input type="text" name="task" placeholder="Nouvelle tâche..." required>
+            <button type="submit">Ajouter</button>
+        </form>
+
+        <!-- Liste des tâches -->
+        <div id="task-list">
+            <table class="todolist">
+                    <% task.details.forEach((subTask, subIndex) => { %>
+                        <tr>
+                            <!-- Colonne pour la case à cocher -->
+                            <td class="check-box">
+                                <input type="checkbox" id="subtask-<%= subIndex %>" <%= subTask.completed ? 'checked' : '' %>>
+                            </td>
+                            <!-- Colonne pour le texte de la sous-tâche avec condition pour barrer le texte -->
+                            <td class="task-col <%= subTask.completed ? 'completed' : '' %>">
+                                <label for="subtask-<%= subIndex %>"><%= subTask.description %></label>
+                            </td>
+                        </tr>
+                    <% }); %>
+            
+            </table>
+        </div>
+
+        <a href="/">Retour</a>
     </div>
 </body>
 </html>

@@ -22,10 +22,22 @@ app.get('/', (req, res) => {
 app.post('/add-task', (req, res) => {
     const taskDescription = req.body.task;
     if (taskDescription) {
-        const task = { description: taskDescription, completed: false };
+        const task = { description: taskDescription, completed: false, details: [] };
         tasks.push(task);
     }
     res.render('task_list', { tasks });
+});
+
+// Route pour ajouter une sous-tâche depuis la page des détails
+app.post('/add-task-details/:index', (req, res) => {
+    const index = parseInt(req.params.index);
+    const taskDescription = req.body.task;
+    if (index >= 0 && index < tasks.length && taskDescription) {
+        const subTask = { description: taskDescription, completed: false };
+        tasks[index].details.push(subTask);
+
+    }
+    res.render('task_details', { task: tasks[index], tasks, index });
 });
 
 
@@ -38,16 +50,6 @@ app.delete('/delete-task/:index', (req, res) => {
     res.render('task_list', { tasks });
 });
 // Route pour afficher les détails d'une tâche
-/*app.get('/:index', (req, res) => {
-    const index = parseInt(req.params.index);
-    if (index >= 0 && index < tasks.length) {
-        const task = tasks[index];
-        res.render('task_detail', { task, index });
-    } else {
-        res.status(404).send('Tâche non trouvée');
-    }
-});*/
-// 
 app.get('/:index', (req, res) => {
     const index = parseInt(req.params.index);
     if (index >= 0 && index < tasks.length) {
