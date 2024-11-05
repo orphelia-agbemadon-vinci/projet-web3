@@ -3,8 +3,8 @@
 </div>
 
 <!-- Formulaire pour ajouter une tâche -->
-<form hx-post="/add-task" hx-target="#task-list" hx-swap="innerHTML">
-    <input type="text" name="task" placeholder="Nouvelle tâche..." required>
+<form id="add-task-form" hx-post="/add-task" hx-target="#task-list" hx-swap="innerHTML">
+    <input type="text" id="task-input" name="task" placeholder="Nouvelle tâche..." required>
     <button type="submit">Ajouter</button>
 </form>
 
@@ -12,3 +12,9 @@
 <div id="task-list">
     <%- include('task_list', { tasks: tasks }); %>
 </div>
+
+<script>
+    document.getElementById('add-task-form').addEventListener('htmx:afterRequest', function() {
+        document.getElementById('task-input').value = '';
+    });
+</script>
