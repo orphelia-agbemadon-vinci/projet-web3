@@ -72,13 +72,10 @@ form {
 
 .logo {
     margin-bottom: 20px;
-    text-align: center;
-}
-
-.logo img {
     max-width: 100%;
     height: auto;
 }
+
 
 .container.menu-closed {
     margin-left: 20px;
