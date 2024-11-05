@@ -12,7 +12,7 @@ router.get('/history', (req, res) => {
 
 // Affiche la page avec les tâches marquées comme importantes
 router.get('/important', (req, res) => {
-    res.render('task_list', { tasks: tasks.filter(task => task.important) });
+    res.render('task_list', { tasks: tasks.filter(task => task.important && !task.completed) });
 });
 
 module.exports = router;
