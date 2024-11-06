@@ -13,15 +13,46 @@ app.set('layout', 'layout');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressLayouts);
+app.use(express.json()); // Ajout pour htmx POST requests
+
 
 // Liste des tâches en mémoire
 let tasks = [];
+let lists = [];
+
+/*ordre! Middleware puis route */
+// Middleware pour ajouter `lists` à toutes les vues
+app.use((req, res, next) => {
+    res.locals.lists = lists;
+    next();
+});
 
 // Affiche la page principale avec la liste des tâches
 app.get('/', (req, res) => {
     res.render('index', { tasks });
 });
 
+
+/*PARTIE LISTES*/
+//form pour ajouter une nouvelle liste
+app.get('/new-list-form', (req, res) => {
+    res.render('new-list-form', {tasks});
+});
+// Route pour créer une nouvelle liste
+app.post('/create-list', (req, res) => {
+    const listName = req.body['list-name'];
+    lists.push(listName);
+    res.redirect(`/list/${listName}`);
+});
+// Route pour afficher une liste
+app.get('/list/:name', (req, res) => {
+    const listName = req.params.name;
+    res.render('list', { listName, lists });
+});
+
+
+
+/*PARTIE TACHES*/
 // Route pour ajouter une tâche
 app.post('/add-task', (req, res) => {
     const taskDescription = req.body.task;
