@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance } = require("../models/tasks");
+const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask } = require("../models/tasks");
 
 // Liste des tâches en mémoire
 let tasks = allTasks();
@@ -67,5 +67,26 @@ router.post('/toggle-important/:index', (req, res) => {
     res.render('task_list', { tasks });
 });
 
+// Route pour afficher le formulaire de modification pour une tâche
+router.get('/edit-task/:index', (req, res) => {
+    const index = parseInt(req.params.index);
+    if (index >= 0 && index < tasks.length) {
+        const task = tasks[index];
+        res.render('edit_task_form', { task, index });
+    } else {
+        res.status(404).send('Tâche non trouvée');
+    }
+});
+// Nouvelle route pour éditer une tâche
+router.patch('/edit-task/:index', (req, res) => {
+    const index = parseInt(req.params.index);
+    const description = req.body.description;
+    if (index >= 0 && index < tasks.length) {
+        tasks[index].description = description;
+        
+    }
+    updateTask(index, description);
+    res.render('task_list', { tasks });
+});
 
 module.exports = router;

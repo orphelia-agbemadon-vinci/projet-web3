@@ -59,10 +59,21 @@ function toggleCompletion(index) {
     return null;
 }
 
+function updateTask(index, newDescription) {
+    const tasks = parse(jsonDbPath);
+    if (index >= 0 && index < tasks.length) {
+        tasks[index].description = newDescription;
+        serialize(jsonDbPath, tasks);
+        return tasks[index];
+    }
+    return null;
+}
+
 module.exports = {
     createTask,
     allTasks,
     deleteTask,
     toggleImportance,
-    toggleCompletion
+    toggleCompletion,
+    updateTask
 };

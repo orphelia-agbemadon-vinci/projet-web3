@@ -3,6 +3,8 @@ const app = express();
 const port = 3000;
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
+const methodOverride = require('method-override');
+
 
 // Configuration pour utiliser le moteur de templates EJS
 app.set('view engine', 'ejs');
@@ -13,6 +15,7 @@ app.set('layout', 'layout');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressLayouts);
+app.use(methodOverride('_method'));
 
 //Routes
 const indexRouter = require("./routes/index.js");

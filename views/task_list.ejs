@@ -31,8 +31,8 @@
                     <a 
                         class="edit-button" 
                         hx-get="/edit-task/<%= index %>" 
-                        hx-target="#task-list" 
-                        hx-swap="outerHTML">
+                        hx-target="tr" 
+                        hx-swap="innerHTML">
                         <i class="fa fa-pencil"></i>
                     </a>
                 </td>
