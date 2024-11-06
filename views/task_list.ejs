@@ -1,6 +1,11 @@
-<% tasks.sort((a, b) => b.important - a.important); %>
+<% tasks.sort((a, b) => {
+    if (a.important === b.important) {
+        return a.originalIndex - b.originalIndex;
+    }
+    return b.important - a.important;
+}); %>
 <% if (tasks.length === 0) { %>
-    <p></p>
+    <p>Liste vide</p>
 <% } else { %>
     <table class="todolist">
         <% tasks.forEach((task, index) => { %>

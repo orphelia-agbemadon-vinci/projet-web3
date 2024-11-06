@@ -17,7 +17,8 @@ router.post('/add-task', (req, res) => {
         const task = {
             description: taskDescription,
             completed: false,
-            important: false
+            important: false,
+            originalIndex: tasks.length
         };
         tasks.push(task);
     }
