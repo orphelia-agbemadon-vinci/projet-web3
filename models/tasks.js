@@ -14,7 +14,6 @@ function createTask(description, completed, important) {
         description: description,
         completed: completed,
         important: important,
-        originalIndex: tasks.length
     };
 
     tasks.push(createdTask);
@@ -41,7 +40,7 @@ function toggleImportance(index) {
         if (task.important) {
             tasks.unshift(task); // Ajouter au début si important
         } else {
-            tasks.splice(task.originalIndex, 0, task); // Remettre à l'index d'origine si non important
+            tasks.push(task); // Ajouter à la fin si non important
         }
         serialize(jsonDbPath, tasks);
         return tasks[index];

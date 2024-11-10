@@ -1,24 +1,19 @@
-<% tasks.sort((a, b) => {
-    if (a.important === b.important) {
-        return a.originalIndex - b.originalIndex;
-    }
-    return b.important - a.important;
-}); %>
 <% if (tasks.length === 0) { %>
     <p>Liste vide</p>
 <% } else { %>
-    <table class="todolist">
+    <table class="todolist" id="task-list">
         <% tasks.forEach((task, index) => { %>
             <tr>
                 <!-- Colonne pour le texte de la tâche -->
                 <td class="check-box">
-                        <input
-                            type="checkbox" 
-                            id="task-<%= index %>" 
-                            <%= task.completed ? 'checked' : '' %>
-                            hx-post="/toggle-task/<%= index %>" 
-                            hx-target="#task-list" 
-                            hx-swap="innerHTML">
+                    <input
+                        type="checkbox" 
+                        id="task-<%= index %>" 
+                        <%= task.completed ? 'checked' : '' %>
+                        hx-post="/toggle-task/<%= index %>" 
+                        hx-target="#task-list" 
+                        hx-swap="innerHTML"
+                        hx-trigger="change">
                 </td>
                 <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
                 <td class="task-col <%= task.completed ? 'completed' : '' %>">
@@ -32,7 +27,8 @@
                         class="edit-button" 
                         hx-get="/edit-task/<%= index %>" 
                         hx-target="tr" 
-                        hx-swap="innerHTML">
+                        hx-swap="innerHTML"
+                        hx-trigger="click">
                         <i class="fa fa-pencil"></i>
                     </a>
                 </td>
@@ -42,7 +38,8 @@
                         class="star-button"
                         hx-post="/toggle-important/<%= index %>" 
                         hx-target="#task-list" 
-                        hx-swap="innerHTML">
+                        hx-swap="innerHTML"
+                        hx-trigger="click">
                         <i class="fa <%= task.important ? 'fa-star' : 'fa-star-o' %>"></i>
                     </a>
                 </td>
@@ -51,11 +48,11 @@
                     <button class="delete-button"
                         hx-delete="/delete-task/<%= index %>" 
                         hx-target="#task-list" 
-                        hx-swap="innerHTML">
+                        hx-swap="innerHTML"
+                        hx-trigger="click">
                         <i class="fa fa-trash"></i>
                     </button>
                 </td>
-                
             </tr>
         <% }); %>
     </table>

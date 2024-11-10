@@ -29,10 +29,8 @@ router.post('/add-task', (req, res) => {
 // Route pour supprimer une tâche
 router.delete('/delete-task/:index', (req, res) => {
     const index = parseInt(req.params.index);
-    if (index >= 0 && index < tasks.length) {
-        tasks.splice(index, 1);
-    }
     deleteTask(index);
+    tasks = allTasks(); // Mise à jour de la liste des tâches
     res.render('task_list', { tasks });
 });
 
@@ -54,6 +52,7 @@ router.post('/toggle-task/:index', (req, res) => {
         tasks[index].completed = !tasks[index].completed;
     }
     toggleCompletion(index);
+    tasks = allTasks(); // Mise à jour de la liste des tâches
     res.render('task_list', { tasks });
 });
 
@@ -64,6 +63,7 @@ router.post('/toggle-important/:index', (req, res) => {
         tasks[index].important = !tasks[index].important;
     }
     toggleImportance(index);
+    tasks = allTasks(); // Mise à jour de la liste des tâches
     res.render('task_list', { tasks });
 });
 
