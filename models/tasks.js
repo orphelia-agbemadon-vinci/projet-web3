@@ -7,13 +7,13 @@ function allTasks() {
     return parse(jsonDbPath);
 }
 
-function createTask(description, completed, important) {
+function createTask(description) {
     const tasks = parse(jsonDbPath);
     
     const createdTask = {
         description: description,
-        completed: completed,
-        important: important,
+        completed: false,
+        important: false,
     };
 
     tasks.push(createdTask);
@@ -27,6 +27,7 @@ function deleteTask(index) {
     if (index >= 0 && index < tasks.length) {
         const deletedTask = tasks.splice(index, 1);
         serialize(jsonDbPath, tasks);
+
         return deletedTask;
     }
     return null;
@@ -43,6 +44,7 @@ function toggleImportance(index) {
             tasks.push(task); // Ajouter à la fin si non important
         }
         serialize(jsonDbPath, tasks);
+
         return tasks[index];
     }
     return null;
@@ -53,6 +55,7 @@ function toggleCompletion(index) {
     if (index >= 0 && index < tasks.length) {
         tasks[index].completed = !tasks[index].completed;
         serialize(jsonDbPath, tasks);
+
         return tasks[index];
     }
     return null;
@@ -63,6 +66,15 @@ function updateTask(index, newDescription) {
     if (index >= 0 && index < tasks.length) {
         tasks[index].description = newDescription;
         serialize(jsonDbPath, tasks);
+
+        return tasks[index];
+    }
+    return null;
+}
+
+function findTask(index) {
+    const tasks = parse(jsonDbPath);
+    if (index >= 0 && index < tasks.length) {
         return tasks[index];
     }
     return null;
@@ -74,5 +86,6 @@ module.exports = {
     deleteTask,
     toggleImportance,
     toggleCompletion,
-    updateTask
+    updateTask,
+    findTask,
 };

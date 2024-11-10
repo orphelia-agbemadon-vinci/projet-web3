@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask } = require("../models/tasks");
+const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask } = require("../models/tasks");
 
 // Liste des tâches en mémoire
 let tasks = allTasks();
@@ -14,15 +14,10 @@ router.get('/', (req, res) => {
 router.post('/add-task', (req, res) => {
     const taskDescription = req.body.task;
     if (taskDescription) {
-        const task = {
-            description: taskDescription,
-            completed: false,
-            important: false,
-            originalIndex: tasks.length
-        };
-        tasks.push(task);
+        createTask(taskDescription);
     }
-    createTask(taskDescription, false, false);
+    tasks = allTasks(); // Mise à jour de la liste des tâches
+
     res.render('task_list', { tasks });
 });
 
@@ -31,6 +26,7 @@ router.delete('/delete-task/:index', (req, res) => {
     const index = parseInt(req.params.index);
     deleteTask(index);
     tasks = allTasks(); // Mise à jour de la liste des tâches
+
     res.render('task_list', { tasks });
 });
 
@@ -39,6 +35,7 @@ router.get('/:index', (req, res) => {
     const index = parseInt(req.params.index);
     if (index >= 0 && index < tasks.length) {
         const task = tasks[index];
+
         res.render('task_details', { task, index });
     } else {
         res.status(404).send('Tâche non trouvée');
@@ -48,30 +45,28 @@ router.get('/:index', (req, res) => {
 // Route pour cocher une tâche
 router.post('/toggle-task/:index', (req, res) => {
     const index = parseInt(req.params.index);
-    if (index >= 0 && index < tasks.length) {
-        tasks[index].completed = !tasks[index].completed;
-    }
     toggleCompletion(index);
     tasks = allTasks(); // Mise à jour de la liste des tâches
+
     res.render('task_list', { tasks });
 });
 
 // Route pour marquer une tâche comme importante
 router.post('/toggle-important/:index', (req, res) => {
     const index = parseInt(req.params.index);
-    if (index >= 0 && index < tasks.length) {
-        tasks[index].important = !tasks[index].important;
-    }
+
     toggleImportance(index);
     tasks = allTasks(); // Mise à jour de la liste des tâches
+
     res.render('task_list', { tasks });
 });
 
 // Route pour afficher le formulaire de modification pour une tâche
 router.get('/edit-task/:index', (req, res) => {
     const index = parseInt(req.params.index);
-    if (index >= 0 && index < tasks.length) {
-        const task = tasks[index];
+    const task = findTask(index);
+
+    if (task) {
         res.render('edit_task_form', { task, index });
     } else {
         res.status(404).send('Tâche non trouvée');
@@ -81,12 +76,17 @@ router.get('/edit-task/:index', (req, res) => {
 router.patch('/edit-task/:index', (req, res) => {
     const index = parseInt(req.params.index);
     const description = req.body.description;
-    if (index >= 0 && index < tasks.length) {
-        tasks[index].description = description;
-        
+    const task = findTask(index);
+
+    if (task) {
+        task.description = description;
+        updateTask(index, description);
+        tasks = allTasks(); // Mise à jour de la liste des tâches
+
+        res.render('task_list', { tasks });
+    } else {
+        res.status(404).send('Tâche non trouvée');
     }
-    updateTask(index, description);
-    res.render('task_list', { tasks });
 });
 
 module.exports = router;
