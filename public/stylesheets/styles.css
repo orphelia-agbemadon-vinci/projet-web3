@@ -42,6 +42,7 @@ form {
 
 .menu {
     width: 15%;
+    height: auto;
     background-color: #f4f4f4;
     padding: 10px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -107,7 +108,8 @@ form {
 
 /*PARTIE LISTES*/
 #list-section {
-    height: 50%; /* Définissez la hauteur fixe que vous souhaitez */
+    height: 43%;
+    overflow-x: hidden;
     overflow-y: auto; 
     margin-bottom: 10%;
 }
