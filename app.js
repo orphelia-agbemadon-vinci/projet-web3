@@ -52,22 +52,12 @@ app.delete('/delete-task/:index', (req, res) => {
     res.render('task_list', { tasks });
 });
 
-// Route pour supprimer une sous-tâche
-app.delete('/delete-subtask/:index/:subIndex', (req, res) => {
-    const index = parseInt(req.params.index);
-    const subIndex = parseInt(req.params.subIndex);
-    if (index >= 0 && index < tasks.length && subIndex >= 0 && subIndex < tasks[index].details.length) {
-        tasks[index].details.splice(subIndex, 1);
-    }
-    res.render('subtask', { task: tasks[index], index });
-});
-
 // Route pour afficher les détails d'une tâche
 app.get('/:index', (req, res) => {
     const index = parseInt(req.params.index);
     if (index >= 0 && index < tasks.length) {
         const task = tasks[index];
-        res.render('task_details', { task, index });
+        res.render('subtask', { task, index });
     } else {
         res.status(404).send('Tâche non trouvée');
     }
@@ -83,15 +73,6 @@ app.post('/toggle-task/:index', (req, res) => {
     res.render('task_list', { tasks });
 });
 
-// Route pour cocher une sous-tâche
-app.post('/toggle-subtask/:index/:subIndex', (req, res) => {
-    const index = parseInt(req.params.index);
-    const subIndex = parseInt(req.params.subIndex);
-    if (index >= 0 && index < tasks.length && subIndex >= 0 && subIndex < tasks[index].details.length) {
-        tasks[index].details[subIndex].completed = !tasks[index].details[subIndex].completed;
-    }
-    res.render('task_details', { task: tasks[index], index });
-});
 
 // Lancement du serveur
 app.listen(port, () => {
