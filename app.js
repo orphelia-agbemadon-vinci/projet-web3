@@ -20,10 +20,12 @@ app.use(methodOverride('_method'));
 //Routes
 const indexRouter = require("./routes/index.js");
 const tasksRouter = require("./routes/tasks.js");
+const listsRouter = require("./routes/lists.js");
 
 //Controllers
 app.use("/", indexRouter);
 app.use("/tasks", tasksRouter);
+app.use("/lists", listsRouter);
 
 // Lancement du serveur
 app.listen(port, () => {
