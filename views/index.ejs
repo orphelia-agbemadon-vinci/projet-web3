@@ -14,8 +14,4 @@
     <%- include('tasks/task_list', { tasks: tasks }); %>
 </div>
 
-<script>
-    document.getElementById('add-task-form').addEventListener('htmx:afterRequest', function() {
-        document.getElementById('task-input').value = '';
-    });
-</script>
+<script src="/scripts/formHandler.js"></script>
