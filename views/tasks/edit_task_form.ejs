@@ -1,5 +1,4 @@
 <tr>
-    <td></td>
     <td>
         <form action="/tasks/edit/<%= index %>" method="patch" hx-patch="/tasks/edit/<%= index %>" hx-target="#task-list" hx-swap="innerHTML">
             <input type="text" name="description" value="<%= task.description %>" required>
