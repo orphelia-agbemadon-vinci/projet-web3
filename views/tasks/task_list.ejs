@@ -10,21 +10,21 @@
                         type="checkbox" 
                         id="task-<%= index %>" 
                         <%= task.completed ? 'checked' : '' %>
-                        hx-post="/toggle-task/<%= index %>" 
+                        hx-post="/tasks/toggle-complete/<%= index %>" 
                         hx-target="#task-list" 
                         hx-swap="innerHTML">
                 </td>
                 <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
                 <td class="task-col <%= task.completed ? 'completed' : '' %>">
                     <label for="task-<%= index %>">
-                        <a href="/<%= index %>"><%= task.description %></a>
+                        <a href="/tasks/<%= index %>"><%= task.description %></a>
                     </label>
                 </td>
                 <!-- Colonne pour le bouton "Modifier" -->
                 <td>
                     <a 
                         class="edit-button" 
-                        hx-get="/edit-task/<%= index %>" 
+                        hx-get="/tasks/edit/<%= index %>" 
                         hx-target="tr" 
                         hx-swap="innerHTML">
                         <i class="fa fa-pencil"></i>
@@ -34,7 +34,7 @@
                 <td>
                     <a
                         class="star-button"
-                        hx-post="/toggle-important/<%= index %>" 
+                        hx-post="/tasks/toggle-important/<%= index %>" 
                         hx-target="#task-list" 
                         hx-swap="innerHTML">
                         <i class="fa <%= task.important ? 'fa-star' : 'fa-star-o' %>"></i>
@@ -43,7 +43,7 @@
                 <!-- Colonne pour le bouton "Supprimer" -->
                 <td class="">
                     <button class="delete-button"
-                        hx-delete="/delete-task/<%= index %>" 
+                        hx-delete="/tasks/delete/<%= index %>" 
                         hx-target="#task-list" 
                         hx-swap="innerHTML">
                         <i class="fa fa-trash"></i>
