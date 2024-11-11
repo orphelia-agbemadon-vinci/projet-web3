@@ -1,35 +1,17 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DunDeal</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/htmx.org"></script>
+<div id="title-container">
+    <h1>To-Do List</h1>
+</div>
 
-</head>
-<body>
-    
-    <style>
-    .completed label {
-        text-decoration: line-through;
-        color: grey;
-    }
-    </style>
-    
-    <div class="container">
-        <h1>To-Do List</h1>
+<!-- Formulaire pour ajouter une tâche -->
+<form id="add-task-form" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
+    <input type="text" id="task-input" name="task" placeholder="Nouvelle tâche..." required>
+    <button type="submit">Ajouter</button>
+</form>
 
-        <!-- Formulaire pour ajouter une tâche -->
-        <form hx-post="/add-task" hx-target="#task-list" hx-swap="innerHTML">
-            <input type="text" name="task" placeholder="Nouvelle tâche..." required>
-            <button type="submit">Ajouter</button>
-        </form>
 
-        <!-- Liste des tâches -->
-        <div id="task-list">
-            <%- include('task_list', { tasks: tasks }); %>
-        </div>
-    </div>
-</body>
-</html>
+<!-- Liste des tâches -->
+<div id="task-list">
+    <%- include('tasks/task_list', { tasks: tasks }); %>
+</div>
+
+<script src="/scripts/formHandler.js"></script>

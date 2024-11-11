@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DunDeal</title>
+    <link rel="icon" href="../images/checklist.png">
+    <link rel="stylesheet" href="../stylesheets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+</head>
+<body>
+    <nav class="menu" id="menu">
+        <a href="/"><img src="../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
+        <ul>
+            <li><a href="/important"><i class="fa fa-star icon"></i>Important</a></li>
+            <li><a href="/history"><i class="fa fa-check icon"></i>Historique</a></li>
+        </ul>
+        <!-- Ligne de séparation pour les listes -->
+        <hr>
+        <ul id="list-section">
+            <% lists.forEach(list => { %>
+                <li><a href="/lists/<%= list.id %>"><%= list.name %></a></li>
+            <% }); %>
+        </ul>
+        <div class="add-list-section">
+            <button id="add-list-btn" hx-get="/lists/new-list-form" hx-target="#modal-container" hx-trigger="click">+ Nouvelle Liste</button>
+        </div>       
+    </nav>
+    <div class="container">
+        <%- body %>
+    </div>
+    <div id="modal-container"></div>
+    <script>
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -10,3 +10,5 @@ node_modules
 Thumbs.db
 # ignore the Linux specific files
 lost+found
+# ignore the data folder
+/data
