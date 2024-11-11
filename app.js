@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.render('index', { tasks });
 });
 
-// Route pour ajouter une tâche
+// Route pour ajouter une tâche principale
 app.post('/add-task', (req, res) => {
     const taskDescription = req.body.task;
     if (taskDescription) {
@@ -35,13 +35,15 @@ app.post('/add-task-details/:index', (req, res) => {
     if (index >= 0 && index < tasks.length && taskDescription) {
         const subTask = { description: taskDescription, completed: false };
         tasks[index].details.push(subTask);
-
+        res.render('subtask', { subTask, index, subIndex: tasks[index].details.length - 1 });
+    } else {
+        res.status(400).send('Invalid task index or description');
     }
-    res.render('task_details', { task: tasks[index], tasks, index });
 });
 
 
-// Route pour supprimer une tâche
+
+// Route pour supprimer une tâche principale
 app.delete('/delete-task/:index', (req, res) => {
     const index = parseInt(req.params.index);
     if (index >= 0 && index < tasks.length) {
@@ -49,6 +51,17 @@ app.delete('/delete-task/:index', (req, res) => {
     }
     res.render('task_list', { tasks });
 });
+
+// Route pour supprimer une sous-tâche
+app.delete('/delete-subtask/:index/:subIndex', (req, res) => {
+    const index = parseInt(req.params.index);
+    const subIndex = parseInt(req.params.subIndex);
+    if (index >= 0 && index < tasks.length && subIndex >= 0 && subIndex < tasks[index].details.length) {
+        tasks[index].details.splice(subIndex, 1);
+    }
+    res.render('subtask', { task: tasks[index], index });
+});
+
 // Route pour afficher les détails d'une tâche
 app.get('/:index', (req, res) => {
     const index = parseInt(req.params.index);
@@ -68,6 +81,16 @@ app.post('/toggle-task/:index', (req, res) => {
         tasks[index].completed = !tasks[index].completed;
     }
     res.render('task_list', { tasks });
+});
+
+// Route pour cocher une sous-tâche
+app.post('/toggle-subtask/:index/:subIndex', (req, res) => {
+    const index = parseInt(req.params.index);
+    const subIndex = parseInt(req.params.subIndex);
+    if (index >= 0 && index < tasks.length && subIndex >= 0 && subIndex < tasks[index].details.length) {
+        tasks[index].details[subIndex].completed = !tasks[index].details[subIndex].completed;
+    }
+    res.render('task_details', { task: tasks[index], index });
 });
 
 // Lancement du serveur
