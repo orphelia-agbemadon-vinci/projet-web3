@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
         <h1>Détails de la tâche <%= task.description %></h1>
         
         <!-- Formulaire pour ajouter une sous-tâche -->
-        <form hx-post="/add-task-details/<%= index %>" hx-target="#task-list" hx-swap="beforeend">
+        <form hx-post="/add-subtask/<%= task.id %>" hx-target="#task-list" hx-swap="beforeend">
             <input type="text" name="task" placeholder="Nouvelle sous-tâche..." required>
             <button type="submit">Ajouter</button>
         </form>
@@ -20,7 +20,6 @@
         <div id="task-list">
             <table class="todolist">
                 <% if (task.details && task.details.length > 0) { %>
-                
                     <% task.details.forEach((subTask, subIndex) => { %>
                         <tr>
                             <!-- Colonne pour la case à cocher -->
@@ -44,9 +43,7 @@
                 <% } %>
             </table>
             <a href="/">Retour</a>
-
         </div>
-
     </div>
 </body>
 </html>
