@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la tâche</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Détails de la tâche <%= task.description %></h1>
+        <!-- Formulaire pour ajouter une sous-tâche -->
+        <form hx-post="/subtasks/add-subtask/<%= index %>" hx-target="#task-list" hx-swap="outerHTML" hx-trigger="click">
+            <input type="text" name="task" placeholder="Nouvelle sous-tâche..." required>
+            <button type="submit">Ajouter</button>
+        </form>
+        <table id="task-list">
+            <% if (subTasks && subTasks.length > 0) { %>
+                <% subTasks.forEach((subTask, subIndex) => { %>
+                    <tr>
+                        <!-- Colonne pour la case à cocher -->
+                        <td class="check-box">
+                            <input type="checkbox" id="subtask-<%= index %>-<%= subIndex %>" <%= subTask.completed ? 'checked' : '' %> hx-post="/subtasks/toggle-subtask/<%= index %>/<%= subIndex %>" hx-target="#task-list" hx-swap="innerHTML">
+                        </td>
+                        <!-- Colonne pour le texte de la sous-tâche avec condition pour barrer le texte -->
+                        <td class="task-col <%= subTask.completed ? 'completed' : '' %>">
+                            <label for="subtask-<%= index %>-<%= subIndex %>"><%= subTask.description %></label>
+                        </td>
+                        <!-- Colonne pour le bouton "Supprimer" -->
+                        <td class="delete-col">
+                            <button hx-delete="/subtasks/delete-subtask/<%= index %>/<%= subIndex %>" hx-target="#task-list" hx-swap="innerHTML">Supprimer</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="3">Aucune sous-tâche</td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</body>
+</html>
