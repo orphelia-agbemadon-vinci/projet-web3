@@ -14,6 +14,7 @@ function createTask(description) {
         description: description,
         completed: false,
         important: false,
+        listId: null,
     };
 
     tasks.push(createdTask);
@@ -80,6 +81,17 @@ function findTask(index) {
     return null;
 }
 
+function assignTaskToList(index, listId) {
+    const tasks = parse(jsonDbPath);
+    if (index >= 0 && index < tasks.length) {
+        tasks[index].listId = listId;
+        serialize(jsonDbPath, tasks);
+
+        return tasks[index];
+    }
+    return null;
+}
+
 module.exports = {
     createTask,
     allTasks,
@@ -88,4 +100,5 @@ module.exports = {
     toggleCompletion,
     updateTask,
     findTask,
+    assignTaskToList,
 };

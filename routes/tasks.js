@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask } = require("../models/tasks");
+const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList } = require("../models/tasks");
 const { allLists } = require("../models/lists");
 
 // Liste des tâches en mémoire
@@ -73,6 +73,21 @@ router.post('/toggle-important/:index', (req, res) => {
     res.render('tasks/task_list', { tasks, lists });
 });
 
+// Route pour assigner une tâche à une liste
+router.post('/assign-list/:index', (req, res) => {
+    const index = parseInt(req.params.index);
+    const listId = parseInt(req.body.listId);
+    const task = findTask(index);
+
+    if (task) {
+        assignTaskToList(index, listId);
+        tasks = allTasks(); // Mise à jour de la liste des tâches
+
+        res.render('tasks/task_list', { tasks, lists });
+    } else {
+        res.status(404).send('Tâche non trouvée');
+    }
+});
 
 // Nouvelle route pour éditer une tâche
 router.patch('/edit/:index', (req, res) => {
@@ -89,5 +104,6 @@ router.patch('/edit/:index', (req, res) => {
         res.status(404).send('Tâche non trouvée');
     }
 });
+
 
 module.exports = router;

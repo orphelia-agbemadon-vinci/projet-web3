@@ -19,6 +19,7 @@ router.post('/create-list', (req, res) => {
     const list = createList(listName);
 
     lists = allLists(); // Mise à jour de la liste des listes
+    //res.redirect('/');
     res.redirect(`/lists/${list.id}`);
 });
 
@@ -26,8 +27,9 @@ router.post('/create-list', (req, res) => {
 router.get('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const list = findList(id);
+    const tasks = allTasks().filter(task => task.listId === id);
 
-    res.render('list', { lists, list });
+    res.render('list', { tasks, lists, list });
 });
 
 module.exports = router;
