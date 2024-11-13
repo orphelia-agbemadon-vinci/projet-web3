@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList } = require("../models/tasks");
 const { allLists } = require("../models/lists");
-const { getAllSubTasks } = require("../models/subtasks");
+const { addSubTask, deleteSubTask, getAllSubTasks } = require("../models/subtasks");
 
 // Liste des tâches en mémoire
 let tasks = allTasks();
@@ -102,6 +102,30 @@ router.post('/assign-list/:index', (req, res) => {
         res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
     } else {
         res.status(404).send('Tâche non trouvée');
+    }
+});
+
+router.post('/add/subtask/:index', (req, res) => {
+    const index = parseInt(req.params.index);
+    const subtaskDescription = req.body.subtask;
+    const subTask = addSubTask(index, subtaskDescription);
+    if (subTask) {
+        const task = findTask(index);
+        res.render('subtasks/subtask_list', { subTasks: task.subtasks, index, lists });
+    } else {
+        res.status(404).send('Tâche non trouvée');
+    }
+});
+
+router.delete('/delete/subtask/:index/:subIndex', (req, res) => {
+    const index = parseInt(req.params.index);
+    const subIndex = parseInt(req.params.subIndex);
+    const deletedSubTask = deleteSubTask(index, subIndex);
+    if (deletedSubTask) {
+        const task = findTask(index);
+        res.render('subtasks/subtask_list', { subTasks: task.subtasks, index, lists });
+    } else {
+        res.status(404).send('Sous-tâche non trouvée');
     }
 });
 

@@ -1,17 +1,20 @@
-// models/subtasks.js
+const path = require('node:path');
+const { parse, serialize } = require('../utils/json');
 
-const { findTask, updateTask, allTasks } = require('./tasks');
+const jsonDbPath = path.join(__dirname, '/../data/tasks.json');
+
+const { updateTask, allTasks } = require('./tasks');
 
 function addSubTask(taskIndex, subTaskDescription) {
-    const tasks = allTasks();
+    const tasks = parse(jsonDbPath);
     if (taskIndex >= 0 && taskIndex < tasks.length) {
         const subTask = {
             description: subTaskDescription,
             completed: false,
         };
-        tasks[taskIndex].details = tasks[taskIndex].details || [];
-        tasks[taskIndex].details.push(subTask);
-        updateTask(taskIndex, tasks[taskIndex].description); // Utiliser updateTask pour mettre à jour la tâche
+        tasks[taskIndex].subtasks = tasks[taskIndex].subtasks || [];
+        tasks[taskIndex].subtasks.push(subTask);
+        serialize(jsonDbPath, tasks);
         return subTask;
     }
     return null;
@@ -20,10 +23,11 @@ function addSubTask(taskIndex, subTaskDescription) {
 function deleteSubTask(taskIndex, subTaskIndex) {
     const tasks = allTasks();
     if (taskIndex >= 0 && taskIndex < tasks.length) {
-        const subTasks = tasks[taskIndex].details || [];
+        const subTasks = tasks[taskIndex].subtasks || [];
         if (subTaskIndex >= 0 && subTaskIndex < subTasks.length) {
             const deletedSubTask = subTasks.splice(subTaskIndex, 1);
-            updateTask(taskIndex, tasks[taskIndex].description); // Utiliser updateTask pour mettre à jour la tâche
+            serialize(jsonDbPath, tasks);
+
             return deletedSubTask;
         }
     }
@@ -36,7 +40,7 @@ function toggleSubTaskCompletion(taskIndex, subTaskIndex) {
         const subTasks = tasks[taskIndex].details || [];
         if (subTaskIndex >= 0 && subTaskIndex < subTasks.length) {
             subTasks[subTaskIndex].completed = !subTasks[subTaskIndex].completed;
-            updateTask(taskIndex, tasks[taskIndex].description); // Utiliser updateTask pour mettre à jour la tâche
+            serialize(jsonDbPath, tasks);
             return subTasks[subTaskIndex];
         }
     }

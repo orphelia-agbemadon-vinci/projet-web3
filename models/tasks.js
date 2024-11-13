@@ -15,6 +15,7 @@ function createTask(description) {
         completed: false,
         important: false,
         listId: null,
+        subtasks: [],
     };
 
     tasks.push(createdTask);
