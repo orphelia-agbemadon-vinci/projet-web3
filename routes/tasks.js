@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList } = require("../models/tasks");
 const { allLists } = require("../models/lists");
+const { getAllSubTasks } = require("../models/subtasks");
 
 // Liste des tâches en mémoire
 let tasks = allTasks();
@@ -20,7 +21,8 @@ router.get('/:index', (req, res) => {
     const index = parseInt(req.params.index);
     const task = findTask(index);
     if (task) {
-        res.render('tasks/task_details', { task, index, lists, isHistory, isImportant });
+        const subTasks = getAllSubTasks(index);
+        res.render('subtasks/subtask', { task, index, subTasks, lists });
     } else {
         res.status(404).send('Tâche non trouvée');
     }
