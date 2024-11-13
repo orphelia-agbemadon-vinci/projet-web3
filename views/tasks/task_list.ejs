@@ -1,9 +1,13 @@
+<% if (isHistory || isImportant) { %>
+    <h1><%= title %></h1>
+<% } %>
 <% if (tasks.length === 0) { %>
     <p>Liste vide</p>
 <% } else { %>
     <table class="todolist" id="task-list">
         <% tasks.forEach((task, index) => { %>
             <tr>
+                <% if (!isHistory && !isImportant) { %>
                 <!-- Colonne pour le texte de la tâche -->
                 <td class="check-box">
                     <input
@@ -14,12 +18,16 @@
                         hx-target="#task-list" 
                         hx-swap="innerHTML">
                 </td>
+                <% } %>
+
                 <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
                 <td class="task-col <%= task.completed ? 'completed' : '' %>">
                     <label for="task-<%= index %>">
                         <a href="/tasks/<%= index %>"><%= task.description %></a>
                     </label>
                 </td>
+
+                <% if (!isHistory && !isImportant) { %>
                 <!-- Menu déroulant pour chaque tâche -->
                 <td>
                     <select class="assign-list-dropdown" name="listId" hx-post="/tasks/assign-list/<%= index %>" hx-target="#task-list" hx-swap="innerHTML">
@@ -29,6 +37,7 @@
                         <% }); %>
                     </select>
                 </td>
+                
                 <!-- Colonne pour le bouton "Modifier" -->
                 <td>
                     <a 
@@ -39,6 +48,9 @@
                         <i class="fa fa-pencil"></i>
                     </a>
                 </td>
+                <% } %>
+
+                <% if (!isHistory && !isImportant) { %>
                 <!-- Colonne pour le bouton "Important" -->
                 <td>
                     <a
@@ -49,8 +61,9 @@
                         <i class="fa <%= task.important ? 'fa-star' : 'fa-star-o' %>"></i>
                     </a>
                 </td>
+
                 <!-- Colonne pour le bouton "Supprimer" -->
-                <td class="">
+                <td>
                     <button class="delete-button"
                         hx-delete="/tasks/delete/<%= index %>" 
                         hx-target="#task-list" 
@@ -58,6 +71,7 @@
                         <i class="fa fa-trash"></i>
                     </button>
                 </td>
+                <% } %>
             </tr>
         <% }); %>
     </table>

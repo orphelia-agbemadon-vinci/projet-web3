@@ -11,7 +11,7 @@
 
 <!-- Liste des tâches -->
 <div id="task-list">
-    <%- include('tasks/task_list', { tasks: tasks }); %>
+    <%- include('tasks/task_list', { tasks: tasks, isHistory, isImportant }); %>
 </div>
 
 <script src="/scripts/formHandler.js"></script>

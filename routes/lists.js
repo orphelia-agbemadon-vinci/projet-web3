@@ -3,7 +3,6 @@ const router = express.Router();
 const { allTasks } = require("../models/tasks");
 const { allLists, createList, findList } = require("../models/lists");
 
-
 let lists = allLists();
 let tasks = allTasks();
 
