@@ -6,10 +6,12 @@ const { allLists } = require("../models/lists");
 // Liste des tâches en mémoire
 let tasks = allTasks();
 let lists = allLists();
-const isHistory = false;
-const isImportant = false;
+let isHistory = false;
+let isImportant = false;
 
 router.get('/', (req, res) => {
+    isHistory = false;
+    isImportant = false;
     res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
 });
 
@@ -33,6 +35,17 @@ router.get('/edit/:index', (req, res) => {
     } else {
         res.status(404).send('Tâche non trouvée');
     }
+});
+
+router.get('/filter/:type', (req, res) => {
+    const type = req.params.type;
+    let filteredTasks;
+    if (type === 'completed') {
+        filteredTasks = tasks.filter(task => task.completed);
+    } else if (type === 'important') {
+        filteredTasks = tasks.filter(task => task.important);
+    }
+    res.render('tasks/task_list', { tasks: filteredTasks, lists, isHistory, isImportant });
 });
 
 // Route pour ajouter une tâche

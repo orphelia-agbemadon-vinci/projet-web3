@@ -1,3 +1,10 @@
+<!-- Boutons pour filtrer -->
+<div id="filters">
+    <button hx-get="/tasks" hx-target="#task-list" hx-swap="innerHTML">Toutes</button>
+    <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
+    <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
+</div>
+
 <div id="title-container">
     <h1>To-Do List</h1>
 </div>
@@ -7,7 +14,6 @@
     <input type="text" id="task-input" name="task" placeholder="Nouvelle tâche..." required>
     <button type="submit">Ajouter</button>
 </form>
-
 
 <!-- Liste des tâches -->
 <div id="task-list">

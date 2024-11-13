@@ -18,7 +18,6 @@ router.post('/create-list', (req, res) => {
     const list = createList(listName);
 
     lists = allLists(); // Mise à jour de la liste des listes
-    //res.redirect('/');
     res.redirect(`/lists/${list.id}`);
 });
 
