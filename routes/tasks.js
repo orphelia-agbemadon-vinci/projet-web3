@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList } = require("../models/tasks");
-const { allLists } = require("../models/lists");
-const { addSubTask, deleteSubTask, getAllSubTasks, toggleSubTaskCompletion } = require("../models/subtasks");
+const { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList } = require("../models/Task");
+const { allLists } = require("../models/List");
+const { addSubTask, deleteSubTask, getAllSubTasks, toggleSubTaskCompletion } = require("../models/Subtask");
 
 // Liste des tâches en mémoire
 let tasks = allTasks();

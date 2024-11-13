@@ -1,9 +1,9 @@
 const path = require('node:path');
-const { parse, serialize } = require('../utils/json');
+const { parse, serialize } = require('../utils/json.js');
 
 const jsonDbPath = path.join(__dirname, '/../data/tasks.json');
 
-const { updateTask, allTasks } = require('./tasks');
+const { updateTask, allTasks } = require('./Task.js');
 
 function addSubTask(taskIndex, subTaskDescription) {
     const tasks = parse(jsonDbPath);

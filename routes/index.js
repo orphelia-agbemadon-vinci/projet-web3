@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { allTasks } = require("../models/tasks");
-const { allLists } = require("../models/lists");
+const { allTasks } = require("../models/Task");
+const { allLists } = require("../models/List");
 
 // Liste des tâches et de listes en mémoire
 let tasks = allTasks();
