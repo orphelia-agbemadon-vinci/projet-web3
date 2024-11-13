@@ -18,12 +18,31 @@ form {
 }
 
 .todolist {
-    border: 1px solid black;
-    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd; /* Contour du tableau */
 }
 
-.todolist tr {
-    vertical-align: middle;
+.todolist th, .todolist td {
+    border-top: 1px solid #ddd; /* Ligne horizontale séparant chaque tâche */
+    border-bottom: 1px solid #ddd; /* Ligne horizontale séparant chaque tâche */
+    padding: 8px;
+}
+
+.todolist th, .todolist td {
+    border-left: none; /* Masquer les bordures verticales */
+    border-right: none; /* Masquer les bordures verticales */
+}
+
+.todolist tr:hover {
+    background-color: #f3f3f3;
+}
+
+.todolist th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: white;
 }
 
 .check-box {

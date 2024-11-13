@@ -20,6 +20,15 @@
                         <a href="/tasks/<%= index %>"><%= task.description %></a>
                     </label>
                 </td>
+                <!-- Menu déroulant pour chaque tâche -->
+                <td>
+                    <select class="assign-list-dropdown" name="listId" hx-post="/tasks/assign-list/<%= index %>" hx-target="#task-list" hx-swap="innerHTML">
+                        <option value="">-- Assigner à une liste --</option>
+                        <% lists.forEach(list => { %>
+                            <option value="<%= list.id %>" <%= task.listId === list.id ? 'selected' : '' %>><%= list.name %></option>
+                        <% }); %>
+                    </select>
+                </td>
                 <!-- Colonne pour le bouton "Modifier" -->
                 <td>
                     <a 
