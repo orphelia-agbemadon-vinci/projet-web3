@@ -3,10 +3,12 @@ const { parse, serialize } = require('../utils/json');
 
 const jsonDbPath = path.join(__dirname, '/../data/tasks.json');
 
-function allTasks() { 
+// Fonction pour lire toutes les tâches
+function allTasks() {
     return parse(jsonDbPath);
 }
 
+// Fonction pour ajouter une nouvelle tâche
 function createTask(description) {
     const tasks = parse(jsonDbPath);
     
@@ -17,80 +19,75 @@ function createTask(description) {
         listId: null,
         subtasks: [],
     };
-
     tasks.push(createdTask);
+
     serialize(jsonDbPath, tasks);
 
     return createdTask;
 }
 
+// Fonction pour supprimer une tâche
 function deleteTask(index) {
     const tasks = parse(jsonDbPath);
-    if (index >= 0 && index < tasks.length) {
-        const deletedTask = tasks.splice(index, 1);
-        serialize(jsonDbPath, tasks);
+    const deletedTask = tasks.splice(index, 1);
 
-        return deletedTask;
-    }
-    return null;
+    serialize(jsonDbPath, tasks);
+
+    return deletedTask;
 }
 
+// Fonction pour marquer une tâche comme importante
 function toggleImportance(index) {
     const tasks = parse(jsonDbPath);
-    if (index >= 0 && index < tasks.length) {
-        tasks[index].important = !tasks[index].important;
-        const task = tasks.splice(index, 1)[0];
-        if (task.important) {
-            tasks.unshift(task); // Ajouter au début si important
-        } else {
-            tasks.push(task); // Ajouter à la fin si non important
-        }
-        serialize(jsonDbPath, tasks);
+    tasks[index].important = !tasks[index].important;
+    const task = tasks.splice(index, 1)[0];
 
-        return tasks[index];
+    if (task.important) {
+        tasks.unshift(task); // Ajouter au début si important
+    } else {
+        tasks.push(task); // Ajouter à la fin si non important
     }
-    return null;
+
+    serialize(jsonDbPath, tasks);
+
+    return tasks[index];
 }
 
+// Fonction pour marquer une tâche comme complétée
 function toggleCompletion(index) {
     const tasks = parse(jsonDbPath);
-    if (index >= 0 && index < tasks.length) {
-        tasks[index].completed = !tasks[index].completed;
-        serialize(jsonDbPath, tasks);
+    tasks[index].completed = !tasks[index].completed;
 
-        return tasks[index];
-    }
-    return null;
+    serialize(jsonDbPath, tasks);
+
+    return tasks[index];
 }
 
+// Fonction pour mettre à jour une tâche
 function updateTask(index, newDescription) {
     const tasks = parse(jsonDbPath);
-    if (index >= 0 && index < tasks.length) {
-        tasks[index].description = newDescription;
-        serialize(jsonDbPath, tasks);
+    tasks[index].description = newDescription;
 
-        return tasks[index];
-    }
-    return null;
+    serialize(jsonDbPath, tasks);
+
+    return tasks[index];
 }
 
+// Fonction pour trouver une tâche
 function findTask(index) {
     const tasks = parse(jsonDbPath);
-    if (index >= 0 && index < tasks.length) {
-        return tasks[index];
-    }
-    return null;
+    
+    return tasks[index];
 }
 
+// Fonction pour assigner une tâche à une liste
 function assignTaskToList(index, listId) {
     const tasks = parse(jsonDbPath);
-    if (index >= 0 && index < tasks.length) {
-        tasks[index].listId = listId;
-        serialize(jsonDbPath, tasks);
+    tasks[index].listId = listId;
 
-        return tasks[index];
-    }
-    return null;
+    serialize(jsonDbPath, tasks);
+
+    return tasks[index];
 }
 
 module.exports = {

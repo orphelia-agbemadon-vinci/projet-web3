@@ -1,7 +1,7 @@
 <div class="container">
-    <h1>Détails de la tâche : <%= task.description %></h1>
+    <h1>Sous-tâches de la tâche : <%= task.description %></h1>
     <!-- Formulaire pour ajouter une sous-tâche -->
-    <form hx-post="/tasks/add/subtasks/<%= index %>" hx-target="#subtasks" hx-swap="innerHTML">
+    <form hx-post="/tasks/subtasks/add/<%= index %>" hx-target="#subtasks" hx-swap="innerHTML">
         <input type="text" name="subtask" placeholder="Nouvelle sous-tâche..." required>
         <button type="submit">Ajouter</button>
     </form>

@@ -18,7 +18,7 @@
                 <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
                 <td class="task-col <%= task.completed ? 'completed' : '' %>">
                     <label for="task-<%= index %>">
-                        <a href="/tasks/<%= index %>"><%= task.description %></a>
+                        <a href="/tasks/subtasks/<%= index %>"><%= task.description %></a>
                     </label>
                 </td>
 

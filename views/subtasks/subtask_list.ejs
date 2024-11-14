@@ -16,7 +16,7 @@
                 <!-- Colonne pour le bouton "Supprimer" -->
                 <td class="">
                     <button class="delete-button"
-                        hx-delete="/tasks/delete/subtasks/<%= index %>/<%= subIndex %>" 
+                        hx-delete="/tasks/subtasks/delete/<%= index %>/<%= subIndex %>" 
                         hx-target="#subtasks" 
                         hx-swap="innerHTML"
                         hx-confirm="Êtes-vous sûr(e) de vouloir supprimer cette sous-tâche ?">
