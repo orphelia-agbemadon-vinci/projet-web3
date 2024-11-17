@@ -14,12 +14,14 @@
                         hx-target="#task-list" 
                         hx-swap="innerHTML">
                 </td>
+
                 <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
                 <td class="task-col <%= task.completed ? 'completed' : '' %>">
                     <label for="task-<%= index %>">
-                        <a href="/tasks/<%= index %>"><%= task.description %></a>
+                        <a href="/tasks/subtasks/<%= index %>"><%= task.description %></a>
                     </label>
                 </td>
+
                 <!-- Menu déroulant pour chaque tâche -->
                 <td>
                     <select class="assign-list-dropdown" name="listId" hx-post="/tasks/assign-list/<%= index %>" hx-target="#task-list" hx-swap="innerHTML">
@@ -29,6 +31,7 @@
                         <% }); %>
                     </select>
                 </td>
+                
                 <!-- Colonne pour le bouton "Modifier" -->
                 <td>
                     <a 
@@ -39,6 +42,7 @@
                         <i class="fa fa-pencil"></i>
                     </a>
                 </td>
+
                 <!-- Colonne pour le bouton "Important" -->
                 <td>
                     <a
@@ -49,12 +53,14 @@
                         <i class="fa <%= task.important ? 'fa-star' : 'fa-star-o' %>"></i>
                     </a>
                 </td>
+
                 <!-- Colonne pour le bouton "Supprimer" -->
-                <td class="">
+                <td>
                     <button class="delete-button"
                         hx-delete="/tasks/delete/<%= index %>" 
                         hx-target="#task-list" 
-                        hx-swap="innerHTML">
+                        hx-swap="innerHTML"
+                        hx-confirm="Êtes-vous sûr(e) de vouloir supprimer cette tâche ?">
                         <i class="fa fa-trash"></i>
                     </button>
                 </td>
