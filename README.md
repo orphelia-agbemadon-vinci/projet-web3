@@ -1,8 +1,8 @@
 #### projet-web3 : HTMX
 #### groupe n°10 : Elise Grelaud, Melda Gonen, Orphelia Agbemadon, Thuyduong Tran, Sinem Bayrak
 
-# Gestionnaire de Tâches (To-Do List) avec HTMX et EJS
-#### Ce projet est un gestionnaire de tâches simple (To-Do List) conçu pour explorer et démontrer les capacités de HTMX pour la manipulation dynamique de l'interface utilisateur en utilisant des requêtes AJAX légères. L'application est construite avec Node.js et Express, et utilise EJS pour le rendu côté serveur. L'objectif principal est de minimiser le JavaScript personnalisé et de s'appuyer sur HTMX pour des interactions utilisateur sans rechargement de page.
+# Gestionnaire de Tâches (To-Do List) avec HTMX et JS
+#### Ce projet est un gestionnaire de tâches simple (To-Do List) conçu pour explorer et démontrer les capacités de HTMX pour la manipulation dynamique de l'interface utilisateur en utilisant des requêtes AJAX légères. L'application est construite avec Node.js et Express, et utilise JS pour le rendu côté serveur. L'objectif principal est de minimiser le JavaScript personnalisé et de s'appuyer sur HTMX pour des interactions utilisateur sans rechargement de page.
 
 ## Foncionnalités
 #### Création de tâches : Ajouter une nouvelle tâche sans rechargement de la page.
@@ -13,7 +13,7 @@
 
 ## Technologies utilisées
 #### HTMX : pour les requêtes AJAX sans rechargement et la mise à jour dynamique des éléments.
-#### EJS : moteur de templates côté serveur pour le rendu des pages.
+#### JS : moteur de templates côté serveur pour le rendu des pages.
 #### Node.js & Express : pour la structure de l'application et la gestion des routes.
 #### JSON : Utilisé comme base de données légère pour stocker les tâches de manière persistante.
 
@@ -25,6 +25,7 @@ git clone https://github.com/orphelia-agbemadon-vinci/projet-web3
 #### 2. Installer les dépendances :
 ```bash
 npm i
+npm i express
 ```
 #### 3. Lancer l'application : 
 ```bash
