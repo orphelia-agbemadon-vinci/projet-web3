@@ -25,8 +25,6 @@ git clone https://github.com/orphelia-agbemadon-vinci/projet-web3
 #### 2. Installer les dépendances :
 ```bash
 npm i
-npm i express ejs
-npm i express-ejs-layouts
 ```
 #### 3. Lancer l'application : 
 ```bash
@@ -35,6 +33,10 @@ npm run dev
 #### Le serveur sera disponible sur http://localhost:3000
 
 ## Architecture de l'application
-#### views/ : Contient les fichiers EJS pour le rendu des pages.
+#### data/ : Contient les fichiers JSON utilisés comme base de données légère pour stocker les tâches et les listes de manière persistante.
+#### models/ : Contient les fichiers JS pour la gestion des données et des opérations CRUD (Create, Read, Update, Delete) sur les tâches et les listes.
 #### public/ : Contient les fichiers statiques (CSS, JavaScript).
-#### app.js : Point d'entrée de l'application.
+#### routes/ : Contient les fichiers JS pour la gestion des routes de l'application, définissant les différentes actions possibles (ajout, suppression, modification de tâches, etc.).
+#### utils/ : Contient les fichiers utilitaires, comme les fonctions pour lire et écrire dans les fichiers JSON.
+#### views/ : Contient les fichiers EJS pour le rendu des pages et des composants de l'interface utilisateur.
+#### app.js : Point d'entrée de l'application. Configure le serveur Express, les middlewares et les routes.
