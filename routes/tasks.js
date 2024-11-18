@@ -5,6 +5,7 @@ import { allLists } from '../models/List.js';
 import createList from '../views/tasks/list.js';
 import createEditTask from '../views/tasks/edit.js';
 import createATask from '../views/tasks/task.js';
+//import TASKS_DATA from '../data/tasks.js';
 
 
 const router = express.Router();
@@ -31,19 +32,20 @@ router.post('/add', (req, res) => {
 router.patch('/edit/:id', (req, res) => {
     const taskId = parseInt(req.params.id);
     const description = req.body.description;
-    const task = TASKS_DATA.find((t) => t.id === taskId);
-    if (task) {
-        task.description = description;
-        res.send(createATask(task));
+    const taskIndex = tasks.findIndex((t) => t.id === taskId);
+    if (taskIndex !== -1) {
+        updateTask(taskIndex, description);
+        tasks = allTasks(); // Mise à jour de la liste des tâches
+        res.send(createATask(tasks[taskIndex]));
     } else {
         res.status(404).send('Task not found');
     }
 });
 
-// Route pour éditer une tâche
+// Route pour afficher le formulaire de modification pour une tâche
 router.get('/edit/:id', (req, res) => {
     const taskId = parseInt(req.params.id);
-    const task = TASKS_DATA.find((t) => t.id === taskId);
+    const task = tasks.find((t) => t.id === taskId);
     if (task) {
         res.send(createEditTask(task));
     } else {
