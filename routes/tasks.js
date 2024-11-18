@@ -1,7 +1,7 @@
 import express from 'express';
 import { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList } from '../models/Task.js';
 import { allLists } from '../models/List.js';
-import TASKS_DATA from '../data/data.js';
+//import tasks from '../data/tasks.js';
 import createList from '../views/tasks/list.js';
 
 
@@ -13,17 +13,14 @@ let lists = allLists();
 
 
 router.get('/', (req, res) => {
-    res.send(createList(TASKS_DATA));
+    res.send(createList(tasks));
 });
 
 // Ajoute une nouvelle tâche
 router.post('/add', (req, res) => {
     const taskDescription = req.body.task;
     const newTask = createTask(taskDescription);
-    tasks.push(newTask);
-     
-
-        
+    //tasks.push(newTask);  
     res.send(createList(tasks));
     // res.send(createATask(newTask));
 });
@@ -51,16 +48,6 @@ router.post('/add', (req, res) => {
 //     res.render('tasks/task_list', { tasks: filteredTasks, lists, isHistory, isImportant });
 // });
 
-// // Route pour ajouter une tâche
-// router.post('/add', (req, res) => {
-//     const taskDescription = req.body.task;
-//     if (taskDescription) {
-//         createTask(taskDescription);
-//     }
-//     tasks = allTasks(); // Mise à jour de la liste des tâches
-
-//     res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
-// });
 
 // // Route pour cocher une tâche
 // router.post('/toggle-complete/:index', (req, res) => {

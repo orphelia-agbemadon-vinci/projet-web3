@@ -3,14 +3,22 @@ import { findTask } from '../models/Task.js';
 import { allLists } from '../models/List.js';
 import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getAllSubTasks } from '../models/SubTask.js';
 
+// import TASKS_DATA from '../data/data.js';
+
 const router = express.Router();
 
 // Liste des listes en mémoire
 let lists = allLists();
 
 // Route pour afficher détails d'une tâche
-router.get('/:index', (req, res) => {
-    res.send("");
+router.get('/tasks/:taskId', (req, res) => {
+    const TaskId = parseInt(req.params.taskId);
+    if(TASKS_DATA.findIndex(task => task.id === TaskId)) {
+        res.send(createList(TASKS_DATA[TaskId].subtasks));
+    }
+    // const task = findTask(TaskId);
+    // const subTasks = getAllSubTasks(task);
+    res.send("Task not found");
 });
 
 // // Route pour supprimer une sous-tâche

@@ -5,7 +5,7 @@ import { parse, serialize } from '../utils/json.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const jsonDbPath = path.join(__dirname, '/../data/lists.json');
+const jsonDbPath = path.join(__dirname, '/../data/lists.js');
 
 // Fonction pour récupérer toutes les listes
 export function allLists() {
