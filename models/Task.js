@@ -17,6 +17,7 @@ export function createTask(description) {
     const tasks = parse(jsonDbPath);
     
     const createdTask = {
+        id: tasks.length + 1,
         description: description,
         completed: false,
         important: false,

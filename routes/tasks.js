@@ -1,6 +1,9 @@
 import express from 'express';
 import { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList } from '../models/Task.js';
 import { allLists } from '../models/List.js';
+import TASKS_DATA from '../data/data.js';
+import createList from '../views/tasks/list.js';
+
 
 const router = express.Router();
 
@@ -10,7 +13,19 @@ let lists = allLists();
 
 
 router.get('/', (req, res) => {
-    res.send("");
+    res.send(createList(TASKS_DATA));
+});
+
+// Ajoute une nouvelle tâche
+router.post('/add', (req, res) => {
+    const taskDescription = req.body.task;
+    const newTask = createTask(taskDescription);
+    tasks.push(newTask);
+     
+
+        
+    res.send(createList(tasks));
+    // res.send(createATask(newTask));
 });
 
 // // Route pour afficher le formulaire de modification pour une tâche

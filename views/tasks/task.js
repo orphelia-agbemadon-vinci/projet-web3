@@ -1,8 +1,8 @@
-const createTask = (task) => /*html*/ `
-    <tr data-id="${task.id}">
+  const createATask = (task) => /*html*/ `
+    <tr data-id="${task.id}" hx-target = "#task-list">
         <!-- Colonne pour le texte de la tâche -->
         <td class="check-box">
-            <input
+            <input 
                 type="checkbox"
                 ${task.completed ? 'checked' : ''}
         </td>
@@ -43,4 +43,4 @@ const createTask = (task) => /*html*/ `
     </tr>
 `;
 
-export default createTask;
+export default createATask;
