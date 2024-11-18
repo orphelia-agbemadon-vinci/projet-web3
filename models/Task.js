@@ -143,15 +143,6 @@ export function deleteTask(id) {
     return false;
 }
 
-// export function deleteTask(index) {
-//     const tasks = allTasks();
-//     const deletedTask = tasks.splice(index, 1);
-
-//     serialize(jsonDbPath, tasks);
-
-//     return deletedTask;
-// }
-
 // Fonction pour marquer une tâche comme importante
 export function toggleImportance(index) {
     const tasks = allTasks();
@@ -181,16 +172,6 @@ export function toggleCompletion(id) {
 
     return task;
 }
-
-
-// export function toggleCompletion(index) {
-//     const tasks = allTasks();
-//     tasks[index].completed = !tasks[index].completed;
-
-//     serialize(jsonDbPath, tasks);
-
-//     return task;
-// }
 
 // Fonction pour mettre à jour une tâche
 export function updateTask(index, newDescription) {

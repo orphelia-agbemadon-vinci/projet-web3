@@ -90,6 +90,12 @@ router.get('/edit/:id', (req, res) => {
     }
 });
 
+router.get('/filter/completed', (req, res) => {
+    const completedTasks = tasks.filter(task => task.completed);
+    const tasksHtml = completedTasks.map(task => createATask(task)).join('');
+    res.send(tasksHtml);
+});
+
 // // Route pour filtrer les tâches selon leur type
 // router.get('/filter/:type', (req, res) => {
 //     const type = req.params.type;
