@@ -95,6 +95,16 @@ router.get('/filter/:type', (req, res) => {
     res.send(createList(filteredTasks));
 });
 
+// router.get('/completed', (req, res) => {
+//     const completedTasks = tasks.filter(task => task.completed);
+//     res.send(createList(completedTasks));
+// });
+
+// router.post("/toggle-completed/:id", (req, res) => {
+//   const id = parseInt(req.params.id);
+//   toggleCompletion(id);
+//   res.send();
+// });
 
 // // Route pour cocher une tâche
 // router.post('/toggle-complete/:index', (req, res) => {
