@@ -40,30 +40,11 @@ router.get('/important', (req, res) => {
     res.send(createList(importantTasks));
 });
 
-router.post('/toggle-important/:id', (req, res) => {
-     const id = parseInt(req.params.id);
-    
-    // const taskIndex = tasks.findIndex(task => task.id === id);
-
-    //  if (taskIndex === -1) {
-    //      return res.status(404).send('Task not found');
-    //  }
-    //   console.log(tasks[taskIndex]);
-
-    
-    //  tasks[taskIndex].important = !tasks[taskIndex].important;
-
-    
-    //  const task = tasks.splice(taskIndex, 1)[0];  // Remove the task from the array
-
-    //  if (task.important) {
-    //      tasks.unshift(task);  // Move to the front if important
-    //  } else {
-    //      tasks.push(task);  // Move to the end if not important
-    //  }
-    toggleImportance(id);
-     res.send();
-      });
+router.post("/toggle-important/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  toggleImportance(id);
+  res.send();
+});
 
 
 // // Route pour afficher le formulaire de modification pour une tâche
