@@ -1,20 +1,24 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import fs from 'fs';
+//import path from 'path';
+
 
 /**
- * Parse items given in a .json file
- * @param {String} filePath - path to the .json file
- * If the file does not exist or it's content cannot be parsed as JSON data,
+ * Parse items given in a .js file
+ * @param {String} filePath - path to the .js file
+ * If the file does not exist or its content cannot be parsed as JSON data,
  * use the default data.
- * @param {Array} defaultArray - Content to be used when the .json file does not exists
+ * @param {Array} defaultArray - Content to be used when the .js file does not exist
  * @returns {Array} : the array that was parsed from the file (or defaultArray)
  */
 export function parse(filePath, defaultArray = []) {
-    if (!fs.existsSync(filePath)) return defaultArray;
-    const fileData = fs.readFileSync(filePath);
+    if (!fs.existsSync(filePath)) {
+        serialize(filePath, defaultArray);
+        return defaultArray;
+    }
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const jsonData = fileContent.match(/const DATA = (\[.*\]);\n\nexport default DATA;/s)[1];
     try {
-        // parse() Throws a SyntaxError exception if the string to parse is not valid JSON.
-        return JSON.parse(fileData);
+        return JSON.parse(jsonData);
     } catch (err) {
         return defaultArray;
     }
@@ -22,24 +26,11 @@ export function parse(filePath, defaultArray = []) {
 
 /**
  * Serialize the content of an Object within a file
- * @param {String} filePath - path to the .json file
- * @param {Array} object - Object to be written within the .json file.
+ * @param {String} filePath - path to the .js file
+ * @param {Array} object - Object to be written within the .js file.
  * Even if the file exists, its whole content is reset by the given object.
  */
 export function serialize(filePath, object) {
-    const objectSerialized = JSON.stringify(object);
-    createPotentialLastDirectory(filePath);
-    fs.writeFileSync(filePath, objectSerialized);
-}
-
-/**
- *
- * @param {String} filePath - path to the .json file
- */
-export function createPotentialLastDirectory(filePath) {
-    const pathToLastDirectory = filePath.substring(0, filePath.lastIndexOf(path.sep));
-
-    if (fs.existsSync(pathToLastDirectory)) return;
-
-    fs.mkdirSync(pathToLastDirectory);
+    const fileContent = `const DATA = ${JSON.stringify(object, null, 2)};\n\nexport default DATA;\n`;
+    fs.writeFileSync(filePath, fileContent, 'utf8');
 }
