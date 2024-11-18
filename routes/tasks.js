@@ -53,10 +53,10 @@ router.post('/add', (req, res) => {
 router.post("/toggle-important/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const updatedTask = toggleImportance(id);
-    
+
     tasks = allTasks(); // Mise à jour de la liste des tâches
 
-    res.send(`<i class="fa ${updatedTask.important ? 'fa-star' : 'fa-star-o'}"></i>`);
+    res.send(createList(tasks));
 });
 
 // // Route pour marquer une tâche comme importante
