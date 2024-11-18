@@ -5,7 +5,7 @@ import { parse, serialize } from '../utils/json.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const jsonDbPath = path.join(__dirname, '/../data/tasks.json');
+const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
 
 // Fonction pour ajouter une nouvelle sous-tâche
 export function addSubTask(taskIndex, subTaskDescription) {
