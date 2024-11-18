@@ -132,13 +132,15 @@ export function createTask(description) {
 }
 
 // Fonction pour supprimer une tâche
-
 export function deleteTask(id) {
     const tasks = parse(jsonDbPath);
-    const deletedTask = tasks.splice(id, 1);
-    serialize(jsonDbPath, tasks);
-
-    return deletedTask;
+    const taskIndex = tasks.findIndex(task => task.id === id);
+    if (taskIndex !== -1) {
+        tasks.splice(taskIndex, 1);
+        serialize(jsonDbPath, tasks);
+        return true;
+    }
+    return false;
 }
 
 // export function deleteTask(index) {

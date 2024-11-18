@@ -33,12 +33,14 @@ router.post('/add', (req, res) => {
 // Route pour supprimer une tâche
 router.delete('/delete/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    deleteTask(id);
-    tasks = allTasks(); // Mise à jour de la liste des tâches
-
-    res.send();
+    const success = deleteTask(id);
+    if (success) {
+        tasks = allTasks(); // Mise à jour de la liste des tâches
+        res.send(createList(tasks)); // Renvoyer la liste mise à jour des tâches
+    } else {
+        res.status(404).send('Task not found');
+    }
 });
-
 
 // Route pour cocher une tâche
 router.post('/toggle-complete/:id', (req, res) => {

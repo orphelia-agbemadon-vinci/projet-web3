@@ -12,7 +12,6 @@ const createTask = (task) => /*html*/ `
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
         <td class="task-col ${task.completed ? 'completed' : ''}">
             <label>${task.description}</label>
-                ${task.completed ? 'checked' : ''}>
         </td>
         <!-- Colonne pour le bouton "Modifier" -->
         <td>
@@ -39,7 +38,7 @@ const createTask = (task) => /*html*/ `
         <td class="">
             <button class="delete-button"
                 hx-delete="/tasks/delete/${task.id}"
-                hx-target="closest tr"
+                hx-target="#task-list"
                 hx-swap="innerHTML">
                 <i class="fa fa-trash"></i>
             </button>
