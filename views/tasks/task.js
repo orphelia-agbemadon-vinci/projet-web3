@@ -4,7 +4,7 @@
         <td class="check-box">
             <input 
                 type="checkbox"
-                ${task.completed ? 'checked' : ''}
+                ${task.completed ? 'checked' : ''}>
         </td>
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
         <td class="task-col ${task.completed ? 'completed' : ''}">
@@ -16,7 +16,7 @@
                 class="edit-button"
                 hx-get="/tasks/edit/${task.id}"
                 hx-target="closest tr" 
-                hx-swap="innerHTML">
+                hx-swap="outerHTML">
                 <i class="fa fa-pencil"></i>
             </a>
         </td>

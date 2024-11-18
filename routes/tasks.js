@@ -3,6 +3,8 @@ import { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, u
 import { allLists } from '../models/List.js';
 import TASKS_DATA from '../data/data.js';
 import createList from '../views/tasks/list.js';
+import createEditTask from '../views/tasks/edit.js';
+import createATask from '../views/tasks/task.js';
 
 
 const router = express.Router();
@@ -28,16 +30,29 @@ router.post('/add', (req, res) => {
     // res.send(createATask(newTask));
 });
 
-// // Route pour afficher le formulaire de modification pour une tâche
-// router.get('/edit/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     const task = findTask(index);
-//     if (task) {
-//         res.render('tasks/edit_task_form', { task, index, lists, isHistory, isImportant });
-//     } else {
-//         res.status(404).send('Tâche non trouvée');
-//     }
-// });
+// Route pour éditer une tâche
+router.patch('/edit/:id', (req, res) => {
+    const taskId = parseInt(req.params.id);
+    const description = req.body.description;
+    const task = TASKS_DATA.find((t) => t.id === taskId);
+    if (task) {
+        task.description = description;
+        res.send(createATask(task));
+    } else {
+        res.status(404).send('Task not found');
+    }
+});
+
+// Route pour éditer une tâche
+router.get('/edit/:id', (req, res) => {
+    const taskId = parseInt(req.params.id);
+    const task = TASKS_DATA.find((t) => t.id === taskId);
+    if (task) {
+        res.send(createEditTask(task));
+    } else {
+        res.status(404).send('Task not found');
+    }
+});
 
 // // Route pour filtrer les tâches selon leur type
 // router.get('/filter/:type', (req, res) => {
@@ -105,21 +120,5 @@ router.post('/add', (req, res) => {
 
 //     res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
 // });
-
-// // Route pour éditer une tâche
-// router.patch('/edit/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     const description = req.body.description;
-//     const task = findTask(index);
-//     if (task) {
-//         updateTask(index, description);
-//         tasks = allTasks(); // Mise à jour de la liste des tâches
-
-//         res.render('tasks/task_list', { tasks, lists });
-//     } else {
-//         res.status(404).send('Tâche non trouvée');
-//     }
-// });
-
 
 export default router;
