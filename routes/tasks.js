@@ -83,17 +83,17 @@ router.post("/toggle-important/:id", (req, res) => {
 //     }
 // });
 
-// // Route pour filtrer les tâches selon leur type
-// router.get('/filter/:type', (req, res) => {
-//     const type = req.params.type;
-//     let filteredTasks;
-//     if (type === 'completed') {
-//         filteredTasks = tasks.filter(task => task.completed);
-//     } else if (type === 'important') {
-//         filteredTasks = tasks.filter(task => task.important);
-//     }
-//     res.render('tasks/task_list', { tasks: filteredTasks, lists, isHistory, isImportant });
-// });
+// Route pour filtrer les tâches selon leur type
+router.get('/filter/:type', (req, res) => {
+    const { type } = req.params;
+    let filteredTasks;
+    if (type === 'completed') {
+        filteredTasks = tasks.filter(task => task.completed);
+    } else if (type === 'important') {
+        filteredTasks = tasks.filter(task => task.important);
+    }
+    res.send(createList(filteredTasks));
+});
 
 
 // // Route pour cocher une tâche
