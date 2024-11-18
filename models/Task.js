@@ -33,13 +33,15 @@ export function createTask(description) {
 }
 
 // Fonction pour supprimer une tâche
-export function deleteTask(index) {
-    const tasks = allTasks();
-    const deletedTask = tasks.splice(index, 1);
-
-    serialize(jsonDbPath, tasks);
-
-    return deletedTask;
+export function deleteTask(id) {
+    const tasks = parse(jsonDbPath);
+    const taskIndex = tasks.findIndex(task => task.id === id);
+    if (taskIndex !== -1) {
+        tasks.splice(taskIndex, 1);
+        serialize(jsonDbPath, tasks);
+        return true;
+    }
+    return false;
 }
 
 export function deleteTaskById(id) {
@@ -98,13 +100,16 @@ export function toggleImportance(id) {
 }
 
 // Fonction pour marquer une tâche comme complétée
-export function toggleCompletion(index) {
-    const tasks = allTasks();
-    tasks[index].completed = !tasks[index].completed;
-
+export function toggleCompletion(id) {
+    const tasks = parse(jsonDbPath);
+    const task = tasks.find(task => task.id === id);
+    if (!task) {
+        throw new Error(`Task with id ${id} not found`);
+    }
+    task.completed = !task.completed;
     serialize(jsonDbPath, tasks);
 
-    return tasks[index];
+    return task;
 }
 
 // Fonction pour mettre à jour une tâche
