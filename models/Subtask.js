@@ -1,10 +1,14 @@
-const path = require('node:path');
-const { parse, serialize } = require('../utils/json.js');
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { parse, serialize } from '../utils/json.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, '/../data/tasks.json');
 
 // Fonction pour ajouter une nouvelle sous-tâche
-function addSubTask(taskIndex, subTaskDescription) {
+export function addSubTask(taskIndex, subTaskDescription) {
     const tasks = parse(jsonDbPath);
     const newSubtask = {
         description: subTaskDescription,
@@ -18,7 +22,7 @@ function addSubTask(taskIndex, subTaskDescription) {
 }
 
 // Fonction pour supprimer une sous-tâche
-function deleteSubTask(taskIndex, subTaskIndex) {
+export function deleteSubTask(taskIndex, subTaskIndex) {
     const tasks = parse(jsonDbPath);
     const subTasks = tasks[taskIndex].subtasks;
     const deletedSubTask = subTasks.splice(subTaskIndex, 1);
@@ -29,7 +33,7 @@ function deleteSubTask(taskIndex, subTaskIndex) {
 }
 
 // Fonction pour cocher une sous-tâche
-function toggleSubTaskCompletion(taskIndex, subTaskIndex) {
+export function toggleSubTaskCompletion(taskIndex, subTaskIndex) {
     const tasks = parse(jsonDbPath);
     const subTasks = tasks[taskIndex].subtasks;
     subTasks[subTaskIndex].completed = !subTasks[subTaskIndex].completed;
@@ -40,15 +44,8 @@ function toggleSubTaskCompletion(taskIndex, subTaskIndex) {
 }
 
 // Fonction pour afficher toutes les sous-tâche d'une tâche
-function getAllSubTasks(taskIndex) {
+export function getAllSubTasks(taskIndex) {
     const tasks = parse(jsonDbPath);
     
     return tasks[taskIndex].subtasks;
 }
-
-module.exports = {
-    addSubTask,
-    deleteSubTask,
-    toggleSubTaskCompletion,
-    getAllSubTasks,
-};

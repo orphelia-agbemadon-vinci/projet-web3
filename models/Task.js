@@ -1,15 +1,19 @@
-const path = require('node:path');
-const { parse, serialize } = require('../utils/json');
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { parse, serialize } from '../utils/json.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, '/../data/tasks.json');
 
 // Fonction pour lire toutes les tâches
-function allTasks() {
+export function allTasks() {
     return parse(jsonDbPath);
 }
 
 // Fonction pour ajouter une nouvelle tâche
-function createTask(description) {
+export function createTask(description) {
     const tasks = parse(jsonDbPath);
     
     const createdTask = {
@@ -27,7 +31,7 @@ function createTask(description) {
 }
 
 // Fonction pour supprimer une tâche
-function deleteTask(index) {
+export function deleteTask(index) {
     const tasks = parse(jsonDbPath);
     const deletedTask = tasks.splice(index, 1);
 
@@ -37,7 +41,7 @@ function deleteTask(index) {
 }
 
 // Fonction pour marquer une tâche comme importante
-function toggleImportance(index) {
+export function toggleImportance(index) {
     const tasks = parse(jsonDbPath);
     tasks[index].important = !tasks[index].important;
     const task = tasks.splice(index, 1)[0];
@@ -54,7 +58,7 @@ function toggleImportance(index) {
 }
 
 // Fonction pour marquer une tâche comme complétée
-function toggleCompletion(index) {
+export function toggleCompletion(index) {
     const tasks = parse(jsonDbPath);
     tasks[index].completed = !tasks[index].completed;
 
@@ -64,7 +68,7 @@ function toggleCompletion(index) {
 }
 
 // Fonction pour mettre à jour une tâche
-function updateTask(index, newDescription) {
+export function updateTask(index, newDescription) {
     const tasks = parse(jsonDbPath);
     tasks[index].description = newDescription;
 
@@ -74,14 +78,14 @@ function updateTask(index, newDescription) {
 }
 
 // Fonction pour trouver une tâche
-function findTask(index) {
+export function findTask(index) {
     const tasks = parse(jsonDbPath);
     
     return tasks[index];
 }
 
 // Fonction pour assigner une tâche à une liste
-function assignTaskToList(index, listId) {
+export function assignTaskToList(index, listId) {
     const tasks = parse(jsonDbPath);
     tasks[index].listId = listId;
 
@@ -89,14 +93,3 @@ function assignTaskToList(index, listId) {
 
     return tasks[index];
 }
-
-module.exports = {
-    createTask,
-    allTasks,
-    deleteTask,
-    toggleImportance,
-    toggleCompletion,
-    updateTask,
-    findTask,
-    assignTaskToList,
-};
