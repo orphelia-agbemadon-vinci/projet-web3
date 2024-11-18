@@ -59,13 +59,19 @@ export function toggleImportance(index) {
 }
 
 // Fonction pour marquer une tâche comme complétée
-export function toggleCompletion(index) {
+export function toggleCompletion(id) {
     const tasks = parse(jsonDbPath);
-    tasks[index].completed = !tasks[index].completed;
+    const task = tasks.find(task => task.id === id);
+
+    if (!task) {
+        throw new Error(`Task with id ${id} not found`);
+    }
+
+    task.completed = !task.completed;
 
     serialize(jsonDbPath, tasks);
 
-    return tasks[index];
+    return task;
 }
 
 // Fonction pour mettre à jour une tâche

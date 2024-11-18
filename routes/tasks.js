@@ -3,6 +3,7 @@ import { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, u
 import { allLists } from '../models/List.js';
 import TASKS_DATA from '../data/data.js';
 import createList from '../views/tasks/list.js';
+import createATask from '../views/tasks/task.js';
 
 
 const router = express.Router();
@@ -39,6 +40,17 @@ router.delete('/delete/:id', (req, res) => {
 });
 
 
+// Route pour cocher une tâche
+router.post('/toggle-complete/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    try {
+        const updatedTask = toggleCompletion(id);
+        tasks = allTasks(); // Mise à jour de la liste des tâches
+        res.send(createATask(updatedTask)); // Renvoyer la tâche mise à jour
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+});
 
 // // Route pour afficher le formulaire de modification pour une tâche
 // router.get('/edit/:index', (req, res) => {

@@ -5,10 +5,13 @@ const createTask = (task) => /*html*/ `
             <input
                 type="checkbox"
                 ${task.completed ? 'checked' : ''}
+                hx-post="/tasks/toggle-complete/${task.id}"
+                hx-target="closest tr"
+                hx-swap="outerHTML">
         </td>
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
         <td class="task-col ${task.completed ? 'completed' : ''}">
-            <label hx-get="/tasks/${task.id}">${task.description}</label>
+            <label>${task.description}</label>
         </td>
         <!-- Colonne pour le bouton "Modifier" -->
         <td>
