@@ -12,6 +12,7 @@ const createTask = (task) => /*html*/ `
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
         <td class="task-col ${task.completed ? 'completed' : ''}">
             <label>${task.description}</label>
+                ${task.completed ? 'checked' : ''}>
         </td>
         <!-- Colonne pour le bouton "Modifier" -->
         <td>
@@ -19,7 +20,7 @@ const createTask = (task) => /*html*/ `
                 class="edit-button"
                 hx-get="/tasks/edit/${task.id}"
                 hx-target="closest tr" 
-                hx-swap="innerHTML">
+                hx-swap="outerHTML">
                 <i class="fa fa-pencil"></i>
             </a>
         </td>
