@@ -142,20 +142,42 @@ export function deleteTask(index) {
 }
 
 // Fonction pour marquer une tâche comme importante
-export function toggleImportance(index) {
+export function toggleImportance(id) {
     const tasks = allTasks();
-    tasks[index].important = !tasks[index].important;
-    const task = tasks.splice(index, 1)[0];
 
+    console.log('All tasks:', tasks);
+
+    // Trouver l'indice de la tâche avec l'id donné
+    const taskIndex = tasks.findIndex(task => task.id === id);
+
+    if (taskIndex === -1) {
+        console.error(`Task with id ${id} not found.`);
+        return null;
+    }
+
+    console.log('Found task index:', taskIndex);
+    console.log('Task before update:', tasks[taskIndex]);
+
+    // Basculer la propriété 'important'
+    tasks[taskIndex].important = !tasks[taskIndex].important;
+
+    // Extraire la tâche pour réorganisation
+    const [task] = tasks.splice(taskIndex, 1);
+
+    // Réorganiser selon l'importance
     if (task.important) {
         tasks.unshift(task); // Ajouter au début si important
     } else {
         tasks.push(task); // Ajouter à la fin si non important
     }
 
+    console.log('Tasks after reordering:', tasks);
+
+    // Sauvegarder dans le fichier JSON
     serialize(jsonDbPath, tasks);
 
-    return tasks[index];
+    // Retourner la tâche mise à jour
+    return task;
 }
 
 // Fonction pour marquer une tâche comme complétée

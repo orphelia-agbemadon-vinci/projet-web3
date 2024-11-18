@@ -26,7 +26,7 @@
                 class="star-button"
                 hx-post="/tasks/toggle-important/${task.id}"
                 hx-target="closest td"
-                hx-swap="innerHTML"
+                hx-swap="outerHTML"
                 hx-trigger="click">
                 <i class="fa ${task.important ? 'fa-star' : 'fa-star-o'}"></i>
             </a>
