@@ -18,6 +18,29 @@ router.get('/', (req, res) => {
     res.send(createList(tasks));
 });
 
+// Route pour filtrer les tâches selon leur type
+router.get('/filter/:type', (req, res) => {
+    const { type } = req.params;
+    let filteredTasks;
+    if (type === 'completed') {
+        filteredTasks = tasks.filter(task => task.completed);
+    } else if (type === 'important') {
+        filteredTasks = tasks.filter(task => task.important);
+    }
+    res.send(createList(filteredTasks));
+});
+
+// Route pour afficher le formulaire de modification pour une tâche
+router.get('/edit/:id', (req, res) => {
+    const taskId = parseInt(req.params.id);
+    const task = tasks.find((t) => t.id === taskId);
+    if (task) {
+        res.send(createEditTask(task));
+    } else {
+        res.status(404).send('Task not found');
+    }
+});
+
 // Ajoute une nouvelle tâche
 router.post('/add', (req, res) => {
     const { description } = req.body;
@@ -27,16 +50,23 @@ router.post('/add', (req, res) => {
     res.send(createList(tasks));
 });
 
+router.post("/toggle-important/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const updatedTask = toggleImportance(id);
+    
+    tasks = allTasks(); // Mise à jour de la liste des tâches
 
-// router.delete('/delete/:id', (req, res) => {
-//     const id = parseInt(req.params.id);
-//     const success = deleteTask(id);
-//     if (success) {
-//         tasks = allTasks(); // Mise à jour de la liste des tâches
-//         res.send(createList(tasks)); // Renvoyer la liste mise à jour des tâches
-//     } else {
-//         res.status(404).send('Task not found');
-//     }
+    res.send(`<i class="fa ${updatedTask.important ? 'fa-star' : 'fa-star-o'}"></i>`);
+});
+
+// // Route pour marquer une tâche comme importante
+// router.post('/toggle-important/:index', (req, res) => {
+//     const index = parseInt(req.params.index);
+
+//     toggleImportance(index);
+//     tasks = allTasks(); // Mise à jour de la liste des tâches
+
+//     res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
 // });
 
 // Route pour cocher une tâche
@@ -51,17 +81,6 @@ router.post('/toggle-complete/:id', (req, res) => {
     }
 });
 
-// // Route pour afficher le formulaire de modification pour une tâche
-// router.get('/edit/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     const task = findTask(index);
-//     if (task) {
-//         res.render('tasks/edit_task_form', { task, index, lists, isHistory, isImportant });
-//     } else {
-//         res.status(404).send('Tâche non trouvée');
-//     }
-// });
-
 // Route pour éditer une tâche
 router.patch('/edit/:id', (req, res) => {
     const taskId = parseInt(req.params.id);
@@ -71,17 +90,6 @@ router.patch('/edit/:id', (req, res) => {
         updateTask(taskIndex, description);
         tasks = allTasks(); // Mise à jour de la liste des tâches
         res.send(createATask(tasks[taskIndex]));
-    } else {
-        res.status(404).send('Task not found');
-    }
-});
-
-// Route pour afficher le formulaire de modification pour une tâche
-router.get('/edit/:id', (req, res) => {
-    const taskId = parseInt(req.params.id);
-    const task = tasks.find((t) => t.id === taskId);
-    if (task) {
-        res.send(createEditTask(task));
     } else {
         res.status(404).send('Task not found');
     }
@@ -109,14 +117,7 @@ router.delete('/delete/:id', (req, res) => {
 //     res.send(createList(importantTasks));
 // });
 
-// router.post("/toggle-important/:id", (req, res) => {
-//     const id = parseInt(req.params.id);
-//     toggleImportance(id);
-//     const updatedTask = findTask(id);
-//     tasks = allTasks(); // Mise à jour de la liste des tâches
 
-//     res.send(`<i class="fa ${updatedTask.important ? 'fa-star' : 'fa-star-o'}"></i>`);
-// });
 
 
 // // Route pour afficher le formulaire de modification pour une tâche
@@ -130,37 +131,6 @@ router.delete('/delete/:id', (req, res) => {
 //     }
 // });
 
-// Route pour filtrer les tâches selon leur type
-router.get('/filter/:type', (req, res) => {
-    const { type } = req.params;
-    let filteredTasks;
-    if (type === 'completed') {
-        filteredTasks = tasks.filter(task => task.completed);
-    } else if (type === 'important') {
-        filteredTasks = tasks.filter(task => task.important);
-    }
-    res.send(createList(filteredTasks));
-});
-
-
-// Route pour cocher une tâche
-router.post('/toggle-complete/:index', (req, res) => {
-    const index = parseInt(req.params.index);
-    toggleCompletion(index);
-    tasks = allTasks(); // Mise à jour de la liste des tâches
-
-    res.render();
-});
-
-// // Route pour marquer une tâche comme importante
-// router.post('/toggle-important/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-
-//     toggleImportance(index);
-//     tasks = allTasks(); // Mise à jour de la liste des tâches
-
-//     res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
-// });
 
 // // Route pour assigner une tâche à une liste
 // router.post('/assign-list/:index', (req, res) => {
