@@ -33,7 +33,8 @@
         </td>
         <!-- Colonne pour le bouton "Supprimer" -->
         <td class="">
-            <button class="delete-button"
+            <button 
+                class="delete-button"
                 hx-delete="/tasks/delete/${task.id}"
                 hx-target="closest tr"
                 hx-swap="innerHTML">
