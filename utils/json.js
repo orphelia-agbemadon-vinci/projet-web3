@@ -1,5 +1,5 @@
 import fs from 'fs';
-//import path from 'path';
+import path from 'path';
 
 
 /**
@@ -31,6 +31,11 @@ export function parse(filePath, defaultArray = []) {
  * Even if the file exists, its whole content is reset by the given object.
  */
 export function serialize(filePath, object) {
+    // Créer les répertoires nécessaires si ils n'existent pas
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
     const fileContent = `const DATA = ${JSON.stringify(object, null, 2)};\n\nexport default DATA;\n`;
     fs.writeFileSync(filePath, fileContent, 'utf8');
 }
