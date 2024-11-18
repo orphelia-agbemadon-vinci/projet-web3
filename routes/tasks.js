@@ -37,6 +37,38 @@ router.delete('/delete/:id', (req, res) => {
     res.send();
 });
 
+// Route pour afficher uniquement les tâches importantes
+router.get('/important', (req, res) => {
+    console.log(tasks);
+    console.log(TASKS_DATA);
+    const importantTasks = TASKS_DATA.filter(task => task.important);
+    res.send(createList(importantTasks));
+});
+
+router.post('/toggle-important/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    // Find the task by ID in DATA_TASKS
+    const taskIndex = TASKS_DATA.findIndex(task => task.id === id);
+
+    // Check if task exists
+    if (taskIndex === -1) {
+        return res.status(404).send('Task not found');
+    }
+
+    // Toggle the 'important' property
+    TASKS_DATA[taskIndex].important = !TASKS_DATA[taskIndex].important;
+
+    // Reorder the task based on its importance
+    const task = TASKS_DATA.splice(taskIndex, 1)[0];  // Remove the task from the array
+
+    if (TASKS_DATA[taskIndex].important) {
+        TASKS_DATA.unshift(task);  // Move to the front if important
+    } else {
+        TASKS_DATA.push(task);  // Move to the end if not important
+    }
+    res.send();
+     });
+
 
 // // Route pour afficher le formulaire de modification pour une tâche
 // router.get('/edit/:index', (req, res) => {

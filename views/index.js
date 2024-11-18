@@ -30,7 +30,7 @@ const homePage = () => /*html*/`
                 <div id="filters">
                     <button hx-get="/tasks" hx-target="#task-list" hx-swap="innerHTML">Toutes</button>
                     <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
-                    <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
+                    <button hx-get="/tasks/important" hx-target="#task-list" hx-swap="outerHTML">Importantes</button>
                 </div>
 
                 <div id="title-container">
