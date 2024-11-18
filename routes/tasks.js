@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList } from '../models/Task.js';
+import { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList, deleteTaskById } from '../models/Task.js';
 import { allLists } from '../models/List.js';
 import createList from '../views/tasks/list.js';
 import createEditTask from '../views/tasks/edit.js';
@@ -50,26 +50,32 @@ router.get('/edit/:id', (req, res) => {
         res.status(404).send('Task not found');
     }
 });
+
 // Route pour supprimer une tâche
 router.delete('/delete/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const idx = TASKS_DATA.findIndex(t => t.id === id);
-    TASKS_DATA.splice(idx, 1);
-    
+    const idx = tasks.findIndex(t => t.id === id);
+    tasks.splice(idx, 1);
+    deleteTaskById(id);
+
+    tasks = allTasks(); // Mise à jour de la liste des tâches
     res.send();
 });
 
-// Route pour afficher uniquement les tâches importantes
-router.get('/important', (req, res) => {
-    const importantTasks = tasks.filter(task => task.important);
-    res.send(createList(importantTasks));
-});
+// // Route pour afficher uniquement les tâches importantes
+// router.get('/important', (req, res) => {
+//     const importantTasks = tasks.filter(task => task.important);
+//     res.send(createList(importantTasks));
+// });
 
-router.post("/toggle-important/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  toggleImportance(id);
-  res.send();
-});
+// router.post("/toggle-important/:id", (req, res) => {
+//     const id = parseInt(req.params.id);
+//     toggleImportance(id);
+//     const updatedTask = findTask(id);
+//     tasks = allTasks(); // Mise à jour de la liste des tâches
+
+//     res.send(`<i class="fa ${updatedTask.important ? 'fa-star' : 'fa-star-o'}"></i>`);
+// });
 
 
 // // Route pour afficher le formulaire de modification pour une tâche
@@ -95,25 +101,15 @@ router.get('/filter/:type', (req, res) => {
     res.send(createList(filteredTasks));
 });
 
-// router.get('/completed', (req, res) => {
-//     const completedTasks = tasks.filter(task => task.completed);
-//     res.send(createList(completedTasks));
-// });
 
-// router.post("/toggle-completed/:id", (req, res) => {
-//   const id = parseInt(req.params.id);
-//   toggleCompletion(id);
-//   res.send();
-// });
+// Route pour cocher une tâche
+router.post('/toggle-complete/:index', (req, res) => {
+    const index = parseInt(req.params.index);
+    toggleCompletion(index);
+    tasks = allTasks(); // Mise à jour de la liste des tâches
 
-// // Route pour cocher une tâche
-// router.post('/toggle-complete/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     toggleCompletion(index);
-//     tasks = allTasks(); // Mise à jour de la liste des tâches
-
-//     res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
-// });
+    res.render();
+});
 
 // // Route pour marquer une tâche comme importante
 // router.post('/toggle-important/:index', (req, res) => {

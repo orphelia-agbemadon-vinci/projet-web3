@@ -1,10 +1,11 @@
-  const createATask = (task) => /*html*/ `
+const createATask = (task) => /*html*/ `
     <tr data-id="${task.id}" hx-target = "#task-list">
         <!-- Colonne pour le texte de la tâche -->
         <td class="check-box">
             <input 
                 type="checkbox"
                 ${task.completed ? 'checked' : ''}>
+                
         </td>
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
         <td class="task-col ${task.completed ? 'completed' : ''}">

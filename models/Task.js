@@ -42,6 +42,22 @@ export function deleteTask(index) {
     return deletedTask;
 }
 
+export function deleteTaskById(id) {
+    const tasks = allTasks();
+    const taskIndex = tasks.findIndex(task => task.id === id);
+
+    if (taskIndex === -1) {
+        console.error(`Task with id ${id} not found.`);
+        return null;
+    }
+
+    const [deletedTask] = tasks.splice(taskIndex, 1);
+
+    serialize(jsonDbPath, tasks);
+
+    return deletedTask;
+}
+
 // Fonction pour marquer une tâche comme importante
 export function toggleImportance(id) {
     const tasks = allTasks();
