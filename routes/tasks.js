@@ -5,6 +5,7 @@ import createList from '../views/tasks/list.js';
 import createEditTask from '../views/tasks/edit.js';
 import createATask from '../views/tasks/task.js';
 
+
 const router = express.Router();
 
 
@@ -25,6 +26,41 @@ router.post('/add', (req, res) => {
     tasks = allTasks(); // Mise à jour de la liste des tâches
     res.send(createList(tasks));
 });
+
+
+// router.delete('/delete/:id', (req, res) => {
+//     const id = parseInt(req.params.id);
+//     const success = deleteTask(id);
+//     if (success) {
+//         tasks = allTasks(); // Mise à jour de la liste des tâches
+//         res.send(createList(tasks)); // Renvoyer la liste mise à jour des tâches
+//     } else {
+//         res.status(404).send('Task not found');
+//     }
+// });
+
+// Route pour cocher une tâche
+router.post('/toggle-complete/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    try {
+        const updatedTask = toggleCompletion(id);
+        tasks = allTasks(); // Mise à jour de la liste des tâches
+        res.send(createATask(updatedTask)); // Renvoyer la tâche mise à jour
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+});
+
+// // Route pour afficher le formulaire de modification pour une tâche
+// router.get('/edit/:index', (req, res) => {
+//     const index = parseInt(req.params.index);
+//     const task = findTask(index);
+//     if (task) {
+//         res.render('tasks/edit_task_form', { task, index, lists, isHistory, isImportant });
+//     } else {
+//         res.status(404).send('Tâche non trouvée');
+//     }
+// });
 
 // Route pour éditer une tâche
 router.patch('/edit/:id', (req, res) => {
@@ -56,10 +92,15 @@ router.delete('/delete/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const idx = tasks.findIndex(t => t.id === id);
     tasks.splice(idx, 1);
-    deleteTaskById(id);
 
-    tasks = allTasks(); // Mise à jour de la liste des tâches
-    res.send();
+    const deletedTask = deleteTaskById(id);
+    
+    if (deletedTask) {
+        tasks = allTasks(); // Mise à jour de la liste des tâches
+        res.send();
+    } else {
+        res.status(404).send('Task not found');
+    }
 });
 
 // // Route pour afficher uniquement les tâches importantes
