@@ -8,7 +8,7 @@
         </td>
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
         <td class="task-col ${task.completed ? 'completed' : ''}">
-            <label hx-get="/tasks/${task.id}">${task.description}</label>
+            <a hx-get="/tasks/${task.id}" hx-trigger="mouseenter"> ${task.description} </a>
         </td>
         <!-- Colonne pour le bouton "Modifier" -->
         <td>
