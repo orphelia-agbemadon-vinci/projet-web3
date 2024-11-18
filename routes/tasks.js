@@ -50,6 +50,38 @@ router.get('/edit/:id', (req, res) => {
         res.status(404).send('Task not found');
     }
 });
+// Route pour supprimer une tâche
+router.delete('/delete/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const idx = TASKS_DATA.findIndex(t => t.id === id);
+    TASKS_DATA.splice(idx, 1);
+    
+    res.send();
+});
+
+// Route pour afficher uniquement les tâches importantes
+router.get('/important', (req, res) => {
+    const importantTasks = tasks.filter(task => task.important);
+    res.send(createList(importantTasks));
+});
+
+router.post("/toggle-important/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  toggleImportance(id);
+  res.send();
+});
+
+
+// // Route pour afficher le formulaire de modification pour une tâche
+// router.get('/edit/:index', (req, res) => {
+//     const index = parseInt(req.params.index);
+//     const task = findTask(index);
+//     if (task) {
+//         res.render('tasks/edit_task_form', { task, index, lists, isHistory, isImportant });
+//     } else {
+//         res.status(404).send('Tâche non trouvée');
+//     }
+// });
 
 // // Route pour filtrer les tâches selon leur type
 // router.get('/filter/:type', (req, res) => {

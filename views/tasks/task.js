@@ -24,7 +24,7 @@
         <td>
             <a
                 class="star-button"
-                hx-put="/tasks/toggle-important/${task.id}"
+                hx-post="/tasks/toggle-important/${task.id}"
                 hx-target="closest td"
                 hx-swap="outerHTML"
                 hx-trigger="click">
@@ -33,7 +33,8 @@
         </td>
         <!-- Colonne pour le bouton "Supprimer" -->
         <td class="">
-            <button class="delete-button"
+            <button 
+                class="delete-button"
                 hx-delete="/tasks/delete/${task.id}"
                 hx-target="closest tr"
                 hx-swap="innerHTML">
