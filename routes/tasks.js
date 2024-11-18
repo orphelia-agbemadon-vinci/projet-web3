@@ -1,14 +1,12 @@
 import express from 'express';
 import { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList } from '../models/Task.js';
 import { allLists } from '../models/List.js';
-//import tasks from '../data/tasks.js';
 import createList from '../views/tasks/list.js';
 import createEditTask from '../views/tasks/edit.js';
 import createATask from '../views/tasks/task.js';
-//import TASKS_DATA from '../data/tasks.js';
-
 
 const router = express.Router();
+
 
 // Liste des tâches et des listes en mémoire
 let tasks = allTasks();
@@ -21,11 +19,11 @@ router.get('/', (req, res) => {
 
 // Ajoute une nouvelle tâche
 router.post('/add', (req, res) => {
-    const taskDescription = req.body.task;
-    const newTask = createTask(taskDescription);
-    //tasks.push(newTask);  
+    const { description } = req.body;
+    createTask(description);
+
+    tasks = allTasks(); // Mise à jour de la liste des tâches
     res.send(createList(tasks));
-    // res.send(createATask(newTask));
 });
 
 // Route pour éditer une tâche
