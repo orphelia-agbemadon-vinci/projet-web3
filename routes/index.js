@@ -1,25 +1,18 @@
-const express = require("express");
-const router = express.Router();
-const { allTasks } = require("../models/tasks");
+import express from 'express';
+import { allTasks } from '../models/Task.js';
+import { allLists } from '../models/List.js';
+import homePage from '../views/index.js';
 
-// Liste des tâches en mémoire
+const router = express.Router();
+
+// Liste des tâches et de listes en mémoire
 let tasks = allTasks();
-let tasksCompleted = allTasks().filter(task => task.completed)
-let tasksImportant = allTasks().filter(task => task.important)
+let lists = allLists();
+
 
 // Affiche la page principale avec la liste des tâches
 router.get('/', (req, res) => {
-    res.render('index', { tasks });
+    res.send(homePage());
 });
 
-// Affiche la page avec toutes les tâches encodées par l'utilisateur
-router.get('/history', (req, res) => {
-    res.render('tasks/task_list', { tasks: tasksCompleted });
-});
-
-// Affiche la page avec les tâches marquées comme importantes
-router.get('/important', (req, res) => {
-    res.render('tasks/task_list', { tasks: tasksImportant });
-});
-
-module.exports = router;
+export default router;

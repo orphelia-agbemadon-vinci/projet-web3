@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('node:path');
+import fs from 'node:fs';
+import path from 'node:path';
 
 /**
  * Parse items given in a .json file
@@ -9,7 +9,7 @@ const path = require('node:path');
  * @param {Array} defaultArray - Content to be used when the .json file does not exists
  * @returns {Array} : the array that was parsed from the file (or defaultArray)
  */
-function parse(filePath, defaultArray = []) {
+export function parse(filePath, defaultArray = []) {
     if (!fs.existsSync(filePath)) return defaultArray;
     const fileData = fs.readFileSync(filePath);
     try {
@@ -26,7 +26,7 @@ function parse(filePath, defaultArray = []) {
  * @param {Array} object - Object to be written within the .json file.
  * Even if the file exists, its whole content is reset by the given object.
  */
-function serialize(filePath, object) {
+export function serialize(filePath, object) {
     const objectSerialized = JSON.stringify(object);
     createPotentialLastDirectory(filePath);
     fs.writeFileSync(filePath, objectSerialized);
@@ -36,12 +36,10 @@ function serialize(filePath, object) {
  *
  * @param {String} filePath - path to the .json file
  */
-function createPotentialLastDirectory(filePath) {
+export function createPotentialLastDirectory(filePath) {
     const pathToLastDirectory = filePath.substring(0, filePath.lastIndexOf(path.sep));
 
     if (fs.existsSync(pathToLastDirectory)) return;
 
     fs.mkdirSync(pathToLastDirectory);
 }
-
-module.exports = { parse, serialize };

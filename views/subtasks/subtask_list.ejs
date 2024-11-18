@@ -1,0 +1,33 @@
+<table id="subtasks" class="todolist">
+    <% if (subTasks && subTasks.length > 0) { %>
+        <% subTasks.forEach((subTask, subIndex) => { %>
+            <tr>
+                <!-- Colonne pour la case à cocher -->
+                <td class="check-box">
+                    <input type="checkbox" 
+                    id="subtask-<%= index %>-<%= subIndex %>" <%= subTask.completed ? 'checked' : '' %> 
+                    hx-post="/tasks/subtasks/toggle-subtask/<%= index %>/<%= subIndex %>" 
+                    hx-target="#subtasks" hx-swap="innerHTML">
+                </td>
+                <!-- Colonne pour le texte de la sous-tâche avec condition pour barrer le texte -->
+                <td class="task-col <%= subTask.completed ? 'completed' : '' %>">
+                    <label for="subtask-<%= index %>-<%= subIndex %>"><%= subTask.description %></label>
+                </td>
+                <!-- Colonne pour le bouton "Supprimer" -->
+                <td class="">
+                    <button class="delete-button"
+                        hx-delete="/tasks/subtasks/delete/<%= index %>/<%= subIndex %>" 
+                        hx-target="#subtasks" 
+                        hx-swap="innerHTML"
+                        hx-confirm="Êtes-vous sûr(e) de vouloir supprimer cette sous-tâche ?">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        <% }); %>
+    <% } else { %>
+        <tr>
+            <td colspan="3">Aucune sous-tâche</td>
+        </tr>
+    <% } %>
+</table>
