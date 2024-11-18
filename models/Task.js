@@ -32,9 +32,9 @@ export function createTask(description) {
 }
 
 // Fonction pour supprimer une tâche
-export function deleteTask(index) {
+export function deleteTask(id) {
     const tasks = parse(jsonDbPath);
-    const deletedTask = tasks.splice(index, 1);
+    const deletedTask = tasks.splice(id, 1);
 
     serialize(jsonDbPath, tasks);
 

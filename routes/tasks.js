@@ -28,14 +28,16 @@ router.post('/add', (req, res) => {
     // res.send(createATask(newTask));
 });
 
+
 // Route pour supprimer une tâche
 router.delete('/delete/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const idx = TASKS_DATA.findIndex(t => t.id === id);
-    TASKS_DATA.splice(idx, 1);
-    
+    deleteTask(id);
+    tasks = allTasks(); // Mise à jour de la liste des tâches
+
     res.send();
 });
+
 
 
 // // Route pour afficher le formulaire de modification pour une tâche

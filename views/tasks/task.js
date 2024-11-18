@@ -1,8 +1,8 @@
-  const createATask = (task) => /*html*/ `
-    <tr data-id="${task.id}" hx-target = "#task-list">
+const createTask = (task) => /*html*/ `
+    <tr data-id="${task.id}">
         <!-- Colonne pour le texte de la tâche -->
         <td class="check-box">
-            <input 
+            <input
                 type="checkbox"
                 ${task.completed ? 'checked' : ''}
         </td>
@@ -33,8 +33,7 @@
         </td>
         <!-- Colonne pour le bouton "Supprimer" -->
         <td class="">
-            <button 
-                class="delete-button"
+            <button class="delete-button"
                 hx-delete="/tasks/delete/${task.id}"
                 hx-target="closest tr"
                 hx-swap="innerHTML">
@@ -44,4 +43,4 @@
     </tr>
 `;
 
-export default createATask;
+export default createTask;
