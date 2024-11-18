@@ -13,7 +13,7 @@ router.get('/subtasks/:taskIndex', (req, res) => {
     const task = findTask(taskIndex);
     if (task) {
         const subTasks = getAllSubTasks(taskIndex);
-        res.render('subtasks/subtask', { task, subTasks, index: taskIndex, lists });
+        res.render('subtasks/subtask_list', { task, subTasks, index: taskIndex, lists });
     } else {
         res.status(404).send('Task not found');
     }
@@ -32,6 +32,8 @@ router.post('/add-subtask/:taskIndex', (req, res) => {
         res.status(404).send('Task not found');
     }
 });
+
+
 
 
 // Route pour supprimer une sous-tâche

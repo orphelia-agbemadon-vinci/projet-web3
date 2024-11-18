@@ -14,6 +14,7 @@ function createTask(description) {
         description: description,
         completed: false,
         important: false,
+        subtasks: [],
     };
 
     tasks.push(createdTask);
@@ -72,6 +73,16 @@ function updateTask(index, newDescription) {
     return null;
 }
 
+function updateSubTask(index, updatedTask) {
+    const tasks = parse(jsonDbPath);
+    if (index >= 0 && index < tasks.length) {
+        tasks[index] = updatedTask;
+        serialize(jsonDbPath, tasks);
+        return tasks[index];
+    }
+    return null;
+}
+
 function findTask(index) {
     const tasks = parse(jsonDbPath);
     if (index >= 0 && index < tasks.length) {
@@ -88,4 +99,5 @@ module.exports = {
     toggleCompletion,
     updateTask,
     findTask,
+    updateSubTask
 };

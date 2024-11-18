@@ -1,20 +1,29 @@
-// models/subtasks.js
+const path = require('node:path');
+const { parse, serialize } = require('../utils/json');
 
-const { findTask, updateTask, allTasks } = require('./tasks');
+const jsonDbPath = path.join(__dirname, '/../data/subtasks.json');
+const { findTask, updateTask, allTasks, updateSubTask } = require('./tasks');
+const tasks = allTasks();
+
 
 function addSubTask(taskIndex, subTaskDescription) {
-    const tasks = allTasks();
-    if (taskIndex >= 0 && taskIndex < tasks.length) {
-        const subTask = {
-            description: subTaskDescription,
-            completed: false,
-        };
-        tasks[taskIndex].details = tasks[taskIndex].details || [];
-        tasks[taskIndex].details.push(subTask);
-        updateTask(taskIndex, tasks[taskIndex].description); // Utiliser updateTask pour mettre à jour la tâche
-        return subTask;
+    const task = findTask(taskIndex);
+    if (!task) {
+        return null;
     }
-    return null;
+
+    let subTasks = task.subtasks || [];
+    const subTask = {
+        description: subTaskDescription,
+        completed: false,
+    };
+    subTasks.push(subTask);
+    task.subtasks = subTasks;
+
+    // Mettre à jour la tâche dans la base de données
+    updateSubTask(taskIndex, task);
+
+    return subTask;
 }
 
 function deleteSubTask(taskIndex, subTaskIndex) {
