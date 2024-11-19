@@ -23,30 +23,26 @@ const homePage = () => /*html*/`
                             To-Do List
                         </h1>
                     </div>
-
+                    <!-- Ligne de séparation -->
+                    <hr class="separator">
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
                         <button hx-get="/tasks/filter/none" hx-target="#task-list">Toutes</button>
                         <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
                         <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
                     </div>
-
-                    <!-- <div id="title-container">
-                        <h1>To-Do List</h1>
-                    </div> -->
-
-                    
-                    
                     <form id="add-task-form" hx-on::after-request="document.querySelector('form').reset()" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
                         <input type="text" id="task-input" name="description" placeholder="Nouvelle tâche..." required>
                         <button type="submit">Ajouter</button>
                     </form>
-
                     <!-- Liste des tâches -->
                     <div id="task-list" hx-get="/tasks/all" hx-trigger="load" hx-target="#task-list" hx-swap="innerHTML">
                     </div>
+                    <!-- Ligne de séparation -->
+                    <hr class="separator">
+                    <!-- Bouton Tout supprimer -->
+                    <button id="delete-all-button" hx-delete="/tasks/delete-all" hx-target="#task-list" hx-swap="innerHTML" hx-confirm="Êtes-vous sûr(e) de vouloir supprimer toutes les tâches ?\nCette action est irréversible.">Tout supprimer</button>
                 </div>
-
                 <!-- Liste des sous-tâches -->
                 <div id="subtasks">
                     <!-- Données ajoutées dynamiquement ici -->
