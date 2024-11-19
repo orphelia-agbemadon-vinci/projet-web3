@@ -1,51 +1,114 @@
+/* Style global */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif; /* Utiliser une police moderne */
+    background-color: #ffe4e1; /* Rose clair */
 }
 
+/* Conteneur principal */
 .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 600px;
+    max-width: 800px; 
     text-align: center;
-    width: 100%;
-    max-width: 600px;
+    transition: transform 0.2s ease-in-out;
+    margin: auto; 
 }
 
-form {
+.container:hover {
+    transform: scale(1.02);
+}
+
+/* Conteneur du titre */
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacement entre le logo et le titre */
     margin-bottom: 20px;
+}
+
+.title-container .logo {
+    max-width: 100px;
+    height: auto;
+}
+
+/* Titre principal */
+.title-container h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem; /* Augmenter la taille de la police */
+    color: #333;
+    margin: 0;
+}
+
+/* Formulaire d'ajout de tâche */
+form#add-task-form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 400px;
+    align-items: center;
+}
+
+form#add-task-form input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+form#add-task-form button {
+    padding: 10px 20px;
+    background-color: #ff8fa0; 
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form#add-task-form button:hover {
+    background-color: #ec6f6f; /* Couleur rose plus vive au survol */
+}
+
+/* Liste des tâches */
+#task-list {
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
 }
 
 .todolist {
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid #ddd; /* Contour du tableau */
 }
 
 .todolist th, .todolist td {
-    border-top: 1px solid #ddd; /* Ligne horizontale séparant chaque tâche */
-    border-bottom: 1px solid #ddd; /* Ligne horizontale séparant chaque tâche */
-    padding: 8px;
-    text-align:center;
-}
-
-.todolist th, .todolist td {
-    border-left: none; /* Masquer les bordures verticales */
-    border-right: none; /* Masquer les bordures verticales */
+    padding: 10px;
+    text-align: left;
+    border-top: 1px solid #ddd;
 }
 
 .todolist tr:hover {
     background-color: #f3f3f3;
 }
 
-.todolist th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    color: white;
-}
-
+/* Style pour barrer le texte des tâches complétées */
 .check-box {
     width: 10%;
     text-align: center;
@@ -60,49 +123,7 @@ form {
     color: gray;
 }
 
-.menu {
-    width: 15%;
-    height: auto;
-    background-color: #f4f4f4;
-    padding: 10px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    transform: translateX(0);
-    transition: transform 0.3s ease;
-    z-index: 1000;
-
-   
-}
-
-.menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.menu li {
-    margin: 20px 5px;
-    display: flex;
-}
-
-.icon {
-    margin-right: 5px;
-    width:30px;
-    height: auto;
-}
-
-.logo {
-    max-width: 100%;
-    height: auto;
-}
-
-.container.menu-closed {
-    margin-left: 20px;
-}
-
+/* Icônes et actions */
 .star-button, .delete-button, .edit-button {
     background: none;
     border: none;
@@ -115,7 +136,6 @@ form {
 
 .star-button {
     color: gold;
-    margin-right: 20px;
 }
 
 .delete-button {
@@ -126,39 +146,24 @@ form {
     color: lightblue;
 }
 
-/*Pour le modal (pop up)*/
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-    padding-top: 60px; 
+/* Boutons de filtrage */
+#filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espace entre les boutons */
+    margin-bottom: 30px; /* Ajout d'espace entre les boutons et la barre d'ajout */
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto; 
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; 
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+#filters button {
+    margin: 0; /* Supprime tout espacement individuel (le gap s'en charge) */
+    padding: 10px 15px;
+    background-color: #ddd;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#filters button:hover {
+    background-color: #ccc;
 }
