@@ -26,6 +26,7 @@ const homePage = () => /*html*/`
 
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
+                        <button hx-get="/tasks/filter/none" hx-target="#task-list">Toutes</button>
                         <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
                         <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
                     </div>
