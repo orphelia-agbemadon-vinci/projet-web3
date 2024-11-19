@@ -35,7 +35,9 @@ const homePage = () => /*html*/`
 
                     <div id="title-container">
                         <h1>To-Do List</h1>
+                         
                     </div>
+                    
 
                     <!-- Formulaire pour ajouter une tâche -->
                     <form id="add-task-form" hx-on::after-request="document.querySelector('form').reset()" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
@@ -44,14 +46,14 @@ const homePage = () => /*html*/`
                     </form>
 
                     <!-- Liste des tâches -->
-                    <div id="task-list">
-                    <!-- Données ajoutées dynamiquement ici -->
+                    <div id="load-tasks-trigger" hx-get="/tasks/all" hx-trigger="load" hx-target="#task-list" hx-swap="innerHTML">
                     </div>
                 </div>
 
                 <!-- Liste des sous-tâches -->
                 <div id="subtasks">
                     <!-- Données ajoutées dynamiquement ici -->
+
                     
                 </div>
             
