@@ -15,7 +15,8 @@ const createASubtask = (subtask, task) => /*html*/ `
             <button class="delete-button"
                 hx-delete="/tasks/subtasks/delete/${task.id}/${subtask.idSubtask}"
                 hx-target="closest tr"
-                hx-swap="outerHTML">
+                hx-swap="outerHTML"
+                hx-confirm="Êtes-vous sûr(e) de vouloir supprimer cette sous-tâche ?">
                 <i class="fa fa-trash"></i>
             </button>
         </td>

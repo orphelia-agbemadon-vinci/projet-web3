@@ -8,23 +8,22 @@ const homePage = () => /*html*/`
         <link rel="icon" href="../images/checklist.png">
         <link rel="stylesheet" href="../../stylesheets/styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+        <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
     </head>
     <body>
         <header>
             <nav class="menu" id="menu">
-                <a href="/"><img src="/../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
+                <a href="/"><img src="../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
                 <!-- Ligne de séparation pour les listes -->
                 <hr>
                 <ul id="list-section">
-
+                    <!-- Listes ajoutées dynamiquement ici -->
                 </ul>
                 
             </nav>
         </header>
         <main>
             <section class="container">
-
                 <div id="tasks-manager">
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
@@ -45,20 +44,16 @@ const homePage = () => /*html*/`
 
                     <!-- Liste des tâches -->
                     <div id="task-list">
-                    <!-- Données ajoutées dynamiquement ici -->
-                     
+                        <!-- Données ajoutées dynamiquement ici -->
                     </div>
                 </div>
 
                 <!-- Liste des sous-tâches -->
                 <div id="subtasks">
                     <!-- Données ajoutées dynamiquement ici -->
-                    
                 </div>
-            
             </section>  
         </main>
-        
     </body>
     </html>
 `;

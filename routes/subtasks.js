@@ -14,12 +14,11 @@ let tasks = allTasks();
 // Route pour afficher détails d'une tâche
 router.get('/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const taskDetails = getTaskDetailsWithSubtasks(id);
-
-    if (taskDetails) {
+    try {
+        const taskDetails = getTaskDetailsWithSubtasks(id);
         const { task, subTasks } = taskDetails;
         res.send(createSubtaskList(subTasks, task));
-    } else {
+    } catch (error) {
         res.status(404).send('Task not found');
     }
 });
