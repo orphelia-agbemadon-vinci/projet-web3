@@ -19,9 +19,7 @@ const homePage = () => /*html*/`
                 <ul id="list-section">
 
                 </ul>
-                <div class="add-list-section">
-                    <button id="add-list-btn" hx-get="/lists/new-list-form" hx-target="#modal-container" hx-trigger="click">+ Nouvelle Liste</button>
-                </div>
+                
             </nav>
         </header>
         <main>

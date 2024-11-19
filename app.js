@@ -5,7 +5,7 @@ const port = 3000;
 import indexRouter from './routes/index.js';
 import tasksRouter from './routes/tasks.js';
 import subtasksRouter from './routes/subtasks.js';
-import listsRouter from './routes/lists.js';
+
 
 
 // const expressLayouts = require('express-ejs-layouts');
@@ -28,7 +28,7 @@ app.use(express.static('public'));
 app.use("/", indexRouter);
 app.use("/tasks", tasksRouter);
 app.use("/tasks/subtasks", subtasksRouter);
-app.use("/lists", listsRouter);
+
 
 // Lancement du serveur
 app.listen(port, () => {
