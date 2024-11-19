@@ -27,11 +27,11 @@ export function addSubTask(taskIndex, subTaskDescription) {
 export function deleteSubTask(taskIndex, subTaskIndex) {
     const tasks = parse(jsonDbPath);
     const subTasks = tasks[taskIndex].subtasks;
-    const deletedSubTask = subTasks.splice(subTaskIndex, 1);
-
+    const subTaskIdx = subTasks.findIndex(subtask => subtask.idSubtask === subTaskIndex);
+    const deletedSubTask = subTasks.splice(subTaskIdx, 1);
     serialize(jsonDbPath, tasks);
-
     return deletedSubTask;
+    
 }
 
 // Fonction pour cocher une sous-tâche

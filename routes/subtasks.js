@@ -39,31 +39,44 @@ router.post('/add/:taskId', (req, res) => {
     }
 });
 
-// // Route pour supprimer une sous-tâche
-// router.delete('/delete/:index/:subIndex', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     const subIndex = parseInt(req.params.subIndex);
-//     const deletedSubTask = deleteSubTask(index, subIndex);
-//     if (deletedSubTask) {
-//         const task = findTask(index);
-//         res.render('subtasks/subtask_list', { subTasks: task.subtasks, index, lists });
-//     } else {
-//         res.status(404).send('Sous-tâche non trouvée');
-//     }
-// });
+// Route pour cocher une sous-tâche
+router.post('/toggle-subtask/:taskId/:subId', (req, res) => {
+    const taskId = parseInt(req.params.taskId);
+    const subId = parseInt(req.params.subId);
+    const taskIndex = findTaskIndex(taskId);
 
-// // Route pour cocher une sous-tâche
-// router.post('/toggle-subtask/:index/:subIndex', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     const subIndex = parseInt(req.params.subIndex);
-//     const subTask = toggleSubTaskCompletion(index, subIndex);
-//     if (subTask) {
-//         const task = findTask(index);
-//         res.render('subtasks/subtask_list', { subTasks: task.subtasks, index, lists });
-//     } else {
-//         res.status(404).send('Sous-tâche non trouvée');
-//     }
-// });
+    if (taskIndex !== -1) {
+        const subTask = toggleSubTaskCompletion(taskIndex, subId);
+        if (subTask) {
+            const task = findTask(taskId);
+            res.send(createSubtaskList(task.subtasks, task));
+        } else {
+            res.status(404).send('Sous-tâche non trouvée');
+        }
+    } else {
+        res.status(404).send('Tâche non trouvée');
+    }
+});
+
+// Route pour supprimer une sous-tâche
+router.delete('/delete/:taskId/:subId', (req, res) => {
+    const taskId = parseInt(req.params.taskId);
+    const subId = parseInt(req.params.subId);
+    const taskIndex = findTaskIndex(taskId);
+
+    if (taskIndex !== -1) {
+        const deletedSubTask = deleteSubTask(taskIndex, subId);
+        if (deletedSubTask) {
+            const task = findTask(taskId);
+            res.send(createSubtaskList(task.subtasks, task));
+        } else {
+            res.status(404).send('Sous-tâche non trouvée');
+        }
+    } else {
+        res.status(404).send('Tâche non trouvée');
+    }
+});
+
 
 
 export default router;
