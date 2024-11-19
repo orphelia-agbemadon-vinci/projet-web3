@@ -11,17 +11,6 @@ const layout = (content) => /*html*/`
         <script src="https://unpkg.com/htmx.org@1.5.0"></script>
     </head>
     <body>
-        <header>
-            <nav class="menu" id="menu">
-                <a href="/"><img src="/../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
-                <!-- Ligne de séparation pour les listes -->
-                <hr>
-                <ul id="list-section">
-
-                </ul>
-                
-            </nav>
-        </header>
         <main>
             ${content}
         </main>

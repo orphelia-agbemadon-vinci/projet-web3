@@ -23,7 +23,31 @@ body {
     max-width: 800px; 
     text-align: center;
     transition: transform 0.2s ease-in-out;
-    margin: auto; 
+    margin: auto;
+}
+
+.search-bar {
+    position:fixed;
+    top:0;
+    left:50%;
+    transform: translateX(-50%);
+    margin-top: 10%;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#search{
+    width: 200px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
 
 .container:hover {

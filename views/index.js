@@ -11,6 +11,12 @@ const homePage = () => /*html*/`
         <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
     </head>
     <body>
+        <header>
+            <div class="search">
+                <input class="search-bar" type="search" id="search" placeholder="Recherchez une tâche...">
+            </div>
+            
+        </header>
         <main>
             <section class="container">
                 <div id="tasks-manager">
