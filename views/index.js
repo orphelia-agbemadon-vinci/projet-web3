@@ -33,14 +33,15 @@ const homePage = () => /*html*/`
                     </div>
 
                     <div id="title-container">
-                        <h1>To-Do List</h1>
+                    <h1>Bienvenue sur DunDeal</h1>
+                    <p>Gérez vos tâches facilement avec notre application.</p>
                     </div>
 
-                    <!-- Formulaire pour ajouter une tâche -->
+                    <!-- Formulaire pour ajouter une tâche
                     <form id="add-task-form" hx-on::after-request="document.querySelector('form').reset()" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
                         <input type="text" id="task-input" name="description" placeholder="Nouvelle tâche..." required>
                         <button type="submit">Ajouter</button>
-                    </form>
+                    </form> -->
 
                     <!-- Liste des tâches -->
                     <div id="task-list">
