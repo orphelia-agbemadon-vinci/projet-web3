@@ -19,7 +19,7 @@ const homePage = () => /*html*/`
                 <ul id="list-section">
                     <!-- Listes ajoutées dynamiquement ici -->
                 </ul>
-                
+
             </nav>
         </header>
         <main>
@@ -27,7 +27,7 @@ const homePage = () => /*html*/`
                 <div id="tasks-manager">
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
-                        <button hx-get="/tasks" hx-target="#task-list" hx-swap="innerHTML">Toutes</button>
+                        <button hx-get="/tasks/filter/none" hx-target="#task-list">Toutes</button>
                         <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
                         <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
                     </div>
@@ -36,21 +36,23 @@ const homePage = () => /*html*/`
                         <h1>To-Do List</h1>
                     </div>
 
-                    <!-- Formulaire pour ajouter une tâche -->
+                    
+                    
                     <form id="add-task-form" hx-on::after-request="document.querySelector('form').reset()" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
                         <input type="text" id="task-input" name="description" placeholder="Nouvelle tâche..." required>
                         <button type="submit">Ajouter</button>
                     </form>
 
                     <!-- Liste des tâches -->
-                    <div id="task-list">
-                        <!-- Données ajoutées dynamiquement ici -->
+                    <div id="task-list" hx-get="/tasks/all" hx-trigger="load" hx-target="#task-list" hx-swap="innerHTML">
                     </div>
                 </div>
 
                 <!-- Liste des sous-tâches -->
                 <div id="subtasks">
                     <!-- Données ajoutées dynamiquement ici -->
+
+                    
                 </div>
             </section>  
         </main>
