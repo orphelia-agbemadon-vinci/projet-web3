@@ -1,61 +1,72 @@
-const express = require('express');
+import express from 'express';
+import { findTask, allTasks, findTaskIndex } from '../models/Task.js';
+import { allLists } from '../models/List.js';
+import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getAllSubTasks, getTaskDetailsWithSubtasks } from '../models/Subtask.js';
+import createSubtaskList from '../views/subtasks/subtaskList.js';
+import createASubtask from '../views/subtasks/subtask.js';
+
 const router = express.Router();
-const { findTask } = require('../models/Task');
-const { allLists } = require('../models/List');
-const { toggleSubTaskCompletion, addSubTask, deleteSubTask, getAllSubTasks } = require('../models/SubTask');
 
 // Liste des listes en mémoire
+let tasks = allTasks();
 let lists = allLists();
 
 // Route pour afficher détails d'une tâche
-router.get('/:index', (req, res) => {
-    const index = parseInt(req.params.index);
-    const task = findTask(index);
-    if (task) {
-        const subTasks = getAllSubTasks(index);
-        res.render('subtasks/subtask', { task, index, subTasks, lists });
-    } else {
-        res.status(404).send('Tâche non trouvée');
-    }
-});
-
-// Route pour supprimer une sous-tâche
-router.delete('/delete/:index/:subIndex', (req, res) => {
-    const index = parseInt(req.params.index);
-    const subIndex = parseInt(req.params.subIndex);
-    const deletedSubTask = deleteSubTask(index, subIndex);
-    if (deletedSubTask) {
-        const task = findTask(index);
-        res.render('subtasks/subtask_list', { subTasks: task.subtasks, index, lists });
-    } else {
-        res.status(404).send('Sous-tâche non trouvée');
-    }
-});
-
-// Route pour cocher une sous-tâche
-router.post('/toggle-subtask/:index/:subIndex', (req, res) => {
-    const index = parseInt(req.params.index);
-    const subIndex = parseInt(req.params.subIndex);
-    const subTask = toggleSubTaskCompletion(index, subIndex);
-    if (subTask) {
-        const task = findTask(index);
-        res.render('subtasks/subtask_list', { subTasks: task.subtasks, index, lists });
-    } else {
-        res.status(404).send('Sous-tâche non trouvée');
+router.get('/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    try {
+        const taskDetails = getTaskDetailsWithSubtasks(id);
+        const { task, subTasks } = taskDetails;
+        res.send(createSubtaskList(subTasks, task));
+    } catch (error) {
+        res.status(404).send('Task not found');
     }
 });
 
 // Route pour ajouter une sous-tâche
-router.post('/add/:index', (req, res) => {
-    const index = parseInt(req.params.index);
-    const subtaskDescription = req.body.subtask;
-    const subTask = addSubTask(index, subtaskDescription);
-    if (subTask) {
-        const task = findTask(index);
-        res.render('subtasks/subtask_list', { subTasks: task.subtasks, index, lists });
+router.post('/add/:taskId', (req, res) => {
+    const taskId = parseInt(req.params.taskId);
+    const { subtask } = req.body;
+
+    try {
+        const subTask = addSubTask(taskId, subtask);
+        const task = findTask(taskId);
+        res.send(createSubtaskList(task.subtasks, task));
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+});
+
+// Route pour cocher une sous-tâche
+router.post('/toggle-subtask/:taskId/:subId', (req, res) => {
+    const taskId = parseInt(req.params.taskId);
+    const subId = parseInt(req.params.subId);
+
+    try {
+        const subTask = toggleSubTaskCompletion(taskId, subId);
+        const task = findTask(taskId);
+        res.send(createASubtask(subTask, task));
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+});
+
+// Route pour supprimer une sous-tâche
+router.delete('/delete/:taskId/:subId', (req, res) => {
+    const taskId = parseInt(req.params.taskId);
+    const subId = parseInt(req.params.subId);
+
+    if (taskId !== -1) {
+        const deletedSubTask = deleteSubTask(taskId, subId);
+        if (deletedSubTask) {
+            const task = findTask(taskId);
+            res.send();
+        } else {
+            res.status(404).send('Sous-tâche non trouvée');
+        }
     } else {
         res.status(404).send('Tâche non trouvée');
     }
 });
 
-module.exports = router;
+export default router;

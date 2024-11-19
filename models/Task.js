@@ -1,18 +1,24 @@
-const path = require('node:path');
-const { parse, serialize } = require('../utils/json');
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { parse, serialize } from '../utils/json.js';
 
-const jsonDbPath = path.join(__dirname, '/../data/tasks.json');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
+
+//import allTasks() from '../data/tasks.js';
 
 // Fonction pour lire toutes les tâches
-function allTasks() {
+export function allTasks() {
     return parse(jsonDbPath);
 }
 
 // Fonction pour ajouter une nouvelle tâche
-function createTask(description) {
-    const tasks = parse(jsonDbPath);
-    
+export function createTask(description) {
+    const tasks = allTasks();
     const createdTask = {
+        id: tasks.length + 1,
         description: description,
         completed: false,
         important: false,
@@ -27,9 +33,27 @@ function createTask(description) {
 }
 
 // Fonction pour supprimer une tâche
-function deleteTask(index) {
+export function deleteTask(id) {
     const tasks = parse(jsonDbPath);
-    const deletedTask = tasks.splice(index, 1);
+    const taskIndex = tasks.findIndex(task => task.id === id);
+    if (taskIndex !== -1) {
+        tasks.splice(taskIndex, 1);
+        serialize(jsonDbPath, tasks);
+        return true;
+    }
+    return false;
+}
+
+export function deleteTaskById(id) {
+    const tasks = allTasks();
+    const taskIndex = tasks.findIndex(task => task.id === id);
+
+    if (taskIndex === -1) {
+        console.error(`Task with id ${id} not found.`);
+        return null;
+    }
+
+    const [deletedTask] = tasks.splice(taskIndex, 1);
 
     serialize(jsonDbPath, tasks);
 
@@ -37,35 +61,60 @@ function deleteTask(index) {
 }
 
 // Fonction pour marquer une tâche comme importante
-function toggleImportance(index) {
-    const tasks = parse(jsonDbPath);
-    tasks[index].important = !tasks[index].important;
-    const task = tasks.splice(index, 1)[0];
+export function toggleImportance(id) {
+    const tasks = allTasks();
 
+    console.log('All tasks:', tasks);
+
+    // Trouver l'indice de la tâche avec l'id donné
+    const taskIndex = tasks.findIndex(task => task.id === id);
+
+    if (taskIndex === -1) {
+        console.error(`Task with id ${id} not found.`);
+        return null;
+    }
+
+    console.log('Found task index:', taskIndex);
+    console.log('Task before update:', tasks[taskIndex]);
+
+    // Basculer la propriété 'important'
+    tasks[taskIndex].important = !tasks[taskIndex].important;
+
+    // Extraire la tâche pour réorganisation
+    const [task] = tasks.splice(taskIndex, 1);
+
+    // Réorganiser selon l'importance
     if (task.important) {
         tasks.unshift(task); // Ajouter au début si important
     } else {
         tasks.push(task); // Ajouter à la fin si non important
     }
 
+    console.log('Tasks after reordering:', tasks);
+
+    // Sauvegarder dans le fichier JSON
     serialize(jsonDbPath, tasks);
 
-    return tasks[index];
+    // Retourner la tâche mise à jour
+    return task;
 }
 
 // Fonction pour marquer une tâche comme complétée
-function toggleCompletion(index) {
+export function toggleCompletion(id) {
     const tasks = parse(jsonDbPath);
-    tasks[index].completed = !tasks[index].completed;
-
+    const task = tasks.find(task => task.id === id);
+    if (!task) {
+        throw new Error(`Task with id ${id} not found`);
+    }
+    task.completed = !task.completed;
     serialize(jsonDbPath, tasks);
 
-    return tasks[index];
+    return task;
 }
 
 // Fonction pour mettre à jour une tâche
-function updateTask(index, newDescription) {
-    const tasks = parse(jsonDbPath);
+export function updateTask(index, newDescription) {
+    const tasks = allTasks();
     tasks[index].description = newDescription;
 
     serialize(jsonDbPath, tasks);
@@ -73,30 +122,23 @@ function updateTask(index, newDescription) {
     return tasks[index];
 }
 
-// Fonction pour trouver une tâche
-function findTask(index) {
-    const tasks = parse(jsonDbPath);
-    
-    return tasks[index];
+// Fonction pour trouver une tâche par son id
+export function findTask(id) {
+    const tasks = allTasks();
+    return tasks.find(task => task.id === id);
+}
+
+export function findTaskIndex(id) {
+    const tasks = allTasks();
+    return tasks.findIndex(task => task.id === id);
 }
 
 // Fonction pour assigner une tâche à une liste
-function assignTaskToList(index, listId) {
-    const tasks = parse(jsonDbPath);
+export function assignTaskToList(index, listId) {
+    const tasks = allTasks();
     tasks[index].listId = listId;
 
     serialize(jsonDbPath, tasks);
 
     return tasks[index];
 }
-
-module.exports = {
-    createTask,
-    allTasks,
-    deleteTask,
-    toggleImportance,
-    toggleCompletion,
-    updateTask,
-    findTask,
-    assignTaskToList,
-};
