@@ -8,23 +8,22 @@ const homePage = () => /*html*/`
         <link rel="icon" href="../images/checklist.png">
         <link rel="stylesheet" href="../../stylesheets/styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+        <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
     </head>
     <body>
         <header>
             <nav class="menu" id="menu">
-                <a href="/"><img src="/../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
+                <a href="/"><img src="../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
                 <!-- Ligne de séparation pour les listes -->
                 <hr>
                 <ul id="list-section">
-
+                    <!-- Listes ajoutées dynamiquement ici -->
                 </ul>
                 
             </nav>
         </header>
         <main>
             <section class="container">
-
                 <div id="tasks-manager">
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
@@ -35,11 +34,10 @@ const homePage = () => /*html*/`
 
                     <div id="title-container">
                         <h1>To-Do List</h1>
-                         
                     </div>
-                    
 
-                    <!-- Formulaire pour ajouter une tâche -->
+                    
+                    
                     <form id="add-task-form" hx-on::after-request="document.querySelector('form').reset()" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
                         <input type="text" id="task-input" name="description" placeholder="Nouvelle tâche..." required>
                         <button type="submit">Ajouter</button>
@@ -56,10 +54,8 @@ const homePage = () => /*html*/`
 
                     
                 </div>
-            
             </section>  
         </main>
-        
     </body>
     </html>
 `;
