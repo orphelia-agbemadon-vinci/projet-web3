@@ -11,29 +11,28 @@ const homePage = () => /*html*/`
         <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
     </head>
     <body>
-        <header>
-            <nav class="menu" id="menu">
-                <a href="/"><img src="../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
-                <!-- Ligne de séparation pour les listes -->
-                <hr>
-                <ul id="list-section">
-                    <!-- Listes ajoutées dynamiquement ici -->
-                </ul>
-                
-            </nav>
-        </header>
         <main>
             <section class="container">
-                <div id="tasks-manager">
+                <div id="tasks-manager" class="tasks-manager">
+                    <!-- Titre de la page -->
+                    <div id="title-container" class="title-container">
+                        <h1> 
+                            <a href="/">
+                                <img src="../images/logoDunDeal.png" alt="Logo DunDeal" class="logo">
+                            </a>
+                            To-Do List
+                        </h1>
+                    </div>
+
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
                         <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
                         <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
                     </div>
 
-                    <div id="title-container">
+                    <!-- <div id="title-container">
                         <h1>To-Do List</h1>
-                    </div>
+                    </div> -->
 
                     
                     
