@@ -6,7 +6,7 @@ const homePage = () => /*html*/`
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>DunDeal</title>
         <link rel="icon" href="../images/checklist.png">
-        <link rel="stylesheet" href="/../stylesheets/styles.css">
+        <link rel="stylesheet" href="../../stylesheets/styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://unpkg.com/htmx.org@1.5.0"></script>
     </head>
@@ -33,10 +33,12 @@ const homePage = () => /*html*/`
                     <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
                 </div>
 
+                <div id="tasks-manager">
+
                 <div id="title-container">
                     <h1>To-Do List</h1>
                 </div>
-
+                
                 <!-- Formulaire pour ajouter une tâche -->
                 <form id="add-task-form" hx-on::after-request="document.querySelector('form').reset()" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
                     <input type="text" id="task-input" name="description" placeholder="Nouvelle tâche..." required>
@@ -46,6 +48,11 @@ const homePage = () => /*html*/`
                 <!-- Liste des tâches -->
                 <div id="task-list">
                 </div>
+            </div>
+                <!-- Liste des sous-tâches -->
+                 <div id="subtask-list">
+                </div>
+            
             </section>  
         </main>
         

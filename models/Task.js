@@ -122,10 +122,10 @@ export function updateTask(index, newDescription) {
     return tasks[index];
 }
 
-// Fonction pour trouver une tâche
-export function findTask(index) {
+// Fonction pour trouver une tâche par son id
+export function findTask(id) {
     const tasks = allTasks();
-    return tasks[index];
+    return tasks.find(task => task.id === id);
 }
 
 // Fonction pour assigner une tâche à une liste
