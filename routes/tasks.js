@@ -43,7 +43,7 @@ router.get('/filter/:type', (req, res) => {
     } else if (type === 'none') {
         filteredTasks = tasks;
         if (filteredTasks.length === 0) {
-            res.send('Aucune tâche importante');
+            res.send('Aucune tâche');
             return;
         }
     }
