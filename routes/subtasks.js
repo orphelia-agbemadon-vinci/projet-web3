@@ -40,18 +40,18 @@ router.post('/add/:taskId', (req, res) => {
 });
 
 // Route pour cocher une sous-tâche
-router.post('/toggle-subtask/:taskId/:subId', (req, res) => {
+router.post('/toggle-complete/:taskId/:subId', (req, res) => {
     const taskId = parseInt(req.params.taskId);
     const subId = parseInt(req.params.subId);
     const taskIndex = findTaskIndex(taskId);
 
     if (taskIndex !== -1) {
-        const subTask = toggleSubTaskCompletion(taskIndex, subId);
-        if (subTask) {
+        try {
+            const subTask = toggleSubTaskCompletion(taskIndex, subId);
             const task = findTask(taskId);
-            res.send(createSubtaskList(task.subtasks, task));
-        } else {
-            res.status(404).send('Sous-tâche non trouvée');
+            res.send(getAllSubTasks());
+        } catch (error) {
+            res.status(404).send(error.message);
         }
     } else {
         res.status(404).send('Tâche non trouvée');
@@ -68,7 +68,7 @@ router.delete('/delete/:taskId/:subId', (req, res) => {
         const deletedSubTask = deleteSubTask(taskIndex, subId);
         if (deletedSubTask) {
             const task = findTask(taskId);
-            res.send(createSubtaskList(task.subtasks, task));
+            res.send();
         } else {
             res.status(404).send('Sous-tâche non trouvée');
         }

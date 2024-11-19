@@ -38,11 +38,17 @@ export function deleteSubTask(taskIndex, subTaskIndex) {
 export function toggleSubTaskCompletion(taskIndex, subTaskIndex) {
     const tasks = parse(jsonDbPath);
     const subTasks = tasks[taskIndex].subtasks;
-    subTasks[subTaskIndex].completed = !subTasks[subTaskIndex].completed;
+    const subTask = subTasks.find(subtask => subtask.idSubtask === subTaskIndex);
+
+    if (!subTask) {
+        throw new Error(`Subtask with id ${subTaskIndex} not found`);
+    }
+
+    subTask.completed = !subTask.completed;
 
     serialize(jsonDbPath, tasks);
 
-    return subTasks[subTaskIndex];
+    return subTask;
 }
 
 // Fonction pour afficher toutes les sous-tâche d'une tâche
