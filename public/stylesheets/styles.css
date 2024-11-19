@@ -27,6 +27,7 @@ form {
     border-top: 1px solid #ddd; /* Ligne horizontale séparant chaque tâche */
     border-bottom: 1px solid #ddd; /* Ligne horizontale séparant chaque tâche */
     padding: 8px;
+    text-align:center;
 }
 
 .todolist th, .todolist td {
@@ -123,34 +124,6 @@ form {
 
 .edit-button {
     color: lightblue;
-}
-
-/*PARTIE LISTES*/
-#list-section {
-    height: 43%;
-    overflow-x: hidden;
-    overflow-y: auto; 
-    margin-bottom: 10%;
-}
-
-.add-list-section {
-    margin-top: auto;
-    width: 100%;
-}
-
-#add-list-btn {
-    width: 100%;
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    cursor: pointer;
-    text-align: center;
-    font-size: 16px;
-}
-
-#add-list-btn:hover {
-    background-color: rgb(67, 67, 205);
 }
 
 /*Pour le modal (pop up)*/

@@ -11,7 +11,7 @@ const createASubtask = (subtask, task) => /*html*/ `
         <td class="subtask-col ${subtask.completed ? 'completed' : ''}">
             <label>${subtask.descriptionSubtask}</label>
         </td>
-        <td>
+        <td class="actions-col">
             <button class="delete-button"
                 hx-delete="/tasks/subtasks/delete/${task.id}/${subtask.idSubtask}"
                 hx-target="closest tr"
