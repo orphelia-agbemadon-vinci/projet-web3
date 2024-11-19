@@ -19,7 +19,7 @@ const homePage = () => /*html*/`
                 <ul id="list-section">
                     <!-- Listes ajoutées dynamiquement ici -->
                 </ul>
-                
+
             </nav>
         </header>
         <main>
@@ -27,6 +27,7 @@ const homePage = () => /*html*/`
                 <div id="tasks-manager">
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
+                        <button hx-get="/tasks/filter/none" hx-target="#task-list">Toutes</button>
                         <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
                         <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
                     </div>

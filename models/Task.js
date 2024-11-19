@@ -7,7 +7,6 @@ const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
 
-//import allTasks() from '../data/tasks.js';
 
 // Fonction pour lire toutes les tâches
 export function allTasks() {
@@ -30,18 +29,6 @@ export function createTask(description) {
     serialize(jsonDbPath, tasks);
 
     return createdTask;
-}
-
-// Fonction pour supprimer une tâche
-export function deleteTask(id) {
-    const tasks = parse(jsonDbPath);
-    const taskIndex = tasks.findIndex(task => task.id === id);
-    if (taskIndex !== -1) {
-        tasks.splice(taskIndex, 1);
-        serialize(jsonDbPath, tasks);
-        return true;
-    }
-    return false;
 }
 
 export function deleteTaskById(id) {
@@ -131,14 +118,4 @@ export function findTask(id) {
 export function findTaskIndex(id) {
     const tasks = allTasks();
     return tasks.findIndex(task => task.id === id);
-}
-
-// Fonction pour assigner une tâche à une liste
-export function assignTaskToList(index, listId) {
-    const tasks = allTasks();
-    tasks[index].listId = listId;
-
-    serialize(jsonDbPath, tasks);
-
-    return tasks[index];
 }
