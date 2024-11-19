@@ -13,7 +13,7 @@ const homePage = () => /*html*/`
     <body>
         <main>
             <section class="container">
-                <div id="tasks-manager" class="tasks-manager">
+                <div id="tasks-manager">
                     <!-- Titre de la page -->
                     <div id="title-container" class="title-container">
                         <h1> 
