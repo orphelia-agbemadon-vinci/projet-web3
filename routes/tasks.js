@@ -1,7 +1,7 @@
 import express from 'express';
 import { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList, deleteTaskById } from '../models/Task.js';
-
-
+import { allLists } from '../models/List.js';
+import createList from '../views/tasks/list.js';
 import createEditTask from '../views/tasks/edit.js';
 import createATask from '../views/tasks/task.js';
 
@@ -11,6 +11,7 @@ const router = express.Router();
 
 // Liste des tâches et des listes en mémoire
 let tasks = allTasks();
+
 
 
 
