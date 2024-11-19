@@ -13,13 +13,14 @@ const layout = (content) => /*html*/`
     <body>
         <header>
             <nav class="menu" id="menu">
+            <div id="title-container2" class="title-container2">
                 <a href="/"><img src="/../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
                 <!-- Ligne de séparation pour les listes -->
                 <hr>
                 <ul id="list-section">
 
                 </ul>
-                
+            </div>
             </nav>
         </header>
         <main>

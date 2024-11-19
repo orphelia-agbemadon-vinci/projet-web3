@@ -44,6 +44,12 @@ body {
     height: auto;
 }
 
+.title-container2 .logo {
+    max-width: 100px;
+    height: auto;
+    text-align: center;
+}
+
 /* Titre principal */
 .title-container h1 {
     display: flex;
