@@ -15,6 +15,10 @@ let tasks = allTasks();
 
 
 router.get('/', (req, res) => {
+    if (tasks.length === 0) {
+        res.send('Aucune tâche à afficher');
+        return;
+    }
     res.send(createList(tasks));
 });
 
@@ -24,8 +28,16 @@ router.get('/filter/:type', (req, res) => {
     let filteredTasks;
     if (type === 'completed') {
         filteredTasks = tasks.filter(task => task.completed);
+        if (filteredTasks.length === 0) {
+            res.send('Aucune tâche complétée');
+            return;
+        }
     } else if (type === 'important') {
         filteredTasks = tasks.filter(task => task.important);
+        if (filteredTasks.length === 0) {
+            res.send('Aucune tâche importante');
+            return;
+        }
     }
     res.send(createList(filteredTasks));
 });
