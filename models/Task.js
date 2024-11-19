@@ -31,6 +31,7 @@ export function createTask(description) {
     return createdTask;
 }
 
+// Fonction pour supprimer une tâche
 export function deleteTaskById(id) {
     const tasks = allTasks();
     const taskIndex = tasks.findIndex(task => task.id === id);
@@ -45,6 +46,13 @@ export function deleteTaskById(id) {
     serialize(jsonDbPath, tasks);
 
     return deletedTask;
+}
+
+// Fonction pour supprimer toutes les tâches
+export function deleteAllTasks() {
+    const tasks = [];
+    serialize(jsonDbPath, tasks);
+    return tasks;
 }
 
 // Fonction pour marquer une tâche comme importante

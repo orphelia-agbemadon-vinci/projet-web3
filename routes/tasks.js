@@ -1,17 +1,13 @@
 import express from 'express';
-import { createTask, allTasks, toggleCompletion, toggleImportance, updateTask, deleteTaskById } from '../models/Task.js';
+import { createTask, allTasks, toggleCompletion, toggleImportance, updateTask, deleteTaskById, deleteAllTasks } from '../models/Task.js';
 import createList from '../views/tasks/list.js';
 import createEditTask from '../views/tasks/edit.js';
 import createATask from '../views/tasks/task.js';
 
 const router = express.Router();
 
-
 // Liste des tâches et des listes en mémoire
 let tasks = allTasks();
-
-
-
 
 router.get('/', (req, res) => {
     if (tasks.length === 0) {
@@ -47,7 +43,7 @@ router.get('/filter/:type', (req, res) => {
     } else if (type === 'none') {
         filteredTasks = tasks;
         if (filteredTasks.length === 0) {
-            res.send('Aucune tâche importante');
+            res.send('Aucune tâche');
             return;
         }
     }
@@ -127,20 +123,10 @@ router.delete('/delete/:id', (req, res) => {
     }
 });
 
-// // Route pour assigner une tâche à une liste
-// router.post('/assign-list/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     const listId = parseInt(req.body.listId);
-//     const task = findTask(index);
-
-//     if (task) {
-//         assignTaskToList(index, listId);
-//         tasks = allTasks(); // Mise à jour de la liste des tâches
-
-//         res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
-//     } else {
-//         res.status(404).send('Tâche non trouvée');
-//     }
-// });
+// Route pour supprimer toutes les tâches
+router.delete('/delete-all', (req, res) => {
+    tasks = deleteAllTasks(); // Utiliser la fonction du modèle pour supprimer toutes les tâches
+    res.send(createList(tasks)); // Renvoyer la liste vide
+});
 
 export default router;

@@ -68,6 +68,12 @@ body {
     height: auto;
 }
 
+.title-container2 .logo {
+    max-width: 100px;
+    height: auto;
+    text-align: center;
+}
+
 /* Titre principal */
 .title-container h1 {
     display: flex;
@@ -91,13 +97,13 @@ form#add-task-form input {
     flex: 1;
     padding: 10px;
     margin-right: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #a8a7a7;
     border-radius: 8px;
 }
 
 form#add-task-form button {
     padding: 10px 20px;
-    background-color: #ff8fa0; 
+    background-color: #ff536c; 
     border: none;
     border-radius: 8px;
     color: white;
@@ -107,7 +113,7 @@ form#add-task-form button {
 }
 
 form#add-task-form button:hover {
-    background-color: #ec6f6f; /* Couleur rose plus vive au survol */
+    background-color: #db445a; /* Couleur rose plus vive au survol */
 }
 
 /* Liste des tâches */
@@ -125,7 +131,7 @@ form#add-task-form button:hover {
 .todolist th, .todolist td {
     padding: 10px;
     text-align: left;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid white;
 }
 
 .todolist tr:hover {
@@ -184,10 +190,39 @@ form#add-task-form button:hover {
     background-color: #ddd;
     border: none;
     border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 #filters button:hover {
     background-color: #ccc;
+}
+
+/* Ligne de séparation */
+.separator {
+    border: none;
+    border-top: 3px solid #ddd; /* Couleur et épaisseur de la ligne */
+    margin: 20px 0; /* Espacement au-dessus et en dessous de la ligne */
+ 
+}
+
+/* Bouton Tout supprimer */
+#delete-all-button {
+    padding: 15px 30px;
+    background-color: #ff536c; 
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    margin-top: 10px; 
+}
+
+#delete-all-button:hover {
+    background-color:   #db445a; 
+    transform: scale(1.05); 
 }
