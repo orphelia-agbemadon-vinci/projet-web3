@@ -30,9 +30,8 @@ const createATask = (task) => /*html*/ `
             <a
                 class="star-button"
                 hx-post="/tasks/toggle-important/${task.id}"
-                hx-target="closest td"
-                hx-swap="outerHTML"
-                hx-trigger="click">
+                hx-target="#task-list"
+                hx-swap="innerHTML">
                 <i class="fa ${task.important ? 'fa-star' : 'fa-star-o'}"></i>
             </a>
         </td>
