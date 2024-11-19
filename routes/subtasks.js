@@ -4,6 +4,7 @@ import { findTask, allTasks, findTaskIndex } from '../models/Task.js';
 import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getAllSubTasks, getTaskDetailsWithSubtasks } from '../models/Subtask.js';
 import createSubtaskList from '../views/subtasks/subtaskList.js';
 import createASubtask from '../views/subtasks/subtask.js';
+import layout from '../views/layout.js';
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ router.get('/:id', (req, res) => {
 
     if (taskDetails) {
         const { task, subTasks } = taskDetails;
-        res.send(createSubtaskList(subTasks, task));
+        res.send(layout(createSubtaskList(subTasks, task)));
     } else {
         res.status(404).send('Task not found');
     }
