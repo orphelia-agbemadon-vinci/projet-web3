@@ -27,7 +27,6 @@ const homePage = () => /*html*/`
                 <div id="tasks-manager">
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
-                        <button hx-get="/tasks" hx-target="#task-list" hx-swap="innerHTML">Toutes</button>
                         <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
                         <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
                     </div>
@@ -44,7 +43,7 @@ const homePage = () => /*html*/`
                     </form>
 
                     <!-- Liste des tâches -->
-                    <div id="load-tasks-trigger" hx-get="/tasks/all" hx-trigger="load" hx-target="#task-list" hx-swap="innerHTML">
+                    <div id="task-list" hx-get="/tasks/all" hx-trigger="load" hx-target="#task-list" hx-swap="innerHTML">
                     </div>
                 </div>
 

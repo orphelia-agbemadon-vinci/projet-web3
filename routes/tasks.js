@@ -21,6 +21,13 @@ router.get('/', (req, res) => {
         res.send('Aucune tâche à afficher');
         return;
     }
+    const tasks = allTasks();
+    res.send(createList(tasks));
+});
+
+// Route pour récupérer toutes les tâches
+router.get('/all', (req, res) => {
+    const tasks = allTasks();
     res.send(createList(tasks));
 });
 
