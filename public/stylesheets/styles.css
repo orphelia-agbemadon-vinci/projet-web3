@@ -19,12 +19,14 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    width: 90%;
-    max-width: 800px;
+    width: 600px;
+    max-width: 800px; 
     text-align: center;
     transition: transform 0.2s ease-in-out;
-    margin: auto;
+    margin: auto; 
 }
+
+
 
 .container:hover {
     transform: scale(1.02);
@@ -59,7 +61,8 @@ form#add-task-form {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    width: 100%;
+    width: 400px;
+    align-items: center;
 }
 
 form#add-task-form input {
