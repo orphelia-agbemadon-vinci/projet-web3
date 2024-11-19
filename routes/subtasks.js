@@ -1,15 +1,16 @@
 import express from 'express';
 import { findTask, allTasks, findTaskIndex } from '../models/Task.js';
-import { allLists } from '../models/List.js';
+
 import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getAllSubTasks, getTaskDetailsWithSubtasks } from '../models/Subtask.js';
 import createSubtaskList from '../views/subtasks/subtaskList.js';
 import createASubtask from '../views/subtasks/subtask.js';
+import layout from '../views/layout.js';
 
 const router = express.Router();
 
 // Liste des listes en mémoire
 let tasks = allTasks();
-let lists = allLists();
+
 
 // Route pour afficher détails d'une tâche
 router.get('/:id', (req, res) => {
@@ -17,8 +18,8 @@ router.get('/:id', (req, res) => {
     try {
         const taskDetails = getTaskDetailsWithSubtasks(id);
         const { task, subTasks } = taskDetails;
-        res.send(createSubtaskList(subTasks, task));
-    } catch (error) {
+        res.send(layout(createSubtaskList(subTasks, task)));
+    } catch {
         res.status(404).send('Task not found');
     }
 });

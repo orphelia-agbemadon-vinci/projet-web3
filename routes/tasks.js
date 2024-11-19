@@ -1,7 +1,8 @@
 import express from 'express';
 import { createTask, allTasks, deleteTask, toggleCompletion, toggleImportance, updateTask, findTask, assignTaskToList, deleteTaskById } from '../models/Task.js';
-import { allLists } from '../models/List.js';
 import createList from '../views/tasks/list.js';
+
+
 import createEditTask from '../views/tasks/edit.js';
 import createATask from '../views/tasks/task.js';
 
@@ -11,10 +12,15 @@ const router = express.Router();
 
 // Liste des tâches et des listes en mémoire
 let tasks = allTasks();
-let lists = allLists();
+
+
 
 
 router.get('/', (req, res) => {
+    if (tasks.length === 0) {
+        res.send('Aucune tâche à afficher');
+        return;
+    }
     res.send(createList(tasks));
 });
 
@@ -24,8 +30,16 @@ router.get('/filter/:type', (req, res) => {
     let filteredTasks;
     if (type === 'completed') {
         filteredTasks = tasks.filter(task => task.completed);
+        if (filteredTasks.length === 0) {
+            res.send('Aucune tâche complétée');
+            return;
+        }
     } else if (type === 'important') {
         filteredTasks = tasks.filter(task => task.important);
+        if (filteredTasks.length === 0) {
+            res.send('Aucune tâche importante');
+            return;
+        }
     }
     res.send(createList(filteredTasks));
 });
