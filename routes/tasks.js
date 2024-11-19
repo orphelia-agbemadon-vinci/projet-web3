@@ -50,6 +50,7 @@ router.post('/add', (req, res) => {
     res.send(createList(tasks));
 });
 
+// // Route pour marquer une tâche comme importante
 router.post("/toggle-important/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const updatedTask = toggleImportance(id);
@@ -59,15 +60,6 @@ router.post("/toggle-important/:id", (req, res) => {
     res.send(createList(tasks));
 });
 
-// // Route pour marquer une tâche comme importante
-// router.post('/toggle-important/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-
-//     toggleImportance(index);
-//     tasks = allTasks(); // Mise à jour de la liste des tâches
-
-//     res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
-// });
 
 // Route pour cocher une tâche
 router.post('/toggle-complete/:id', (req, res) => {
@@ -111,27 +103,6 @@ router.delete('/delete/:id', (req, res) => {
     }
 });
 
-// // Route pour afficher uniquement les tâches importantes
-// router.get('/important', (req, res) => {
-//     const importantTasks = tasks.filter(task => task.important);
-//     res.send(createList(importantTasks));
-// });
-
-
-
-
-// // Route pour afficher le formulaire de modification pour une tâche
-// router.get('/edit/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     const task = findTask(index);
-//     if (task) {
-//         res.render('tasks/edit_task_form', { task, index, lists, isHistory, isImportant });
-//     } else {
-//         res.status(404).send('Tâche non trouvée');
-//     }
-// });
-
-
 // // Route pour assigner une tâche à une liste
 // router.post('/assign-list/:index', (req, res) => {
 //     const index = parseInt(req.params.index);
@@ -146,15 +117,6 @@ router.delete('/delete/:id', (req, res) => {
 //     } else {
 //         res.status(404).send('Tâche non trouvée');
 //     }
-// });
-
-// // Route pour supprimer une tâche
-// router.delete('/delete/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     deleteTask(index);
-//     tasks = allTasks(); // Mise à jour de la liste des tâches
-
-//     res.render('tasks/task_list', { tasks, lists, isHistory, isImportant });
 // });
 
 export default router;

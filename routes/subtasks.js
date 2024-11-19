@@ -1,9 +1,8 @@
 import express from 'express';
-import { findTask,allTasks } from '../models/Task.js';
+import { findTask, allTasks, findTaskIndex } from '../models/Task.js';
 import { allLists } from '../models/List.js';
-import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getAllSubTasks } from '../models/SubTask.js';
-
-// import TASKS_DATA from '../data/data.js';
+import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getAllSubTasks, getTaskDetailsWithSubtasks } from '../models/Subtask.js';
+import createSubtaskList from '../views/subtasks/subtaskList.js';
 
 const router = express.Router();
 
@@ -12,14 +11,17 @@ let tasks = allTasks();
 let lists = allLists();
 
 // Route pour afficher détails d'une tâche
-router.get('/tasks/:id', (req, res) => {
-    const TaskId = parseInt(req.params.id);
-    if(tasks.findIndex(task => task.id === TaskId)) {
-        res.send(createList(tasks[TaskId].subtasks));
+router.get('/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const taskDetails = getTaskDetailsWithSubtasks(id);
+
+    if (taskDetails) {
+        const { task, subTasks } = taskDetails;
+
+        res.send(createSubtaskList(subTasks, task));
+    } else {
+        res.status(404).send('Task not found');
     }
-    // const task = findTask(TaskId);
-    // const subTasks = getAllSubTasks(task);
-    res.send("Task not found");
 });
 
 // // Route pour supprimer une sous-tâche

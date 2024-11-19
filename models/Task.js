@@ -128,6 +128,11 @@ export function findTask(id) {
     return tasks.find(task => task.id === id);
 }
 
+export function findTaskIndex(id) {
+    const tasks = allTasks();
+    return tasks.findIndex(task => task.id === id);
+}
+
 // Fonction pour assigner une tâche à une liste
 export function assignTaskToList(index, listId) {
     const tasks = allTasks();
