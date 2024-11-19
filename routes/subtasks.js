@@ -24,6 +24,21 @@ router.get('/:id', (req, res) => {
     }
 });
 
+// Route pour ajouter une sous-tâche
+router.post('/add/:taskId', (req, res) => {
+    const taskId = parseInt(req.params.taskId);
+    const { subtask } = req.body;
+    const taskIndex = findTaskIndex(taskId);
+
+    if (taskIndex !== -1) {
+        const subTask = addSubTask(taskIndex, subtask);
+        const task = findTask(taskId);
+        res.send(createSubtaskList(task.subtasks, task));
+    } else {
+        res.status(404).send('Tâche non trouvée');
+    }
+});
+
 // // Route pour supprimer une sous-tâche
 // router.delete('/delete/:index/:subIndex', (req, res) => {
 //     const index = parseInt(req.params.index);
@@ -50,17 +65,5 @@ router.get('/:id', (req, res) => {
 //     }
 // });
 
-// // Route pour ajouter une sous-tâche
-// router.post('/add/:index', (req, res) => {
-//     const index = parseInt(req.params.index);
-//     const subtaskDescription = req.body.subtask;
-//     const subTask = addSubTask(index, subtaskDescription);
-//     if (subTask) {
-//         const task = findTask(index);
-//         res.render('subtasks/subtask_list', { subTasks: task.subtasks, index, lists });
-//     } else {
-//         res.status(404).send('Tâche non trouvée');
-//     }
-// });
 
 export default router;

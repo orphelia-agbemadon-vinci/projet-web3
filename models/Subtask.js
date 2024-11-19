@@ -12,7 +12,8 @@ const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
 export function addSubTask(taskIndex, subTaskDescription) {
     const tasks = parse(jsonDbPath);
     const newSubtask = {
-        description: subTaskDescription,
+        idSubtask: tasks[taskIndex].subtasks.length + 1,
+        descriptionSubtask: subTaskDescription,
         completed: false,
     };
     tasks[taskIndex].subtasks.push(newSubtask);
