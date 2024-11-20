@@ -1,16 +1,15 @@
 import express from 'express';
-import { createTask, allTasks, toggleCompletion, toggleImportance, updateTask, deleteTaskById, deleteAllTasks, getDefaultFilter, writeFilterState } from '../models/Task.js';
+import { createTask, allTasks, toggleCompletion, toggleImportance, updateTask, deleteTaskById, deleteAllTasks, getDefaultFilter, writeFilterState, getFilterState, getFilteredList } from '../models/Task.js';
 import createList from '../views/tasks/list.js';
 import createFilteredList from '../views/tasks/filteredList.js';
 import createEditTask from '../views/tasks/edit.js';
 import createATask from '../views/tasks/task.js';
-import DATA from '../data/filterState.js';
 
 const router = express.Router();
 
 // Liste des tâches et des listes en mémoire
 let tasks = allTasks();
-let filterState = DATA.filterState;
+let filterState = getFilterState();
 console.log('INIT Filter state:', filterState);
 
 router.get('/', (req, res) => {
@@ -85,17 +84,7 @@ router.get('/edit/:id', (req, res) => {
 router.post('/add', (req, res) => {
     const { description } = req.body;
     createTask(description);
-    let filteredTasks = allTasks();
-
-    if (filterState === 'completed') {
-        filteredTasks = filteredTasks.filter(task => task.completed);
-        
-    } else if (filterState === 'todo') {
-        filteredTasks = filteredTasks.filter(task => !task.completed);
-
-    } else if (filterState === 'important') {
-        filteredTasks = filteredTasks.filter(task => task.important);
-    }
+    let filteredTasks = getFilteredList(filterState);
 
     writeFilterState(filterState);
     res.send(createFilteredList(filteredTasks, filterState));
@@ -105,10 +94,11 @@ router.post('/add', (req, res) => {
 router.post("/toggle-important/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const updatedTask = toggleImportance(id);
+    let filteredTasks = getFilteredList(filterState);
 
     tasks = allTasks(); // Mise à jour de la liste des tâches
-
-    res.send(createList(tasks));
+    writeFilterState(filterState);
+    res.send(createFilteredList(filteredTasks, filterState));
 });
 
 
@@ -165,12 +155,12 @@ router.delete('/delete/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const idx = tasks.findIndex(t => t.id === id);
     tasks.splice(idx, 1);
-
     const deletedTask = deleteTaskById(id);
+    let filteredTasks = getFilteredList(filterState);
     
     if (deletedTask) {
         tasks = allTasks(); // Mise à jour de la liste des tâches
-        res.send(createFilteredList(tasks, filterState));
+        res.send(createFilteredList(filteredTasks, filterState));
     } else {
         res.status(404).send('Task not found');
     }
