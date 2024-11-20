@@ -39,7 +39,7 @@ const createATask = (task) => /*html*/ `
         <td class="">
             <button class="delete-button"
                 hx-delete="/tasks/delete/${task.id}"
-                hx-target="closest tr"
+                hx-target="#task-list"
                 hx-swap="innerHTML"
                 hx-confirm="Êtes-vous sûr(e) de vouloir supprimer cette tâche ?\nCette action est irréversible.">
                 <i class="fa fa-trash"></i>

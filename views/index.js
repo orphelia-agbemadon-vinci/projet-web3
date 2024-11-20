@@ -1,4 +1,11 @@
-const homePage = () => /*html*/`
+import { allTasks } from '../models/Task.js';
+import createFilteredList from './tasks/filteredList.js';
+
+const homePage = () => {
+    const tasks = allTasks();
+    const filteredTasks = tasks.filter(task => task); // Filtre par défaut "none" au démarrage
+    
+    return /*html*/`
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -37,10 +44,8 @@ const homePage = () => /*html*/`
             </section>
             <section class="container">
                 <div id="tasks-manager">
-
-
                     <select id="filters" name="completed" hx-trigger="change" hx-target="#task-list" hx-post="/tasks/search" hx-include="#search" multiple>
-                        <option hx-get="/tasks/filter/none" value="">Toutes</option>
+                        <option hx-get="/tasks/filter/none" value="" selected>Toutes</option>
                         <option hx-get="/tasks/filter/todo" value="false">À faire</option>
                         <option hx-get="/tasks/filter/completed" value="true">Complétées</option>
                         <option hx-get="/tasks/filter/important" value="important">Importantes</option>
@@ -51,7 +56,8 @@ const homePage = () => /*html*/`
                         <button>+</button>
                     </form>
                     <!-- Liste des tâches -->
-                    <div id="task-list" hx-get="/tasks/all" hx-trigger="load" hx-target="#task-list" hx-swap="innerHTML">
+                    <div id="task-list">
+                        ${createFilteredList(filteredTasks, 'none')}
                     </div>
                     </div>
                 <!-- Liste des sous-tâches -->
@@ -62,6 +68,6 @@ const homePage = () => /*html*/`
         </main>
     </body>
     </html>
-`;
+`};
 
 export default homePage;
