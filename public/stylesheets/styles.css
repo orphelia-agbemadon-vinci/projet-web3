@@ -182,6 +182,12 @@ form#add-task-form button:hover {
     margin: 20px 0; /* Espacement au-dessus et en dessous de la ligne */
  
 }
+/* Conteneur pour centrer le bouton Tout supprimer */
+.delete-all-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Espacement au-dessus du conteneur */
+}
 
 /* Bouton Tout supprimer */
 #delete-all-button {

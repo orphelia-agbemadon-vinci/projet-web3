@@ -38,16 +38,11 @@ const homePage = () => /*html*/`
                     <!-- Liste des tâches -->
                     <div id="task-list" hx-get="/tasks/all" hx-trigger="load" hx-target="#task-list" hx-swap="innerHTML">
                     </div>
-                    <!-- Ligne de séparation -->
-                    <hr class="separator">
-                    <!-- Bouton Tout supprimer -->
-                    <button id="delete-all-button" hx-delete="/tasks/delete-all" hx-target="#task-list" hx-swap="innerHTML" hx-confirm="Êtes-vous sûr(e) de vouloir supprimer toutes les tâches ?\nCette action est irréversible.">Tout supprimer</button>
                 </div>
                 <!-- Liste des sous-tâches -->
                 <div id="subtasks">
                     <!-- Données ajoutées dynamiquement ici -->
 
-                    
                 </div>
             </section>  
         </main>

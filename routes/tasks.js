@@ -15,13 +15,13 @@ router.get('/', (req, res) => {
         return;
     }
     const tasks = allTasks();
-    res.send(createList(tasks));
+    res.send(createList(tasks, 'none'));
 });
 
 // Route pour récupérer toutes les tâches
 router.get('/all', (req, res) => {
     const tasks = allTasks();
-    res.send(createList(tasks));
+    res.send(createList(tasks,'none'));
 });
 
 // Route pour filtrer les tâches selon leur type
@@ -47,7 +47,7 @@ router.get('/filter/:type', (req, res) => {
             return;
         }
     }
-    res.send(createList(filteredTasks));
+    res.send(createList(filteredTasks, type));
 });
 
 // Route pour afficher le formulaire de modification pour une tâche
@@ -67,7 +67,7 @@ router.post('/add', (req, res) => {
     createTask(description);
 
     tasks = allTasks(); // Mise à jour de la liste des tâches
-    res.send(createList(tasks));
+    res.send(createList(tasks, 'none'));
 });
 
 // // Route pour marquer une tâche comme importante
@@ -77,7 +77,7 @@ router.post("/toggle-important/:id", (req, res) => {
 
     tasks = allTasks(); // Mise à jour de la liste des tâches
 
-    res.send(createList(tasks));
+    res.send(createList(tasks, 'none'));
 });
 
 
@@ -126,7 +126,7 @@ router.delete('/delete/:id', (req, res) => {
 // Route pour supprimer toutes les tâches
 router.delete('/delete-all', (req, res) => {
     tasks = deleteAllTasks(); // Utiliser la fonction du modèle pour supprimer toutes les tâches
-    res.send(createList(tasks)); // Renvoyer la liste vide
+    res.send(createList(tasks, 'none')); // Renvoyer la liste vide
 });
 
 export default router;
