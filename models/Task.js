@@ -6,6 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
+const filterStatePath = path.join(__dirname, '/../data/filterState.js');
+
 
 
 // Fonction pour lire toutes les tâches
@@ -131,4 +133,8 @@ export function findTaskIndex(id) {
 // Pour le filtre par défaut
 export function getDefaultFilter() {
     return 'none';
+}
+
+export function writeFilterState(filter) {
+    serialize(filterStatePath, { filterState: filter });
 }
