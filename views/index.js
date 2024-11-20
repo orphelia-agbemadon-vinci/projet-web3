@@ -43,9 +43,8 @@ const homePage = () => {
                     <!-- Ligne de séparation -->
             </section>
             <section class="container">
-                <h2> To-Do List </h2>
                 <div id="tasks-manager">
-    
+                <h2> To-Do List </h2>
                     <select id="filters" name="completed" hx-trigger="change" hx-target="#task-list" hx-post="/tasks/search" hx-include="#search" multiple>
                         <option hx-get="/tasks/filter/none" value="" selected>Toutes</option>
                         <option hx-get="/tasks/filter/todo" value="false">À faire</option>

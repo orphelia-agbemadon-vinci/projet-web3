@@ -20,10 +20,6 @@ const layout = (content) => /*html*/`
                     <i class="fa fa-arrow-left"></i> Retour
                 </button>
                 </div>
-
-                <a href="/"><img src="/../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
-                <!-- Ligne de séparation pour les listes -->
-                <hr>
                 <ul id="list-section">
 
                 </ul>
