@@ -127,3 +127,8 @@ export function findTaskIndex(id) {
     const tasks = allTasks();
     return tasks.findIndex(task => task.id === id);
 }
+
+// Pour le filtre par défaut
+export function getDefaultFilter() {
+    return 'none';
+}

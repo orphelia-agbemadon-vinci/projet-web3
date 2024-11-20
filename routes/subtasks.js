@@ -70,4 +70,15 @@ router.delete('/delete/:taskId/:subId', (req, res) => {
     }
 });
 
+// Route pour supprimer toutes les sous-tâches d'une tâche
+router.delete('/delete-all/:taskId', (req, res) => {
+    const taskId = parseInt(req.params.taskId);
+    try {
+        const task = deleteAllSubTasks(taskId);
+        res.send(createSubtaskList(task.subtasks, task));
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+});
+
 export default router;
