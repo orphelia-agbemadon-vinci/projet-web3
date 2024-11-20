@@ -11,10 +11,6 @@ const homePage = () => /*html*/`
         <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
     </head>
     <body>
-        <header>
-
-
-        </header>
         <main>
             <section class="container">
                 <div id="tasks-manager">
@@ -30,11 +26,20 @@ const homePage = () => /*html*/`
                     <!-- Ligne de séparation -->
                     <hr class="separator">
                     <div class="search">
-                        <input class="search-bar" type="search" id="search" placeholder="Recherchez une tâche...">
+                        <input
+                            type="search"
+                            id="search"
+                            name="search"
+                            placeholder="Recherchez une tâche..."
+                            hx-post="/tasks/search"
+                            hx-trigger="keyup changed delay:100ms"
+                            hx-target="#task-list">
                     </div>
+                    
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
                         <button hx-get="/tasks/filter/none" hx-target="#task-list">Toutes</button>
+                        <button hx-get="/tasks/filter/todo" hx-target="#task-list">À faire</button>
                         <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
                         <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
                     </div>

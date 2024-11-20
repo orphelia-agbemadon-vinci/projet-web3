@@ -34,6 +34,12 @@ router.get('/filter/:type', (req, res) => {
             res.send('Aucune tâche complétée');
             return;
         }
+    } else if (type === 'todo') {
+        filteredTasks = tasks.filter(task => !task.completed);
+        if (filteredTasks.length === 0) {
+            res.send('Aucune tâche à faire');
+            return;
+        }
     } else if (type === 'important') {
         filteredTasks = tasks.filter(task => task.important);
         if (filteredTasks.length === 0) {
@@ -44,7 +50,7 @@ router.get('/filter/:type', (req, res) => {
         filteredTasks = tasks;
         if (filteredTasks.length === 0) {
             res.send('Aucune tâche');
-            return;
+            return
         }
     }
     res.send(createList(filteredTasks));
@@ -92,6 +98,15 @@ router.post('/toggle-complete/:id', (req, res) => {
         res.status(404).send(error.message);
     }
 });
+
+router.post('/search', (req, res) => {
+    const text = req.body.search.toLowerCase();
+
+    const foundTasks = tasks.filter((t) => t.description.toLowerCase().includes(text));
+    res.send(createList(foundTasks));
+});
+
+
 
 // Route pour éditer une tâche
 router.patch('/edit/:id', (req, res) => {
