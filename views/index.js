@@ -12,9 +12,8 @@ const homePage = () => /*html*/`
     </head>
     <body>
         <main>
-            <section class="container">
-                <div id="tasks-manager">
-                    <!-- Titre de la page -->
+            <section>
+                <!-- Titre de la page -->
                     <div id="title-container" class="title-container">
                         <h1>
                             <a href="/">
@@ -23,9 +22,7 @@ const homePage = () => /*html*/`
                             To-Do List
                         </h1>
                     </div>
-                    <!-- Ligne de séparation -->
-                    <hr class="separator">
-                    <div class="search">
+                     <div class="search">
                         <input
                             type="search"
                             id="search"
@@ -36,11 +33,17 @@ const homePage = () => /*html*/`
                             hx-target="#task-list"
                             hx-include="#filters">
                     </div>
+                    <!-- Ligne de séparation -->
+            </section>
+            <section class="container">
+                <div id="tasks-manager">
+
+
                     <select id="filters" name="completed" hx-trigger="change" hx-target="#task-list" hx-post="/tasks/search" hx-include="#search" multiple>
-                        <option value="">Toutes</option>
-                        <option value="false">À faire</option>
-                        <option value="true">Complétées</option>
-                        <option value="important">Importantes</option>
+                        <option hx-get="/tasks/filter/none" value="">Toutes</option>
+                        <option hx-get="/tasks/filter/todo" value="false">À faire</option>
+                        <option hx-get="/tasks/filter/completed" value="true">Complétées</option>
+                        <option hx-get="/tasks/filter/important" value="important">Importantes</option>
                     </select>
                     <!-- Formulaire d'ajout de tâche -->
                     <form id="add-task-form" hx-on::after-request="document.querySelector('form').reset()" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
@@ -51,7 +54,6 @@ const homePage = () => /*html*/`
                     <div id="task-list" hx-get="/tasks/all" hx-trigger="load" hx-target="#task-list" hx-swap="innerHTML">
                     </div>
                     <!-- Ligne de séparation -->
-                    <hr class="separator">
                     <!-- Bouton Tout supprimer -->
                     <button id="delete-all-button" hx-delete="/tasks/delete-all" hx-target="#task-list" hx-swap="innerHTML" hx-confirm="Êtes-vous sûr(e) de vouloir supprimer toutes les tâches ?\nCette action est irréversible.">Tout supprimer</button>
                     </div>
