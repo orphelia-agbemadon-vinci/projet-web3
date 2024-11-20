@@ -1,7 +1,7 @@
 import express from 'express';
 import { findTask, allTasks } from '../models/Task.js';
 
-import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getTaskDetailsWithSubtasks } from '../models/Subtask.js';
+import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getTaskDetailsWithSubtasks, deleteAllSubTasks } from '../models/Subtask.js';
 import createSubtaskList from '../views/subtasks/subtaskList.js';
 import createASubtask from '../views/subtasks/subtask.js';
 import layout from '../views/layout.js';

@@ -21,7 +21,6 @@ const layout = (content) => /*html*/`
                 </button>
                 </div>
                 <ul id="list-section">
-
                 </ul>
             </div>
             </nav>
