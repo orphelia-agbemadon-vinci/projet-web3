@@ -205,7 +205,7 @@ form#add-task-form button:hover {
 
 #filters option {
     width: fit-content;
-    background-color: #bde0fe;
+    background-color: rgb(196, 240, 255);
     font-size: 1.2em;
     font-weight: bold;
     padding: 10px 15px;
@@ -219,11 +219,12 @@ form#add-task-form button:hover {
 }
 
 #filters option:hover {
-    background-color: #ccc;
+    background-color: #1967d2;
+    color: white;
 }
 
 #filters option:checked {
-    background-color: #ff536c;
+    background-color: #1967d2;
     color: white;
 }
 
