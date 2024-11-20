@@ -19,7 +19,7 @@ const homePage = () => /*html*/`
                             <a href="/">
                                 <img src="../images/logoDunDeal.png" alt="Logo DunDeal" class="logo">
                             </a>
-                            To-Do List
+                            DunDeal
                         </h1>
                     </div>
                      <div class="search">
@@ -36,9 +36,9 @@ const homePage = () => /*html*/`
                     <!-- Ligne de séparation -->
             </section>
             <section class="container">
+                <h2> To-Do List </h2>
                 <div id="tasks-manager">
-
-
+    
                     <select id="filters" name="completed" hx-trigger="change" hx-target="#task-list" hx-post="/tasks/search" hx-include="#search" multiple>
                         <option hx-get="/tasks/filter/none" value="">Toutes</option>
                         <option hx-get="/tasks/filter/todo" value="false">À faire</option>

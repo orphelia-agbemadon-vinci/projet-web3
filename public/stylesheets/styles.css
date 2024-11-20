@@ -116,6 +116,16 @@ form#add-task-form button:hover {
     text-align: left;
 }
 
+/* Ajoutez cette section à votre fichier CSS */
+.task-link {
+    text-decoration: underline;
+    cursor: pointer;
+    color: initial;
+}
+.task-link:hover {
+    color: rgb(245, 122, 143); /* Changez cette couleur selon vos préférences */
+}
+
 .todolist {
     width: 100%;
     border-collapse: collapse;
