@@ -34,6 +34,23 @@ export function createTask(description) {
     return createdTask;
 }
 
+export function createFilteredTask(description, completed, important) {
+    const tasks = allTasks();
+    const createdTask = {
+        id: tasks.length + 1,
+        description: description,
+        completed: completed,
+        important: important,
+        listId: null,
+        subtasks: [],
+    };
+    tasks.push(createdTask);
+
+    serialize(jsonDbPath, tasks);
+    
+    return createdTask;
+}
+
 // Fonction pour supprimer une tâche
 export function deleteTaskById(id) {
     const tasks = allTasks();
