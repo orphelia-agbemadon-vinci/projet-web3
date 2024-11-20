@@ -44,6 +44,18 @@ export function deleteSubTask(taskId, subTaskId) {
     return deletedSubTask;
 }
 
+// Fonction pour supprimer toutes les sous-tâches d'une tâche
+export function deleteAllSubTasks(taskId) {
+    const tasks = parse(jsonDbPath);
+    const taskIndex = findTaskIndex(taskId);
+    if (taskIndex === -1) {
+        throw new Error(`Task with id ${taskId} not found`);
+    }
+    tasks[taskIndex].subtasks = [];
+    serialize(jsonDbPath, tasks);
+    return tasks[taskIndex];
+}
+
 // Fonction pour cocher une sous-tâche
 export function toggleSubTaskCompletion(taskId, subTaskId) {
     const tasks = parse(jsonDbPath);

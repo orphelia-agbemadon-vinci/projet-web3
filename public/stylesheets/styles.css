@@ -147,7 +147,10 @@ form#add-task-form button:hover {
 
 .delete-button {
     color: red;
+    float: right;
 }
+
+
 
 .edit-button {
     color: lightblue;
@@ -207,5 +210,31 @@ form#add-task-form button:hover {
 
 #delete-all-button:hover {
     background-color:   #db445a; 
+    transform: scale(1.05); 
+}
+
+/*Bouton de retour*/
+
+.back-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-button {
+    padding: 10px 15px;
+    background-color: #ff536c; 
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    margin-top: 5px; 
+}
+
+.back-button:hover {
+    background-color: #db445a; 
     transform: scale(1.05); 
 }

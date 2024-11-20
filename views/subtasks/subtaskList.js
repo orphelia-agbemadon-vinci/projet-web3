@@ -5,15 +5,23 @@ const createSubtaskList = (subtasks, task) => /*html*/ `
         <div>
             <h2>${task.description}</h2>
         </div>
-        <form hx-post="/tasks/subtasks/add/${task.id}" hx-target="#subtask-list" hx-swap="innerHTML">
+        <form id="add-task-form" hx-post="/tasks/subtasks/add/${task.id}" hx-target="#subtask-list" hx-swap="outerHTML">
             <input type="text" name="subtask" placeholder="Nouvelle sous-tâche..." required>
             <button type="submit">Ajouter</button>
         </form>
-
-    <div id="subtask-title">
-        <table class="todolist">
-            ${subtasks.map(subtask => createASubtask(subtask, task)).join('')}
-        </table>
+        <div id="subtask-title">
+            <table class="todolist">
+                ${subtasks.map(subtask => createASubtask(subtask, task)).join('')}
+            </table>
+        </div>
+        ${subtasks.length > 0 ? `
+            <!-- Ligne de séparation -->
+            <hr class="separator">
+            <!-- Bouton Tout supprimer -->
+            <div class="delete-all-container">
+                <button id="delete-all-button" class="delete-all-button" hx-delete="/tasks/subtasks/delete-all/${task.id}" hx-target="#subtask-list" hx-swap="innerHTML" hx-confirm="Êtes-vous sûr(e) de vouloir supprimer toutes les sous-tâches ?\nCette action est irréversible.">Supprimer toutes les sous-tâches</button>
+            </div>
+        ` : ''}
     </div>
 `;
 

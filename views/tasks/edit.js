@@ -3,7 +3,7 @@ const createEditTask = (task) => /*html*/`
         <td colspan="4">
             <form hx-patch="/tasks/edit/${task.id}" hx-target="closest tr" hx-swap="outerHTML">
                 <input type="text" name="description" value="${task.description}">
-                <button type="submit">Save</button>
+                <button type="submit">Enregistrer</button>
             </form>
         </td>
     </tr>

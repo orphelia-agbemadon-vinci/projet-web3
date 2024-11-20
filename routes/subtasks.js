@@ -1,7 +1,7 @@
 import express from 'express';
 import { findTask, allTasks } from '../models/Task.js';
 
-import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getAllSubTasks, getTaskDetailsWithSubtasks } from '../models/Subtask.js';
+import { toggleSubTaskCompletion, addSubTask, deleteSubTask, getAllSubTasks, getTaskDetailsWithSubtasks, deleteAllSubTasks } from '../models/Subtask.js';
 import createSubtaskList from '../views/subtasks/subtaskList.js';
 import createASubtask from '../views/subtasks/subtask.js';
 import layout from '../views/layout.js';
@@ -67,6 +67,17 @@ router.delete('/delete/:taskId/:subId', (req, res) => {
         }
     } else {
         res.status(404).send('Tâche non trouvée');
+    }
+});
+
+// Route pour supprimer toutes les sous-tâches d'une tâche
+router.delete('/delete-all/:taskId', (req, res) => {
+    const taskId = parseInt(req.params.taskId);
+    try {
+        const task = deleteAllSubTasks(taskId);
+        res.send(createSubtaskList(task.subtasks, task));
+    } catch (error) {
+        res.status(404).send(error.message);
     }
 });
 

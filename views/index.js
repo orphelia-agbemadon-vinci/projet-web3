@@ -41,8 +41,6 @@ const homePage = () => /*html*/`
                 </div>
                 <!-- Liste des sous-tâches -->
                 <div id="subtasks">
-                    <!-- Données ajoutées dynamiquement ici -->
-
                 </div>
             </section>  
         </main>

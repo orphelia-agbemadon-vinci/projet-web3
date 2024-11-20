@@ -14,6 +14,13 @@ const layout = (content) => /*html*/`
         <header>
             <nav class="menu" id="menu">
             <div id="title-container2" class="title-container2">
+                <!-- Bouton retour -->
+                <div class="back-button-container">
+                <button class="back-button" onclick="window.location.href='/'">
+                    <i class="fa fa-arrow-left"></i> Retour
+                </button>
+                </div>
+
                 <a href="/"><img src="/../images/logoDunDeal.png" alt="Logo DunDeal" class="logo"></a>
                 <!-- Ligne de séparation pour les listes -->
                 <hr>
