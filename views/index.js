@@ -30,19 +30,19 @@ const homePage = () => /*html*/`
                             type="search"
                             id="search"
                             name="search"
-                            placeholder="Recherchez une tâche..."
+                            placeholder="Recherche d'une tâche..."
                             hx-post="/tasks/search"
                             hx-trigger="keyup changed delay:100ms"
-                            hx-target="#task-list">
+                            hx-target="#task-list"
+                            hx-include="#filters">
                     </div>
-                    
-                    <!-- Boutons pour filtrer -->
-                    <div id="filters">
-                        <button hx-get="/tasks/filter/none" hx-target="#task-list">Toutes</button>
-                        <button hx-get="/tasks/filter/todo" hx-target="#task-list">À faire</button>
-                        <button hx-get="/tasks/filter/completed" hx-target="#task-list" hx-swap="innerHTML">Complétées</button>
-                        <button hx-get="/tasks/filter/important" hx-target="#task-list" hx-swap="innerHTML">Importantes</button>
-                    </div>
+                    <select id="filters" name="completed" hx-trigger="change" hx-target="#task-list" hx-post="/tasks/search" hx-include="#search" multiple>
+                        <option value="">Toutes</option>
+                        <option value="false">À faire</option>
+                        <option value="true">Complétées</option>
+                        <option value="important">Importantes</option>
+                    </select>
+                    <!-- Formulaire d'ajout de tâche -->
                     <form id="add-task-form" hx-on::after-request="document.querySelector('form').reset()" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
                         <input type="text" id="task-input" name="description" placeholder="Nouvelle tâche..." required>
                         <button type="submit">Ajouter</button>
@@ -54,7 +54,7 @@ const homePage = () => /*html*/`
                     <hr class="separator">
                     <!-- Bouton Tout supprimer -->
                     <button id="delete-all-button" hx-delete="/tasks/delete-all" hx-target="#task-list" hx-swap="innerHTML" hx-confirm="Êtes-vous sûr(e) de vouloir supprimer toutes les tâches ?\nCette action est irréversible.">Tout supprimer</button>
-                </div>
+                    </div>
                 <!-- Liste des sous-tâches -->
                 <div id="subtasks">
                     <!-- Données ajoutées dynamiquement ici -->

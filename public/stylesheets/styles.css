@@ -6,7 +6,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: 'Roboto', sans-serif; /* Utiliser une police moderne */
-    background-color: #ffe4e1; /* Rose clair */
+    background: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); /* Dégradé mauve/rose */
 }
 
 /* Conteneur principal */
@@ -164,24 +164,41 @@ form#add-task-form button:hover {
 
 /* Boutons de filtrage */
 #filters {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Espace entre les boutons */
-    margin-bottom: 30px; /* Ajout d'espace entre les boutons et la barre d'ajout */
-}
-
-#filters button {
-    margin: 0; /* Supprime tout espacement individuel (le gap s'en charge) */
-    padding: 10px 15px;
-    background-color: #ddd;
+    height: 50px;
+    width: 100%;
     border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    overflow: hidden;
+    justify-content: center;
 }
 
-#filters button:hover {
+#filters::-moz-focus-inner {
+    border: 0;
+}
+
+#filters::-moz-selection {
+    background-color: #ccc;
+}
+
+#filters:focus {
+    outline: none;
+}
+
+#filters option {
+    width: fit-content;
+    background-color: #bde0fe;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: center;
+    margin-right: 20px;
+    display: inline-block;
+    cursor: pointer;
+    border:none;
+    border-radius: 8px;
+    color: black;
+}
+
+#filters option:hover {
     background-color: #ccc;
 }
 
@@ -212,3 +229,75 @@ form#add-task-form button:hover {
     background-color:   #db445a; 
     transform: scale(1.05); 
 }
+
+/* From Uiverse.io by WhiteNervosa */ 
+/* Variation of work by @mrhyddenn for Radios */
+
+
+.check {
+    cursor: pointer;
+    position: relative;
+    margin: auto;
+    width: 18px;
+    height: 18px;
+    -webkit-tap-highlight-color: transparent;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  .check:before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(34, 50, 84, 0.03);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  .check svg {
+    position: relative;
+    z-index: 1;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke: #c8ccd4;
+    stroke-width: 1.5;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.2s ease;
+  }
+  
+  .check svg path {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 0;
+  }
+  
+  .check svg polyline {
+    stroke-dasharray: 22;
+    stroke-dashoffset: 66;
+  }
+  
+  .check:hover:before {
+    opacity: 1;
+  }
+  
+  .check:hover svg {
+    stroke: var(--accent-color, #a3e583);
+  }
+  
+  #cbx2:checked + .check svg {
+    stroke: var(--accent-color, #a3e583);
+  }
+  
+  #cbx2:checked + .check svg path {
+    stroke-dashoffset: 60;
+    transition: all 0.3s linear;
+  }
+  
+  #cbx2:checked + .check svg polyline {
+    stroke-dashoffset: 42;
+    transition: all 0.2s linear;
+    transition-delay: 0.15s;
+  }

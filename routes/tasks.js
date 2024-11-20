@@ -50,7 +50,7 @@ router.get('/filter/:type', (req, res) => {
         filteredTasks = tasks;
         if (filteredTasks.length === 0) {
             res.send('Aucune tâche');
-            return
+            return;
         }
     }
     res.send(createList(filteredTasks));
@@ -100,13 +100,26 @@ router.post('/toggle-complete/:id', (req, res) => {
 });
 
 router.post('/search', (req, res) => {
-    const text = req.body.search.toLowerCase();
+    const { search, completed } = req.body;
+    const text = search ? search.toLowerCase() : '';
 
-    const foundTasks = tasks.filter((t) => t.description.toLowerCase().includes(text));
+    let foundTasks = tasks;
+
+    if (text) {
+        foundTasks = foundTasks.filter((t) => t.description.toLowerCase().includes(text));
+    }
+
+    if (completed !== undefined && completed !== '') {
+        if (completed === 'important') {
+            foundTasks = foundTasks.filter((t) => t.important);
+        } else {
+            const isCompleted = completed === 'true';
+            foundTasks = foundTasks.filter((t) => t.completed === isCompleted);
+        }
+    }
+
     res.send(createList(foundTasks));
 });
-
-
 
 // Route pour éditer une tâche
 router.patch('/edit/:id', (req, res) => {
