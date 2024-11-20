@@ -18,9 +18,9 @@ body {
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 600px;
-    max-width: 800px; 
+    padding: 50px;
+    width: auto;
+    max-width: 100%; 
     text-align: center;
     transition: transform 0.2s ease-in-out;
     margin: auto; 
@@ -67,6 +67,7 @@ form#add-task-form {
     margin-bottom: 20px;
     width: 400px;
     align-items: center;
+    margin: 0 auto;
 }
 
 form#add-task-form input {
