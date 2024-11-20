@@ -1,11 +1,14 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse, serialize } from '../utils/json.js';
+import DATA from '../data/filterState.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
+const filterStatePath = path.join(__dirname, '/../data/filterState.js');
+
 
 
 // Fonction pour lire toutes les tâches
@@ -28,6 +31,23 @@ export function createTask(description) {
 
     serialize(jsonDbPath, tasks);
 
+    return createdTask;
+}
+
+export function createFilteredTask(description, completed, important) {
+    const tasks = allTasks();
+    const createdTask = {
+        id: tasks.length + 1,
+        description: description,
+        completed: completed,
+        important: important,
+        listId: null,
+        subtasks: [],
+    };
+    tasks.push(createdTask);
+
+    serialize(jsonDbPath, tasks);
+    
     return createdTask;
 }
 
@@ -131,4 +151,26 @@ export function findTaskIndex(id) {
 // Pour le filtre par défaut
 export function getDefaultFilter() {
     return 'none';
+}
+
+export function writeFilterState(filter) {
+    serialize(filterStatePath, { filterState: filter });
+}
+
+export function getFilteredList(filter) {
+    const tasks = allTasks();
+
+    if (filter === 'completed') {
+        return tasks.filter(task => task.completed);
+    } else if (filter === 'todo') {
+        return tasks.filter(task => !task.completed);
+    } else if (filter === 'important') {
+        return tasks.filter(task => task.important);
+    } else {
+        return tasks;
+    } // Si le filtre est 'none', on retourne toutes les tâches
+}
+
+export function getFilterState() {
+    return DATA.filterState;
 }

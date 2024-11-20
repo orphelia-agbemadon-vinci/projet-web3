@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTask, allTasks, toggleCompletion, toggleImportance, updateTask, deleteTaskById, deleteAllTasks, getDefaultFilter } from '../models/Task.js';
+import { createTask, allTasks, toggleCompletion, toggleImportance, updateTask, deleteTaskById, deleteAllTasks, getDefaultFilter, writeFilterState, getFilterState, getFilteredList, createFilteredTask } from '../models/Task.js';
 import createList from '../views/tasks/list.js';
 import createFilteredList from '../views/tasks/filteredList.js';
 import createEditTask from '../views/tasks/edit.js';
@@ -9,7 +9,9 @@ const router = express.Router();
 
 // Liste des tâches et des listes en mémoire
 let tasks = allTasks();
-let filterState = 'none';
+let filterState = getFilterState();
+
+console.log('INIT Filter state:', filterState);
 
 router.get('/', (req, res) => {
     if (tasks.length === 0) {
@@ -35,28 +37,35 @@ router.get('/filter/:type', (req, res) => {
         filteredTasks = tasks.filter(task => task.completed);
         if (filteredTasks.length === 0) {
             res.send('Aucune tâche complétée');
+            filterState = type;
             return;
         }
     } else if (type === 'todo') {
         filteredTasks = tasks.filter(task => !task.completed);
         if (filteredTasks.length === 0) {
             res.send('Aucune tâche à faire');
+            filterState = type;
+
             return;
         }
     } else if (type === 'important') {
         filteredTasks = tasks.filter(task => task.important);
         if (filteredTasks.length === 0) {
             res.send('Aucune tâche importante');
+            filterState = type;
+
             return;
         }
     } else if (type === 'none') {
         filteredTasks = tasks;
         if (filteredTasks.length === 0) {
             res.send('Aucune tâche');
+            filterState = type;
             return;
         }
     }
     filterState = type;
+    console.log('Filter state:', filterState);
     res.send(createFilteredList(filteredTasks, type));
 });
 
@@ -74,20 +83,33 @@ router.get('/edit/:id', (req, res) => {
 // Ajoute une nouvelle tâche
 router.post('/add', (req, res) => {
     const { description } = req.body;
-    createTask(description);
 
-    tasks = allTasks(); // Mise à jour de la liste des tâches
-    res.send(createFilteredList(tasks, filterState));
+    if (filterState === 'none' || filterState === 'todo') {
+        createTask(description);
+
+    } else if (filterState === 'completed') {
+        createFilteredTask(description, true, false);
+
+    } else if (filterState === 'important') {
+        createFilteredTask(description, false, true);
+
+    }
+    
+    let filteredTasks = getFilteredList(filterState);
+
+    writeFilterState(filterState);
+    res.send(createFilteredList(filteredTasks, filterState));
 });
 
 // // Route pour marquer une tâche comme importante
 router.post("/toggle-important/:id", (req, res) => {
     const id = parseInt(req.params.id);
     const updatedTask = toggleImportance(id);
+    let filteredTasks = getFilteredList(filterState);
 
     tasks = allTasks(); // Mise à jour de la liste des tâches
-
-    res.send(createList(tasks));
+    writeFilterState(filterState);
+    res.send(createFilteredList(filteredTasks, filterState));
 });
 
 
@@ -144,12 +166,12 @@ router.delete('/delete/:id', (req, res) => {
     const id = parseInt(req.params.id);
     const idx = tasks.findIndex(t => t.id === id);
     tasks.splice(idx, 1);
-
     const deletedTask = deleteTaskById(id);
+    let filteredTasks = getFilteredList(filterState);
     
     if (deletedTask) {
         tasks = allTasks(); // Mise à jour de la liste des tâches
-        res.send(createFilteredList(tasks, filterState));
+        res.send(createFilteredList(filteredTasks, filterState));
     } else {
         res.status(404).send('Task not found');
     }
