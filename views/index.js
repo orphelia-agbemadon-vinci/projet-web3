@@ -12,17 +12,15 @@ const homePage = () => /*html*/`
     </head>
     <body>
         <header>
-            <div class="search">
-                <input class="search-bar" type="search" id="search" placeholder="Recherchez une tâche...">
-            </div>
-            
+
+
         </header>
         <main>
             <section class="container">
                 <div id="tasks-manager">
                     <!-- Titre de la page -->
                     <div id="title-container" class="title-container">
-                        <h1> 
+                        <h1>
                             <a href="/">
                                 <img src="../images/logoDunDeal.png" alt="Logo DunDeal" class="logo">
                             </a>
@@ -31,6 +29,9 @@ const homePage = () => /*html*/`
                     </div>
                     <!-- Ligne de séparation -->
                     <hr class="separator">
+                    <div class="search">
+                        <input class="search-bar" type="search" id="search" placeholder="Recherchez une tâche...">
+                    </div>
                     <!-- Boutons pour filtrer -->
                     <div id="filters">
                         <button hx-get="/tasks/filter/none" hx-target="#task-list">Toutes</button>

@@ -8,7 +8,7 @@ const layout = (content) => /*html*/`
         <link rel="icon" href="../images/checklist.png">
         <link rel="stylesheet" href="../../stylesheets/styles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+        <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
     </head>
     <body>
         <main>
