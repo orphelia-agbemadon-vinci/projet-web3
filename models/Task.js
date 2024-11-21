@@ -100,26 +100,26 @@ export function deleteAllTasks() {
  * @returns {object|null} La tâche mise à jour ou null si non trouvée.
  */
 export function toggleImportance(id) {
-    const tasks = allTasks();
-    console.log('All tasks:', tasks);
-    const taskIndex = tasks.findIndex(task => task.id === id);
-    if (taskIndex === -1) {
-        console.error(`Task with id ${id} not found.`);
-        return null;
-    }
-    console.log('Found task index:', taskIndex);
-    console.log('Task before update:', tasks[taskIndex]);
-    tasks[taskIndex].important = !tasks[taskIndex].important;
-    const [task] = tasks.splice(taskIndex, 1);
-    // Réorganiser selon l'importance
-    if (task.important) {
-        tasks.unshift(task); // Ajouter au début si important
-    } else {
-        tasks.push(task); // Ajouter à la fin si non important
-    }
-    console.log('Tasks after reordering:', tasks);
-    serialize(jsonDbPath, tasks);
-    return task;
+  const tasks = allTasks();
+  console.log('All tasks:', tasks);
+  const taskIndex = tasks.findIndex((task) => task.id === id);
+  if (taskIndex === -1) {
+    console.error(`Task with id ${id} not found.`);
+    return null;
+  }
+  console.log('Found task index:', taskIndex);
+  console.log('Task before update:', tasks[taskIndex]);
+  tasks[taskIndex].important = !tasks[taskIndex].important;
+  const [task] = tasks.splice(taskIndex, 1);
+  // Réorganiser selon l'importance
+  if (task.important) {
+    tasks.unshift(task); // Ajouter au début si important
+  } else {
+    tasks.push(task); // Ajouter à la fin si non important
+  }
+  console.log('Tasks after reordering:', tasks);
+  serialize(jsonDbPath, tasks);
+  return task;
 }
 
 /**

@@ -8,8 +8,8 @@ const createATask = (task) => /*html*/ `
                 type="checkbox"
                 ${task.completed ? 'checked' : ''}
                 hx-post="/tasks/toggle-complete/${task.id}"
-                hx-target="closest tr"
-                hx-swap="outerHTML">
+                hx-target="#task-list"
+                hx-swap="innerHTML">
         </td>
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
         <td class="task-col ${task.completed ? 'completed' : ''}">

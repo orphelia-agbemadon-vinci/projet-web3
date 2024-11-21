@@ -104,7 +104,6 @@ router.post('/toggle-important/:id', (req, res) => {
   Task.toggleImportance(id);
   let filteredTasks = Task.getFilteredList(filterState);
 
-  tasks = Task.allTasks(); // Mise à jour de la liste des tâches
   Task.writeFilterState(filterState);
   res.send(createFilteredList(filteredTasks, filterState));
 });
@@ -112,13 +111,11 @@ router.post('/toggle-important/:id', (req, res) => {
 // Route pour cocher une tâche
 router.post('/toggle-complete/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  try {
-    const updatedTask = Task.toggleCompletion(id);
-    tasks = Task.allTasks(); // Mise à jour de la liste des tâches
-    res.send(createATask(updatedTask)); // Renvoyer la tâche mise à jour
-  } catch (error) {
-    res.status(404).send(error.message);
-  }
+  Task.toggleCompletion(id);
+  let filteredTasks = Task.getFilteredList(filterState);
+
+  Task.writeFilterState(filterState);
+  res.send(createFilteredList(filteredTasks, filterState)); // Renvoyer la tâche mise à jour
 });
 
 // Route pour rechercher des tâches.
@@ -169,7 +166,6 @@ router.delete('/delete/:id', (req, res) => {
   let filteredTasks = Task.getFilteredList(filterState);
 
   if (deletedTask) {
-    tasks = Task.allTasks(); // Mise à jour de la liste des tâches
     res.send(createFilteredList(filteredTasks, filterState));
   } else {
     res.status(404).send('Task not found');

@@ -16,19 +16,24 @@ body {
 
 /* Barre de recherche */
 #search {
-    flex: 1;
-    width: 100%;
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: medium;
-    color: #333;
-    border-radius: 8px;
-    margin-bottom: 5%;
-    background-color: transparent;
-    background-color: rgba(255, 255, 255, 0.2); /* Couleur de fond semi-transparente */
-    backdrop-filter: blur(10px); /* Appliquer un flou */
-    -webkit-backdrop-filter: blur(10px);
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: medium;
+  color: #333;
+  border-radius: 8px;
+  margin-bottom: 5%;
+  background-color: transparent;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Couleur de fond semi-transparente */
+  backdrop-filter: blur(10px); /* Appliquer un flou */
+  -webkit-backdrop-filter: blur(10px);
 }
 
 /* Conteneur principal */
@@ -145,13 +150,13 @@ form#add-task-form button:hover {
 
 /* Ajoutez cette section à votre fichier CSS */
 .task-link {
-    text-decoration: underline;
-    cursor: pointer;
-    color: initial;
+  text-decoration: underline;
+  cursor: pointer;
+  color: initial;
 }
 
 .task-link:hover {
-    color: rgb(245, 122, 143); 
+  color: rgb(245, 122, 143);
 }
 
 /* Table de la liste des tâches */
@@ -234,42 +239,41 @@ form#add-task-form button:hover {
 }
 
 #filters option {
-    width: fit-content;
-    background-color: rgb(196, 240, 255);
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 10px 15px;
-    text-align: center;
-    margin: 0 5px 0 5px;
-    display: inline-block;
-    cursor: pointer;
-    border:none;
-    border-radius: 8px;
-    color: black;
+  width: fit-content;
+  background-color: rgb(196, 240, 255);
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 15px;
+  text-align: center;
+  margin: 0 5px 0 5px;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  color: black;
 }
 
 #filters option:hover {
-    background-color: #1967d2;
-    color: white;
+  background-color: #1967d2;
+  color: white;
 }
 
 #filters option:checked {
-    background-color: #1967d2;
-    color: white;
+  background-color: #1967d2;
+  color: white;
 }
 
 /* Ligne de séparation */
 .separator {
-    border: none;
-    border-top: 3px solid #ddd;
-    margin: 20px 0;
- 
+  border: none;
+  border-top: 3px solid #ddd;
+  margin: 20px 0;
 }
 /* Conteneur pour centrer le bouton Tout supprimer */
 .delete-all-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 /* Bouton Tout supprimer */
