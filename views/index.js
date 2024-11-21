@@ -21,30 +21,36 @@ const homePage = () => {
         <main>
             <section>
                 <!-- Titre de la page -->
-                    <div id="title-container" class="title-container">
-                        <h1>
-                            <a href="/">
-                                <img src="../images/logoDunDeal.png" alt="Logo DunDeal" class="logo">
-                            </a>
-                            To-Do List
-                        </h1>
-                    </div>
-                     <div class="search">
-                        <input
-                            type="search"
-                            id="search"
-                            name="search"
-                            placeholder="Recherche d'une tâche..."
-                            hx-post="/tasks/search"
-                            hx-trigger="keyup changed delay:100ms"
-                            hx-target="#task-list"
-                            hx-include="#filters">
-                    </div>
-                    <!-- Ligne de séparation -->
+                <div id="title-container" class="title-container">
+                    <h1>
+                        <a href="/">
+                            <img src="../images/logoDunDeal.png" alt="Logo DunDeal" class="logo">
+                        </a>
+                        DunDeal
+                    </h1>
+                </div>
+                <div class="search">
+                    <input
+                        type="search"
+                        id="search"
+                        name="search"
+                        placeholder="Recherche d'une tâche..."
+                        hx-post="/tasks/search"
+                        hx-trigger="keyup changed delay:100ms"
+                        hx-target="#task-list"
+                        hx-include="#filters">
+                </div>
             </section>
             <section class="container">
                 <div id="tasks-manager">
-                    <select id="filters" name="completed" hx-trigger="change" hx-target="#task-list" hx-post="/tasks/search" hx-include="#search" multiple>
+                    <h2> To-Do List </h2>
+                    <select 
+                        id="filters" 
+                        name="completed" 
+                        hx-trigger="change" 
+                        hx-target="#task-list" 
+                        hx-post="/tasks/search" 
+                        hx-include="#search" multiple>
                         <option hx-get="/tasks/filter/none" value="" selected>Toutes</option>
                         <option hx-get="/tasks/filter/todo" value="false">À faire</option>
                         <option hx-get="/tasks/filter/completed" value="true">Complétées</option>
@@ -59,7 +65,7 @@ const homePage = () => {
                     <div id="task-list">
                         ${createFilteredList(filteredTasks, 'none')}
                     </div>
-                    </div>
+                </div>
                 <!-- Liste des sous-tâches -->
                 <div id="subtasks">
                     <!-- Données ajoutées dynamiquement ici -->

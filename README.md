@@ -1,6 +1,5 @@
 #### projet-web3 : HTMX
-
-#### groupe n°10 : Elise Grelaud, Melda Gonen, Orphelia Agbemadon, Thuyduong Tran, Sinem Bayrak
+#### groupe n°10 : Elise Grelaud, Melda Gonen, Orphelia Agbemadon, Thuy Duong Océane Tran, Sinem Bayrak
 
 # Gestionnaire de Tâches (To-Do List) avec HTMX et JS
 

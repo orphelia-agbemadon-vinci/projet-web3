@@ -5,7 +5,10 @@ const createSubtaskList = (subtasks, task) => /*html*/ `
         <div>
             <h2>${task.description}</h2>
         </div>
-        <form id="add-task-form" hx-post="/tasks/subtasks/add/${task.id}" hx-target="#subtask-list" hx-swap="outerHTML">
+        <form id="add-task-form" 
+            hx-post="/tasks/subtasks/add/${task.id}" 
+            hx-target="#subtask-list" 
+            hx-swap="outerHTML">
             <input type="text" name="subtask" placeholder="Nouvelle sous-tâche..." required>
             <button>Ajouter</button>
         </form>

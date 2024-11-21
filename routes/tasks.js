@@ -20,12 +20,13 @@ import createATask from '../views/tasks/task.js';
 
 const router = express.Router();
 
-// Liste des tâches et des listes en mémoire
+// Initialisation des tâches et de l'état du filtre
 let tasks = allTasks();
 let filterState = getFilterState();
 
 console.log('INIT Filter state:', filterState);
 
+// Route pour afficher la liste des tâches.
 router.get('/', (req, res) => {
   if (tasks.length === 0) {
     res.send('Aucune tâche à afficher');
@@ -93,7 +94,7 @@ router.get('/edit/:id', (req, res) => {
   }
 });
 
-// Ajoute une nouvelle tâche
+// Route pour ajouter une nouvelle tâche.
 router.post('/add', (req, res) => {
   const { description } = req.body;
 
@@ -134,6 +135,7 @@ router.post('/toggle-complete/:id', (req, res) => {
   }
 });
 
+// Route pour rechercher des tâches.
 router.post('/search', (req, res) => {
   const { search, completed } = req.body;
   const text = search ? search.toLowerCase() : '';

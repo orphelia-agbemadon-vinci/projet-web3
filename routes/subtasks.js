@@ -1,12 +1,11 @@
 import express from 'express';
-import { findTask, allTasks } from '../models/Task.js';
-
-import {
-  toggleSubTaskCompletion,
-  addSubTask,
-  deleteSubTask,
-  getTaskDetailsWithSubtasks,
-  deleteAllSubTasks,
+import { findTask} from '../models/Task.js';
+import { 
+    addSubTask, 
+    deleteSubTask, 
+    deleteAllSubTasks, 
+    toggleSubTaskCompletion, 
+    getTaskDetailsWithSubtasks
 } from '../models/Subtask.js';
 import createSubtaskList from '../views/subtasks/subtaskList.js';
 import createASubtask from '../views/subtasks/subtask.js';
@@ -14,10 +13,7 @@ import layout from '../views/layout.js';
 
 const router = express.Router();
 
-// Liste des listes en mémoire
-let tasks = allTasks();
-
-// Route pour afficher détails d'une tâche
+// Route pour afficher les détails d'une tâche avec ses sous-tâches.
 router.get('/:id', (req, res) => {
   const id = parseInt(req.params.id);
   try {
@@ -29,7 +25,7 @@ router.get('/:id', (req, res) => {
   }
 });
 
-// Route pour ajouter une sous-tâche
+// Route pour ajouter une sous-tâche à une tâche existante.
 router.post('/add/:taskId', (req, res) => {
   const taskId = parseInt(req.params.taskId);
   const { subtask } = req.body;
@@ -57,7 +53,7 @@ router.post('/toggle-subtask/:taskId/:subId', (req, res) => {
   }
 });
 
-// Route pour supprimer une sous-tâche
+// Route pour supprimer une sous-tâche d'une tâche existante.
 router.delete('/delete/:taskId/:subId', (req, res) => {
   const taskId = parseInt(req.params.taskId);
   const subId = parseInt(req.params.subId);
@@ -75,7 +71,7 @@ router.delete('/delete/:taskId/:subId', (req, res) => {
   }
 });
 
-// Route pour supprimer toutes les sous-tâches d'une tâche
+// Route pour supprimer toutes les sous-tâches d'une tâche existante.
 router.delete('/delete-all/:taskId', (req, res) => {
   const taskId = parseInt(req.params.taskId);
   try {
