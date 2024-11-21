@@ -1,8 +1,9 @@
 # projet-web3 : [HTMX](https://htmx.org) (groupe 10)
 
-## Gestionnaire de tâches (*To-Do List*) avec [HTMX](https://htmx.org) & [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+## Gestionnaire de tâches (_To-Do List_) avec [HTMX](https://htmx.org) & [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 #### Membres
+
 - Orphelia Agbemadon
 - Sinem Bayrak
 - Melda Gonen
@@ -12,34 +13,31 @@
 ---
 
 ## Objectif
-*DunDeal* est un gestionnaire de tâches simple (*To-Do List*) conçu pour explorer et démontrer les capacités de [HTMX](https://htmx.org) pour la manipulation dynamique de l'interface utilisateur en utilisant des requêtes [AJAX](https://developer.mozilla.org/en-US/docs/Glossary/AJAX) légères. L'application est construite avec [Node.js](https://nodejs.org/fr) et [Express](https://expressjs.com), et utilise [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) pour le rendu côté serveur. 
+
+_DunDeal_ est un gestionnaire de tâches simple (_To-Do List_) conçu pour explorer et démontrer les capacités de [HTMX](https://htmx.org) pour la manipulation dynamique de l'interface utilisateur en utilisant des requêtes [AJAX](https://developer.mozilla.org/en-US/docs/Glossary/AJAX) légères. L'application est construite avec [Node.js](https://nodejs.org/fr) et [Express](https://expressjs.com), et utilise [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) pour le rendu côté serveur.
 
 L'objectif principal est de minimiser les scripts [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) personnalisés et de s'appuyer sur [HTMX](https://htmx.org) pour des interactions utilisateur sans rechargement de page.
 
 ## Fonctionnalités
 
-- __Création de tâches__ : Ajouter une nouvelle tâche sans rechargement de la page.
-  
-- __Suppression de tâches__ : Supprimer une tâche instantanément.
+- **Création de tâches** : Ajouter une nouvelle tâche sans rechargement de la page.
+- **Suppression de tâches** : Supprimer une tâche instantanément.
 
-- __Supprimer toutes les tâches__ : Supprimer l'ensemble de tâches créées
+- **Supprimer toutes les tâches** : Supprimer l'ensemble de tâches créées
 
-- __Renommer une tâche__ : Renommer la description d'une .
+- **Renommer une tâche** : Renommer la description d'une .
 
-- __Marquer une tâche terminée__ : Marquer une tâche comme terminée en cochant et en rayant la description de la tâche.
+- **Marquer une tâche terminée** : Marquer une tâche comme terminée en cochant et en rayant la description de la tâche.
 
-- __Marquer une tâche importante__ : Marquer une tâche comme importante en la metant en début de liste.
+- **Marquer une tâche importante** : Marquer une tâche comme importante en la metant en début de liste.
 
-- __Filtrage des tâches__ : Filtrer les tâches selon leurs critères (À faire, Terminées, Importantes).
+- **Filtrage des tâches** : Filtrer les tâches selon leurs critères (À faire, Terminées, Importantes).
 
-- __Recherche de tâches__ : Rechercher une tâche selon sa description.
-  
-- __Création de sous-tâches__ : Ajouter une nouvelle sous tâche sans rechargement de la page.
-  
--  __Suppression de sous-tâches__ : Supprimer une sous-tâche instantanément.
+- **Recherche de tâches** : Rechercher une tâche selon sa description.
+- **Création de sous-tâches** : Ajouter une nouvelle sous tâche sans rechargement de la page.
+- **Suppression de sous-tâches** : Supprimer une sous-tâche instantanément.
 
-- __Recherche de sous-tâches__ : Rechercher une sous-tâche selon sa description.
-
+- **Recherche de sous-tâches** : Rechercher une sous-tâche selon sa description.
 
 ## Guide d'installation
 
@@ -68,7 +66,7 @@ npm run dev
 
 **data/** : Contient les fichiers [JSON](https://www.json.org/json-en.html) utilisés comme base de données légère pour stocker les tâches et les listes de manière persistante.
 
-**models/** : Contient les fichiers [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) pour la gestion des données et des opérations *CRUD* (*Create, Read, Update, Delete*) sur les tâches et les listes.
+**models/** : Contient les fichiers [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) pour la gestion des données et des opérations _CRUD_ (_Create, Read, Update, Delete_) sur les tâches et les listes.
 
 **public/** : Contient les fichiers statiques ([CSS](https://developer.mozilla.org/fr/docs/Web/CSS) & images).
 

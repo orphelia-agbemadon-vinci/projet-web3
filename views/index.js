@@ -2,10 +2,10 @@ import { allTasks } from "../models/Task.js";
 import createFilteredList from "./tasks/createFilteredList.js";
 
 const homePage = () => {
-    const tasks = allTasks();
-    const filteredTasks = tasks.filter((task) => task); // Filtre par défaut "none" au démarrage
+  const tasks = allTasks();
+  const filteredTasks = tasks.filter((task) => task); // Filtre par défaut "none" au démarrage
 
-    return /*html*/ `
+  return /*html*/ `
     <!DOCTYPE html>
     <html lang="fr">
     <head>
