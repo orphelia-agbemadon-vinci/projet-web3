@@ -11,8 +11,8 @@ const createATask = (task) => /*html*/ `
         </td>
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
         <td class="task-col ${task.completed ? 'completed' : ''}">
-        <a hx-get="/tasks/subtasks/${task.id}" hx-push-url="true" hx-target="#tasks-manager" hx-swap="innerHTML">
-            <label class="task-link">${task.description}</label>
+        <a hx-get="/tasks/subtasks/${task.id}" hx-push-url="false" hx-target="#tasks-manager" hx-swap="innerHTML">
+            <label>${task.description}</label>
         </a>
         </td>
         <!-- Colonne pour le bouton "Modifier" -->
