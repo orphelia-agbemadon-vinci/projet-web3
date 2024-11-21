@@ -8,6 +8,7 @@ import createASubtask from '../views/subtasks/createASubtask.js';
 import layout from '../views/layout.js';
 
 const router = express.Router();
+let taskListId;
 
 // Route pour afficher les détails d'une tâche avec ses sous-tâches.
 router.get('/:id', (req, res) => {
@@ -15,6 +16,7 @@ router.get('/:id', (req, res) => {
   try {
     const taskDetails = Subtask.getTaskDetailsWithSubtasks(id);
     const { task, subTasks } = taskDetails;
+    taskListId = task.id;
     res.send(layout(createSubtaskList(subTasks, task)));
   } catch {
     res.status(404).send('Task not found');
@@ -44,6 +46,31 @@ router.post('/toggle-subtask/:taskId/:subId', (req, res) => {
     const subTask = Subtask.toggleSubTaskCompletion(taskId, subId);
     const task = Task.findTask(taskId);
     res.send(createASubtask(subTask, task));
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
+router.post('/search', (req, res) => {
+  const search = req.body.subtaskSearch;
+  const text = search ? search.toLowerCase() : '';
+
+  try {
+    if (taskListId) {
+      // Recherche de sous-tâches
+      const task = Task.findTask(taskListId);
+      let foundSubtasks = task.subtasks;
+
+      if (text) {
+        foundSubtasks = foundSubtasks.filter((subtask) =>
+          subtask.descriptionSubtask.toLowerCase().includes(text)
+        );
+      }
+
+      res.send(createSubtaskList(foundSubtasks, task));
+    } else {
+      res.status(400).send('Task ID not found');
+    }
   } catch (error) {
     res.status(404).send(error.message);
   }

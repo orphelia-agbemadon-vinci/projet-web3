@@ -22,7 +22,9 @@ L'objectif principal est de minimiser les scripts [JavaScript](https://developer
   
 - __Suppression de tâches__ : Supprimer une tâche instantanément.
 
-- __Modification de tâches__ : Modifier une tâche.
+- __Supprimer toutes les tâches__ : Supprimer l'ensemble de tâches créées
+
+- __Renommer une tâche__ : Renommer la description d'une .
 
 - __Marquer une tâche terminée__ : Marquer une tâche comme terminée en cochant et en rayant la description de la tâche.
 
@@ -35,6 +37,9 @@ L'objectif principal est de minimiser les scripts [JavaScript](https://developer
 - __Création de sous-tâches__ : Ajouter une nouvelle sous tâche sans rechargement de la page.
   
 -  __Suppression de sous-tâches__ : Supprimer une sous-tâche instantanément.
+
+- __Recherche de sous-tâches__ : Rechercher une sous-tâche selon sa description.
+
 
 ## Guide d'installation
 

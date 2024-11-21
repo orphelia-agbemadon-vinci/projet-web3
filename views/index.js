@@ -44,8 +44,8 @@ const homePage = () => {
                 <div id="subtask-search-container" style="display: none">
                 <input
                     type="search"
-                    id="subtask-search"
-                    name="subtask-search"
+                    id="subtaskSearch"
+                    name="subtaskSearch"
                     placeholder="Recherche d'une sous-tâche..."
                     hx-post="/tasks/subtasks/search"
                     hx-trigger="keyup changed delay:100ms"
