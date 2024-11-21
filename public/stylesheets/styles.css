@@ -1,164 +1,429 @@
+/* Style global */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0 0 5px 0;
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(
+    to top,
+    #ff9a9e 0%,
+    #fecfef 99%,
+    #fecfef 100%
+  ); /* Dégradé mauve/rose */
+  overflow: auto;
+  flex-wrap: wrap;
 }
 
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Barre de recherche */
+#search,
+#subtaskSearch {
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: medium;
+  color: #333;
+  border-radius: 8px;
+  margin-bottom: 5%;
+  background-color: transparent;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Couleur de fond semi-transparente */
+  backdrop-filter: blur(10px); /* Appliquer un flou */
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Conteneur principal */
 .container {
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 50px 20px 50px;
+  width: auto;
+  max-width: 100%;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+  margin-bottom: 5%;
 }
 
-form {
-    margin-bottom: 20px;
+#search {
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: medium;
+  color: #333;
+  border-radius: 8px;
+  margin-bottom: 5%;
+  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
+.container:hover {
+  transform: scale(1.02);
+}
+
+/* Conteneur du titre */
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.title-container .logo {
+  max-width: 100px;
+  height: auto;
+}
+
+.title-container2 .logo {
+  max-width: 100px;
+  height: auto;
+  text-align: center;
+}
+
+/* Titre principal */
+.title-container h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0;
+}
+
+/* Formulaire d'ajout de tâche */
+form#add-task-form {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 400px;
+  align-items: center;
+  margin: 0 auto;
+}
+
+form#add-task-form input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #a8a7a7;
+  border-radius: 8px;
+}
+
+form#add-task-form button {
+  padding: 10px 20px;
+  background-color: #ff536c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form#add-task-form button:hover {
+  background-color: #db445a; /* Couleur rose plus vive au survol */
+}
+
+/* Liste des tâches */
+#task-list {
+  width: 100%;
+  margin-top: 10px;
+  text-align: left;
+}
+
+/* Ajoutez cette section à votre fichier CSS */
+.task-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: initial;
+}
+
+.task-link:hover {
+  color: rgb(245, 122, 143);
+}
+
+/* Table de la liste des tâches */
 .todolist {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #ddd; /* Contour du tableau */
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.todolist th, .todolist td {
-    border-top: 1px solid #ddd; /* Ligne horizontale séparant chaque tâche */
-    border-bottom: 1px solid #ddd; /* Ligne horizontale séparant chaque tâche */
-    padding: 8px;
-    text-align:center;
-}
-
-.todolist th, .todolist td {
-    border-left: none; /* Masquer les bordures verticales */
-    border-right: none; /* Masquer les bordures verticales */
+.todolist th,
+.todolist td {
+  padding: 10px;
+  text-align: left;
+  border-top: 1px solid white;
 }
 
 .todolist tr:hover {
-    background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
 
-.todolist th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    color: white;
-}
-
+/* Style pour barrer le texte des tâches complétées */
 .check-box {
-    width: 10%;
-    text-align: center;
+  width: 10%;
+  text-align: center;
 }
 
 .task-col {
-    width: 70%;
+  width: 70%;
 }
 
 .completed label {
-    text-decoration: line-through;
-    color: gray;
+  text-decoration: line-through;
+  color: gray;
 }
 
-.menu {
-    width: 15%;
-    height: auto;
-    background-color: #f4f4f4;
-    padding: 10px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    transform: translateX(0);
-    transition: transform 0.3s ease;
-    z-index: 1000;
-
-   
-}
-
-.menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.menu li {
-    margin: 20px 5px;
-    display: flex;
-}
-
-.icon {
-    margin-right: 5px;
-    width:30px;
-    height: auto;
-}
-
-.logo {
-    max-width: 100%;
-    height: auto;
-}
-
-.container.menu-closed {
-    margin-left: 20px;
-}
-
-.star-button, .delete-button, .edit-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin: 0 5px;
-    font-size: 24px;
-    color: inherit;
+/* Icônes et actions */
+.star-button,
+.delete-button,
+.edit-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 5px;
+  font-size: 24px;
+  color: inherit;
 }
 
 .star-button {
-    color: gold;
-    margin-right: 20px;
+  color: gold;
 }
 
 .delete-button {
-    color: red;
+  color: red;
+  float: right;
 }
 
 .edit-button {
-    color: lightblue;
+  color: lightblue;
 }
 
-/*Pour le modal (pop up)*/
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-    padding-top: 60px; 
+/* Boutons de filtrage */
+#filters {
+  height: 50px;
+  width: 100%;
+  border: none;
+  overflow: hidden;
+  justify-content: center;
+  margin-bottom: 3%;
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto; 
+#filters::-moz-focus-inner {
+  border: 0;
+}
+
+#filters::-moz-selection {
+  background-color: #ccc;
+}
+
+#filters:focus {
+  outline: none;
+}
+
+#filters option {
+  width: fit-content;
+  background-color: rgb(196, 240, 255);
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 15px;
+  text-align: center;
+  margin: 0 5px 0 5px;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  color: black;
+}
+
+#filters option:hover {
+  background-color: #1967d2;
+  color: white;
+}
+
+#filters option:checked {
+  background-color: #1967d2;
+  color: white;
+}
+
+/* Conteneur pour centrer le bouton Tout supprimer */
+.delete-all-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Bouton Tout supprimer */
+#delete-all-button {
+  padding: 15px 30px;
+  background-color: #ff536c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+}
+
+#delete-all-button:hover {
+  background-color: #db445a;
+  transform: scale(1.05);
+}
+
+/*Bouton de retour*/
+.back-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-button {
+  padding: 10px 15px;
+  background-color: #ff536c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
+}
+
+.back-button:hover {
+  background-color: #db445a;
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
+}
+
+#edit-task-form input {
+  width: 76%;
+  height: 30px;
+  border: white;
+  border-radius: 7px;
+}
+
+#edit-task-form button {
+  padding: 8px 8px;
+  background-color: #ff536c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#edit-task-form button:hover {
+  background-color: #db445a;
+  transform: scale(1.05);
+}
+
+/* Media Queries pour rendre le site responsive */
+@media (max-width: 768px) {
+  .container {
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%; 
+  }
+
+  .title-container h1 {
+    font-size: 2rem;
+  }
+
+  form#add-task-form {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  form#add-task-form input {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  form#add-task-form button {
+    width: 100%;
+  }
+
+  .todolist th,
+  .todolist td {
+    padding: 5px;
+  }
+
+  .task-col {
+    width: 60%;
+  }
+  .check-box {
+    width: 20%;
+  }
+
+  #filters option {
+    font-size: 1rem;
+    padding: 5px 10px;
+  }
+
+  #delete-all-button {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .back-button {
+    width: 100%;
+    padding: 10px;
+  }
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+@media (max-width: 480px) {
+  .title-container h1 {
+    font-size: 1.5rem;
+  }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+  .title-container .logo {
+    max-width: 50px;
+  }
+
+  .task-col {
+    width: 50%;
+  }
+
+  .check-box {
+    width: 30%;
+  }
+
+  #filters option {
+    font-size: 0.8rem;
+    padding: 5px;
+  }
 }

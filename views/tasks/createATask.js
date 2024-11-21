@@ -1,18 +1,25 @@
 const createATask = (task) => /*html*/ `
-    <tr data-id="${task.id}" hx-target = "#task-list">
+    <tr 
+        data-id="${task.id}" 
+        hx-target = "#task-list">
         <!-- Colonne pour le texte de la tâche -->
         <td class="check-box">
             <input
                 type="checkbox"
-                ${task.completed ? 'checked' : ''}
+                ${task.completed ? "checked" : ""}
                 hx-post="/tasks/toggle-complete/${task.id}"
-                hx-target="closest tr"
-                hx-swap="outerHTML">
+                hx-target="#task-list"
+                hx-swap="innerHTML">
         </td>
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
-        <td class="task-col ${task.completed ? 'completed' : ''}">
-        <a hx-get="/tasks/subtasks/${task.id}" hx-push-url="true" hx-target="#tasks-manager" hx-swap="innerHTML">
-            <label>${task.description}</label>
+        <td class="task-col ${task.completed ? "completed" : ""}">
+        <a  id="task"
+            hx-get="/tasks/subtasks/${task.id}" 
+            hx-push-url="false" 
+            hx-target="#tasks-manager" 
+            hx-swap="innerHTML"
+            hx-on:click="document.getElementById('search-container').style.display = 'none'; document.getElementById('subtask-search-container').style.display = 'block';">
+            <label class="task-link">${task.description}</label>
         </a>
         </td>
         <!-- Colonne pour le bouton "Modifier" -->
@@ -32,14 +39,14 @@ const createATask = (task) => /*html*/ `
                 hx-post="/tasks/toggle-important/${task.id}"
                 hx-target="#task-list"
                 hx-swap="innerHTML">
-                <i class="fa ${task.important ? 'fa-star' : 'fa-star-o'}"></i>
+                <i class="fa ${task.important ? "fa-star" : "fa-star-o"}"></i>
             </a>
         </td>
         <!-- Colonne pour le bouton "Supprimer" -->
         <td class="">
             <button class="delete-button"
                 hx-delete="/tasks/delete/${task.id}"
-                hx-target="closest tr"
+                hx-target="#task-list"
                 hx-swap="innerHTML"
                 hx-confirm="Êtes-vous sûr(e) de vouloir supprimer cette tâche ?\nCette action est irréversible.">
                 <i class="fa fa-trash"></i>

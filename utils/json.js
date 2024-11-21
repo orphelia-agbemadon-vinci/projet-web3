@@ -1,6 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-
+import fs from "fs";
+import path from "path";
 
 /**
  * Parse items given in a .js file
@@ -11,17 +10,19 @@ import path from 'path';
  * @returns {Array} : the array that was parsed from the file (or defaultArray)
  */
 export function parse(filePath, defaultArray = []) {
-    if (!fs.existsSync(filePath)) {
-        serialize(filePath, defaultArray);
-        return defaultArray;
-    }
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-    const jsonData = fileContent.match(/const DATA = (\[.*\]);\n\nexport default DATA;/s)[1];
-    try {
-        return JSON.parse(jsonData);
-    } catch (err) {
-        return defaultArray;
-    }
+  if (!fs.existsSync(filePath)) {
+    serialize(filePath, defaultArray);
+    return defaultArray;
+  }
+  const fileContent = fs.readFileSync(filePath, "utf8");
+  const jsonData = fileContent.match(
+    /const DATA = (\[.*\]);\n\nexport default DATA;/s
+  )[1];
+  try {
+    return JSON.parse(jsonData);
+  } catch {
+    return defaultArray;
+  }
 }
 
 /**
@@ -31,11 +32,11 @@ export function parse(filePath, defaultArray = []) {
  * Even if the file exists, its whole content is reset by the given object.
  */
 export function serialize(filePath, object) {
-    // Créer les répertoires nécessaires si ils n'existent pas
-    const dir = path.dirname(filePath);
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-    const fileContent = `const DATA = ${JSON.stringify(object, null, 2)};\n\nexport default DATA;\n`;
-    fs.writeFileSync(filePath, fileContent, 'utf8');
+  // Créer les répertoires nécessaires si ils n'existent pas
+  const dir = path.dirname(filePath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  const fileContent = `const DATA = ${JSON.stringify(object, null, 2)};\n\nexport default DATA;\n`;
+  fs.writeFileSync(filePath, fileContent, "utf8");
 }
