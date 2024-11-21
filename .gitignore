@@ -12,3 +12,5 @@ Thumbs.db
 lost+found
 # ignore the data folder
 /data
+# ignore the cache folder
+/cache

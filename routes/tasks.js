@@ -11,7 +11,7 @@ const router = express.Router();
 
 // Initialisation des tâches et de l'état du filtre
 let tasks = Task.allTasks();
-let filterState = Task.getFilterState();
+let filterState = "none";
 
 // Route pour afficher la liste des tâches.
 router.get("/", (req, res) => {
