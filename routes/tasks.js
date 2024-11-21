@@ -13,8 +13,6 @@ const router = express.Router();
 let tasks = Task.allTasks();
 let filterState = Task.getFilterState();
 
-console.log("INIT Filter state:", filterState);
-
 // Route pour afficher la liste des tâches.
 router.get("/", (req, res) => {
   if (tasks.length === 0) {
