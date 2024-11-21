@@ -1,12 +1,12 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { parse, serialize } from '../utils/json.js';
-import { findTaskIndex } from './Task.js';
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { parse, serialize } from "../utils/json.js";
+import { findTaskIndex } from "./Task.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
+const jsonDbPath = path.join(__dirname, "/../data/tasks.js");
 
 /**
  * Ajoute une nouvelle sous-tâche à une tâche existante.

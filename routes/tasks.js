@@ -1,11 +1,11 @@
-import express from 'express';
+import express from "express";
 
-import Task from '../models/Task.js';
+import Task from "../models/Task.js";
 
-import createTasksList from '../views/tasks/createTasksList.js';
-import createFilteredList from '../views/tasks/createFilteredList.js';
-import createEditTask from '../views/tasks/createEditTask.js';
-import createATask from '../views/tasks/createATask.js';
+import createTasksList from "../views/tasks/createTasksList.js";
+import createFilteredList from "../views/tasks/createFilteredList.js";
+import createEditTask from "../views/tasks/createEditTask.js";
+import createATask from "../views/tasks/createATask.js";
 
 const router = express.Router();
 
@@ -13,12 +13,12 @@ const router = express.Router();
 let tasks = Task.allTasks();
 let filterState = Task.getFilterState();
 
-console.log('INIT Filter state:', filterState);
+console.log("INIT Filter state:", filterState);
 
 // Route pour afficher la liste des tâches.
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   if (tasks.length === 0) {
-    res.send('Aucune tâche à afficher');
+    res.send("Aucune tâche à afficher");
     return;
   }
   const tasks = Task.allTasks();
@@ -26,70 +26,70 @@ router.get('/', (req, res) => {
 });
 
 // Route pour récupérer toutes les tâches
-router.get('/all', (req, res) => {
+router.get("/all", (req, res) => {
   const tasks = Task.allTasks();
   res.send(createTasksList(tasks));
 });
 
 // Route pour filtrer les tâches selon leur type
-router.get('/filter/:type', (req, res) => {
+router.get("/filter/:type", (req, res) => {
   const { type } = req.params;
 
   let filteredTasks;
-  if (type === 'completed') {
+  if (type === "completed") {
     filteredTasks = tasks.filter((task) => task.completed);
     if (filteredTasks.length === 0) {
-      res.send('Aucune tâche complétée');
+      res.send("Aucune tâche complétée");
       filterState = type;
       return;
     }
-  } else if (type === 'todo') {
+  } else if (type === "todo") {
     filteredTasks = tasks.filter((task) => !task.completed);
     if (filteredTasks.length === 0) {
-      res.send('Aucune tâche à faire');
+      res.send("Aucune tâche à faire");
       filterState = type;
       return;
     }
-  } else if (type === 'important') {
+  } else if (type === "important") {
     filteredTasks = tasks.filter((task) => task.important);
     if (filteredTasks.length === 0) {
-      res.send('Aucune tâche importante');
+      res.send("Aucune tâche importante");
       filterState = type;
       return;
     }
-  } else if (type === 'none') {
+  } else if (type === "none") {
     filteredTasks = tasks;
     if (filteredTasks.length === 0) {
-      res.send('Aucune tâche');
+      res.send("Aucune tâche");
       filterState = type;
       return;
     }
   }
   filterState = type;
-  console.log('Filter state:', filterState);
+  console.log("Filter state:", filterState);
   res.send(createFilteredList(filteredTasks, type));
 });
 
 // Route pour afficher le formulaire de modification pour une tâche
-router.get('/edit/:id', (req, res) => {
+router.get("/edit/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
   const task = tasks.find((t) => t.id === taskId);
   if (task) {
     res.send(createEditTask(task));
   } else {
-    res.status(404).send('Task not found');
+    res.status(404).send("Task not found");
   }
 });
 
 // Route pour ajouter une nouvelle tâche.
-router.post('/add', (req, res) => {
+router.post("/add", (req, res) => {
   const { description } = req.body;
 
-  if (filterState === 'none' || filterState === 'todo') {
+  if (filterState === "none" || filterState === "todo") {
     Task.createTask(description);
-  } else if (filterState === 'completed') {
+  } else if (filterState === "completed") {
     Task.createFilteredTask(description, true, false);
-  } else if (filterState === 'important') {
+  } else if (filterState === "important") {
     Task.createFilteredTask(description, false, true);
   }
 
@@ -100,7 +100,7 @@ router.post('/add', (req, res) => {
 });
 
 // Route pour marquer une tâche comme importante
-router.post('/toggle-important/:id', (req, res) => {
+router.post("/toggle-important/:id", (req, res) => {
   const id = parseInt(req.params.id);
   Task.toggleImportance(id);
   let filteredTasks = Task.getFilteredList(filterState);
@@ -110,7 +110,7 @@ router.post('/toggle-important/:id', (req, res) => {
 });
 
 // Route pour cocher une tâche
-router.post('/toggle-complete/:id', (req, res) => {
+router.post("/toggle-complete/:id", (req, res) => {
   const id = parseInt(req.params.id);
   Task.toggleCompletion(id);
   let filteredTasks = Task.getFilteredList(filterState);
@@ -120,9 +120,9 @@ router.post('/toggle-complete/:id', (req, res) => {
 });
 
 // Route pour rechercher des tâches.
-router.post('/search', (req, res) => {
+router.post("/search", (req, res) => {
   const { search, completed } = req.body;
-  const text = search ? search.toLowerCase() : '';
+  const text = search ? search.toLowerCase() : "";
 
   let foundTasks = tasks;
 
@@ -132,11 +132,11 @@ router.post('/search', (req, res) => {
     );
   }
 
-  if (completed !== undefined && completed !== '') {
-    if (completed === 'important') {
+  if (completed !== undefined && completed !== "") {
+    if (completed === "important") {
       foundTasks = foundTasks.filter((t) => t.important);
     } else {
-      const isCompleted = completed === 'true';
+      const isCompleted = completed === "true";
       foundTasks = foundTasks.filter((t) => t.completed === isCompleted);
     }
   }
@@ -145,7 +145,7 @@ router.post('/search', (req, res) => {
 });
 
 // Route pour éditer une tâche
-router.patch('/edit/:id', (req, res) => {
+router.patch("/edit/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
   const description = req.body.description;
   const taskIndex = tasks.findIndex((t) => t.id === taskId);
@@ -154,12 +154,12 @@ router.patch('/edit/:id', (req, res) => {
     tasks = Task.allTasks(); // Mise à jour de la liste des tâches
     res.send(createATask(tasks[taskIndex]));
   } else {
-    res.status(404).send('Task not found');
+    res.status(404).send("Task not found");
   }
 });
 
 // Route pour supprimer une tâche
-router.delete('/delete/:id', (req, res) => {
+router.delete("/delete/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const idx = tasks.findIndex((t) => t.id === id);
   tasks.splice(idx, 1);
@@ -169,12 +169,12 @@ router.delete('/delete/:id', (req, res) => {
   if (deletedTask) {
     res.send(createFilteredList(filteredTasks, filterState));
   } else {
-    res.status(404).send('Task not found');
+    res.status(404).send("Task not found");
   }
 });
 
 // Route pour supprimer toutes les tâches
-router.delete('/delete-all', (req, res) => {
+router.delete("/delete-all", (req, res) => {
   tasks = Task.deleteAllTasks();
   res.send(createFilteredList(tasks, filterState));
 });

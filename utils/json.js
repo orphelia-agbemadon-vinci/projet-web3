@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
 /**
  * Parse items given in a .js file
@@ -14,7 +14,7 @@ export function parse(filePath, defaultArray = []) {
     serialize(filePath, defaultArray);
     return defaultArray;
   }
-  const fileContent = fs.readFileSync(filePath, 'utf8');
+  const fileContent = fs.readFileSync(filePath, "utf8");
   const jsonData = fileContent.match(
     /const DATA = (\[.*\]);\n\nexport default DATA;/s
   )[1];
@@ -38,5 +38,5 @@ export function serialize(filePath, object) {
     fs.mkdirSync(dir, { recursive: true });
   }
   const fileContent = `const DATA = ${JSON.stringify(object, null, 2)};\n\nexport default DATA;\n`;
-  fs.writeFileSync(filePath, fileContent, 'utf8');
+  fs.writeFileSync(filePath, fileContent, "utf8");
 }

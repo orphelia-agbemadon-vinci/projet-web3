@@ -1,5 +1,5 @@
-import { allTasks } from '../models/Task.js';
-import createFilteredList from './tasks/createFilteredList.js';
+import { allTasks } from "../models/Task.js";
+import createFilteredList from "./tasks/createFilteredList.js";
 
 const homePage = () => {
     const tasks = allTasks();
@@ -74,7 +74,7 @@ const homePage = () => {
                     </form>
                     <!-- Liste des tâches -->
                     <div id="task-list">
-                        ${createFilteredList(filteredTasks, 'none')}
+                        ${createFilteredList(filteredTasks, "none")}
                     </div>
                 </div>
                 <!-- Liste des sous-tâches -->

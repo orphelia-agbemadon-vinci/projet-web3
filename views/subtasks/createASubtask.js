@@ -3,12 +3,12 @@ const createASubtask = (subtask, task) => /*html*/ `
         <td class="check-box">
             <input
                 type="checkbox"
-                ${subtask.completed ? 'checked' : ''}
+                ${subtask.completed ? "checked" : ""}
                 hx-post="/tasks/subtasks/toggle-subtask/${task.id}/${subtask.idSubtask}"
                 hx-target="closest tr"
                 hx-swap="outerHTML">
         </td>
-        <td class="subtask-col ${subtask.completed ? 'completed' : ''}">
+        <td class="subtask-col ${subtask.completed ? "completed" : ""}">
             <label>${subtask.descriptionSubtask}</label>
         </td>
         <td class="actions-col">

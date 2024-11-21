@@ -1,13 +1,13 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { parse, serialize } from '../utils/json.js';
-import DATA from '../data/filterState.js';
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { parse, serialize } from "../utils/json.js";
+import DATA from "../data/filterState.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
-const filterStatePath = path.join(__dirname, '/../data/filterState.js');
+const jsonDbPath = path.join(__dirname, "/../data/tasks.js");
+const filterStatePath = path.join(__dirname, "/../data/filterState.js");
 
 /**
  * Lit toutes les tâches.
@@ -101,14 +101,14 @@ export function deleteAllTasks() {
  */
 export function toggleImportance(id) {
   const tasks = allTasks();
-  console.log('All tasks:', tasks);
+  console.log("All tasks:", tasks);
   const taskIndex = tasks.findIndex((task) => task.id === id);
   if (taskIndex === -1) {
     console.error(`Task with id ${id} not found.`);
     return null;
   }
-  console.log('Found task index:', taskIndex);
-  console.log('Task before update:', tasks[taskIndex]);
+  console.log("Found task index:", taskIndex);
+  console.log("Task before update:", tasks[taskIndex]);
   tasks[taskIndex].important = !tasks[taskIndex].important;
   const [task] = tasks.splice(taskIndex, 1);
   // Réorganiser selon l'importance
@@ -117,7 +117,7 @@ export function toggleImportance(id) {
   } else {
     tasks.push(task); // Ajouter à la fin si non important
   }
-  console.log('Tasks after reordering:', tasks);
+  console.log("Tasks after reordering:", tasks);
   serialize(jsonDbPath, tasks);
   return task;
 }
@@ -180,7 +180,7 @@ export function findTaskIndex(id) {
  * @returns {string} Le filtre par défaut.
  */
 export function getDefaultFilter() {
-  return 'none';
+  return "none";
 }
 
 /**
@@ -199,11 +199,11 @@ export function writeFilterState(filter) {
 export function getFilteredList(filter) {
   const tasks = allTasks();
 
-  if (filter === 'completed') {
+  if (filter === "completed") {
     return tasks.filter((task) => task.completed);
-  } else if (filter === 'todo') {
+  } else if (filter === "todo") {
     return tasks.filter((task) => !task.completed);
-  } else if (filter === 'important') {
+  } else if (filter === "important") {
     return tasks.filter((task) => task.important);
   } else {
     return tasks;

@@ -1,12 +1,12 @@
-import createATask from './createATask.js';
+import createATask from "./createATask.js";
 
 const createFilteredList = (tasks, filter) => /*html*/ `
     <table class="todolist">
-        ${tasks.map((task) => createATask(task)).join('')}
+        ${tasks.map((task) => createATask(task)).join("")}
     </table>
     <div>
         ${
-          filter === 'none' && tasks.length > 0
+          filter === "none" && tasks.length > 0
             ? `
 
         <div class="delete-all-container">
@@ -21,7 +21,7 @@ const createFilteredList = (tasks, filter) => /*html*/ `
         </button>
         </div>
     `
-            : ''
+            : ""
         }
     </div>
     

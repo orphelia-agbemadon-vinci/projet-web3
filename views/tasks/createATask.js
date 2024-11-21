@@ -6,13 +6,13 @@ const createATask = (task) => /*html*/ `
         <td class="check-box">
             <input
                 type="checkbox"
-                ${task.completed ? 'checked' : ''}
+                ${task.completed ? "checked" : ""}
                 hx-post="/tasks/toggle-complete/${task.id}"
                 hx-target="#task-list"
                 hx-swap="innerHTML">
         </td>
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
-        <td class="task-col ${task.completed ? 'completed' : ''}">
+        <td class="task-col ${task.completed ? "completed" : ""}">
         <a  id="task"
             hx-get="/tasks/subtasks/${task.id}" 
             hx-push-url="false" 
@@ -39,7 +39,7 @@ const createATask = (task) => /*html*/ `
                 hx-post="/tasks/toggle-important/${task.id}"
                 hx-target="#task-list"
                 hx-swap="innerHTML">
-                <i class="fa ${task.important ? 'fa-star' : 'fa-star-o'}"></i>
+                <i class="fa ${task.important ? "fa-star" : "fa-star-o"}"></i>
             </a>
         </td>
         <!-- Colonne pour le bouton "Supprimer" -->
