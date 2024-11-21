@@ -8,7 +8,13 @@ const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
 
-// Fonction pour ajouter une nouvelle sous-tâche
+/**
+ * Ajoute une nouvelle sous-tâche à une tâche existante.
+ * @param {number} taskId - L'ID de la tâche.
+ * @param {string} subTaskDescription - La description de la sous-tâche.
+ * @returns {object} La nouvelle sous-tâche ajoutée.
+ * @throws {Error} Si la tâche avec l'ID donné n'est pas trouvée.
+ */
 export function addSubTask(taskId, subTaskDescription) {
     const tasks = parse(jsonDbPath);
     const taskIndex = findTaskIndex(taskId);
@@ -21,13 +27,17 @@ export function addSubTask(taskId, subTaskDescription) {
         completed: false,
     };
     tasks[taskIndex].subtasks.push(newSubtask);
-
     serialize(jsonDbPath, tasks);
-
     return newSubtask;
 }
 
-// Fonction pour supprimer une sous-tâche
+/**
+ * Supprime une sous-tâche d'une tâche existante.
+ * @param {number} taskId - L'ID de la tâche.
+ * @param {number} subTaskId - L'ID de la sous-tâche.
+ * @returns {object} La sous-tâche supprimée.
+ * @throws {Error} Si la tâche ou la sous-tâche avec l'ID donné n'est pas trouvée.
+ */
 export function deleteSubTask(taskId, subTaskId) {
     const tasks = parse(jsonDbPath);
     const taskIndex = findTaskIndex(taskId);
@@ -44,7 +54,12 @@ export function deleteSubTask(taskId, subTaskId) {
     return deletedSubTask;
 }
 
-// Fonction pour supprimer toutes les sous-tâches d'une tâche
+/**
+ * Supprime toutes les sous-tâches d'une tâche existante.
+ * @param {number} taskId - L'ID de la tâche.
+ * @returns {object} La tâche mise à jour sans sous-tâches.
+ * @throws {Error} Si la tâche avec l'ID donné n'est pas trouvée.
+ */
 export function deleteAllSubTasks(taskId) {
     const tasks = parse(jsonDbPath);
     const taskIndex = findTaskIndex(taskId);
@@ -56,7 +71,13 @@ export function deleteAllSubTasks(taskId) {
     return tasks[taskIndex];
 }
 
-// Fonction pour cocher une sous-tâche
+/**
+ * Bascule l'état de complétion d'une sous-tâche.
+ * @param {number} taskId - L'ID de la tâche.
+ * @param {number} subTaskId - L'ID de la sous-tâche.
+ * @returns {object} La sous-tâche mise à jour.
+ * @throws {Error} Si la tâche ou la sous-tâche avec l'ID donné n'est pas trouvée.
+ */
 export function toggleSubTaskCompletion(taskId, subTaskId) {
     const tasks = parse(jsonDbPath);
     const taskIndex = findTaskIndex(taskId);
@@ -69,13 +90,16 @@ export function toggleSubTaskCompletion(taskId, subTaskId) {
         throw new Error(`Subtask with id ${subTaskId} not found`);
     }
     subTasks[subTaskIndex].completed = !subTasks[subTaskIndex].completed;
-
     serialize(jsonDbPath, tasks);
-
     return subTasks[subTaskIndex];
 }
 
-// Fonction pour afficher toutes les sous-tâches d'une tâche
+/**
+ * Récupère toutes les sous-tâches d'une tâche existante.
+ * @param {number} taskId - L'ID de la tâche.
+ * @returns {Array} La liste des sous-tâches.
+ * @throws {Error} Si la tâche avec l'ID donné n'est pas trouvée.
+ */
 export function getAllSubTasks(taskId) {
     const tasks = parse(jsonDbPath);
     const taskIndex = findTaskIndex(taskId);
@@ -85,7 +109,12 @@ export function getAllSubTasks(taskId) {
     return tasks[taskIndex].subtasks;
 }
 
-// Fonction pour récupérer les détails d'une tâche et ses sous-tâches
+/**
+ * Récupère les détails d'une tâche et ses sous-tâches.
+ * @param {number} id - L'ID de la tâche.
+ * @returns {object} Un objet contenant la tâche et ses sous-tâches.
+ * @throws {Error} Si la tâche avec l'ID donné n'est pas trouvée.
+ */
 export function getTaskDetailsWithSubtasks(id) {
     const tasks = parse(jsonDbPath);
     const taskIndex = findTaskIndex(id);

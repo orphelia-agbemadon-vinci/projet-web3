@@ -1,5 +1,5 @@
 #### projet-web3 : HTMX
-#### groupe n°10 : Elise Grelaud, Melda Gonen, Orphelia Agbemadon, Thuyduong Tran, Sinem Bayrak
+#### groupe n°10 : Elise Grelaud, Melda Gonen, Orphelia Agbemadon, Thuy Duong Océane Tran, Sinem Bayrak
 
 # Gestionnaire de Tâches (To-Do List) avec HTMX et JS
 #### Ce projet est un gestionnaire de tâches simple (To-Do List) conçu pour explorer et démontrer les capacités de HTMX pour la manipulation dynamique de l'interface utilisateur en utilisant des requêtes AJAX légères. L'application est construite avec Node.js et Express, et utilise JS pour le rendu côté serveur. L'objectif principal est de minimiser le JavaScript personnalisé et de s'appuyer sur HTMX pour des interactions utilisateur sans rechargement de page.

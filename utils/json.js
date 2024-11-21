@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-
 /**
  * Parse items given in a .js file
  * @param {String} filePath - path to the .js file
