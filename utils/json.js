@@ -20,7 +20,7 @@ export function parse(filePath, defaultArray = []) {
   )[1];
   try {
     return JSON.parse(jsonData);
-  } catch (err) {
+  } catch {
     return defaultArray;
   }
 }
