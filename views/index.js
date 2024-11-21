@@ -40,8 +40,8 @@ const homePage = () => {
                     hx-target="#task-list"
                     hx-include="#filters">
                 </div>
-
-                <div id="subtask-search-container" style="display: none">
+                <!-- Titre de la page -->
+                <div id="subtask-search-container" class="hidden">
                 <input
                     type="search"
                     id="subtaskSearch"
