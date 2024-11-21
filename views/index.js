@@ -64,7 +64,7 @@ const homePage = () => {
                         hx-include="#search" multiple>
                         <option hx-get="/tasks/filter/none" value="" selected>Toutes</option>
                         <option hx-get="/tasks/filter/todo" value="false">À faire</option>
-                        <option hx-get="/tasks/filter/completed" value="true">Complétées</option>
+                        <option hx-get="/tasks/filter/completed" value="true">Terminées</option>
                         <option hx-get="/tasks/filter/important" value="important">Importantes</option>
                     </select>
                     <!-- Formulaire d'ajout de tâche -->

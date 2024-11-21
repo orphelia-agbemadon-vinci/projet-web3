@@ -8,7 +8,6 @@ const createFilteredList = (tasks, filter) => /*html*/ `
         ${
           filter === 'none' && tasks.length > 0
             ? `
-        <hr class="separator">
 
         <div class="delete-all-container">
         <!-- Bouton Tout supprimer -->

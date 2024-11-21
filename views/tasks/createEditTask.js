@@ -1,12 +1,12 @@
 const createEditTask = (task) => /*html*/ `
     <tr data-id="${task.id}">
-        <td colspan="4">
-            <form 
+        <td colspan="5">
+            <form id="edit-task-form"
                 hx-patch="/tasks/edit/${task.id}" 
                 hx-target="closest tr" 
                 hx-swap="outerHTML">
-                <input type="text" name="description" value="${task.description}">
-                <button>Enregistrer</button>
+                <input type="text" name="description" class="inputWidth" value="${task.description}">
+                <button class="editTaskBtn">Enregistrer</button>
             </form>
         </td>
     </tr>

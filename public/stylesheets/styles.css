@@ -4,7 +4,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
+  margin: 0 0 5px 0;
   font-family: 'Roboto', sans-serif;
   background: linear-gradient(
     to top,
@@ -12,6 +12,13 @@ body {
     #fecfef 99%,
     #fecfef 100%
   ); /* Dégradé mauve/rose */
+  overflow: auto;
+  flex-wrap: wrap;
+}
+
+html {
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Barre de recherche */
@@ -45,12 +52,12 @@ body {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 50px;
+  padding: 20px 50px 20px 50px;
   width: auto;
   max-width: 100%;
   text-align: center;
   transition: transform 0.2s ease-in-out;
-  margin: auto;
+  margin-bottom: 5%
 }
 
 #search {
@@ -224,6 +231,7 @@ form#add-task-form button:hover {
   border: none;
   overflow: hidden;
   justify-content: center;
+  margin-bottom: 3%;
 }
 
 #filters::-moz-focus-inner {
@@ -263,12 +271,6 @@ form#add-task-form button:hover {
   color: white;
 }
 
-/* Ligne de séparation */
-.separator {
-  border: none;
-  border-top: 3px solid #ddd;
-  margin: 20px 0;
-}
 /* Conteneur pour centrer le bouton Tout supprimer */
 .delete-all-container {
   display: flex;
@@ -323,4 +325,109 @@ form#add-task-form button:hover {
 .back-button:hover {
   background-color: #db445a;
   transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
+}
+
+#edit-task-form input{
+  width: 76%;
+  height: 30px;
+  border: white ;
+  border-radius: 7px;
+}
+
+#edit-task-form button {
+  padding: 8px 8px;
+  background-color: #ff536c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#edit-task-form button:hover {
+  background-color: #db445a;
+  transform: scale(1.05);
+}
+
+/* Media Queries pour rendre le site responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .title-container h1 {
+    font-size: 2rem;
+  }
+
+  form#add-task-form {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  form#add-task-form input {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  form#add-task-form button {
+    width: 100%;
+  }
+
+  .todolist th,
+  .todolist td {
+    padding: 5px;
+  }
+
+  .task-col {
+    width: 60%;
+  }
+  .check-box {
+    width: 20%;
+  }
+
+  #filters option {
+    font-size: 1rem;
+    padding: 5px 10px;
+  }
+
+  #delete-all-button {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .back-button {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .title-container .logo {
+    max-width: 50px;
+  }
+
+  .task-col {
+    width: 50%;
+  }
+
+  .check-box {
+    width: 30%;
+  }
+
+  #filters option {
+    font-size: 0.8rem;
+    padding: 5px;
+  }
 }
