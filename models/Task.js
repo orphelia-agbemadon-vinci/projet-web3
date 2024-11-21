@@ -9,168 +9,166 @@ const __dirname = path.dirname(__filename);
 const jsonDbPath = path.join(__dirname, '/../data/tasks.js');
 const filterStatePath = path.join(__dirname, '/../data/filterState.js');
 
-
-
 // Fonction pour lire toutes les tâches
 export function allTasks() {
-    return parse(jsonDbPath);
+  return parse(jsonDbPath);
 }
 
 // Fonction pour ajouter une nouvelle tâche
 export function createTask(description) {
-    const tasks = allTasks();
-    const createdTask = {
-        id: tasks.length + 1,
-        description: description,
-        completed: false,
-        important: false,
-        listId: null,
-        subtasks: [],
-    };
-    tasks.push(createdTask);
+  const tasks = allTasks();
+  const createdTask = {
+    id: tasks.length + 1,
+    description: description,
+    completed: false,
+    important: false,
+    listId: null,
+    subtasks: [],
+  };
+  tasks.push(createdTask);
 
-    serialize(jsonDbPath, tasks);
+  serialize(jsonDbPath, tasks);
 
-    return createdTask;
+  return createdTask;
 }
 
 export function createFilteredTask(description, completed, important) {
-    const tasks = allTasks();
-    const createdTask = {
-        id: tasks.length + 1,
-        description: description,
-        completed: completed,
-        important: important,
-        listId: null,
-        subtasks: [],
-    };
-    tasks.push(createdTask);
+  const tasks = allTasks();
+  const createdTask = {
+    id: tasks.length + 1,
+    description: description,
+    completed: completed,
+    important: important,
+    listId: null,
+    subtasks: [],
+  };
+  tasks.push(createdTask);
 
-    serialize(jsonDbPath, tasks);
-    
-    return createdTask;
+  serialize(jsonDbPath, tasks);
+
+  return createdTask;
 }
 
 // Fonction pour supprimer une tâche
 export function deleteTaskById(id) {
-    const tasks = allTasks();
-    const taskIndex = tasks.findIndex(task => task.id === id);
+  const tasks = allTasks();
+  const taskIndex = tasks.findIndex((task) => task.id === id);
 
-    if (taskIndex === -1) {
-        console.error(`Task with id ${id} not found.`);
-        return null;
-    }
+  if (taskIndex === -1) {
+    console.error(`Task with id ${id} not found.`);
+    return null;
+  }
 
-    const [deletedTask] = tasks.splice(taskIndex, 1);
+  const [deletedTask] = tasks.splice(taskIndex, 1);
 
-    serialize(jsonDbPath, tasks);
+  serialize(jsonDbPath, tasks);
 
-    return deletedTask;
+  return deletedTask;
 }
 
 // Fonction pour supprimer toutes les tâches
 export function deleteAllTasks() {
-    const tasks = [];
-    serialize(jsonDbPath, tasks);
-    return tasks;
+  const tasks = [];
+  serialize(jsonDbPath, tasks);
+  return tasks;
 }
 
 // Fonction pour marquer une tâche comme importante
 export function toggleImportance(id) {
-    const tasks = allTasks();
+  const tasks = allTasks();
 
-    console.log('All tasks:', tasks);
+  console.log('All tasks:', tasks);
 
-    // Trouver l'indice de la tâche avec l'id donné
-    const taskIndex = tasks.findIndex(task => task.id === id);
+  // Trouver l'indice de la tâche avec l'id donné
+  const taskIndex = tasks.findIndex((task) => task.id === id);
 
-    if (taskIndex === -1) {
-        console.error(`Task with id ${id} not found.`);
-        return null;
-    }
+  if (taskIndex === -1) {
+    console.error(`Task with id ${id} not found.`);
+    return null;
+  }
 
-    console.log('Found task index:', taskIndex);
-    console.log('Task before update:', tasks[taskIndex]);
+  console.log('Found task index:', taskIndex);
+  console.log('Task before update:', tasks[taskIndex]);
 
-    // Basculer la propriété 'important'
-    tasks[taskIndex].important = !tasks[taskIndex].important;
+  // Basculer la propriété 'important'
+  tasks[taskIndex].important = !tasks[taskIndex].important;
 
-    // Extraire la tâche pour réorganisation
-    const [task] = tasks.splice(taskIndex, 1);
+  // Extraire la tâche pour réorganisation
+  const [task] = tasks.splice(taskIndex, 1);
 
-    // Réorganiser selon l'importance
-    if (task.important) {
-        tasks.unshift(task); // Ajouter au début si important
-    } else {
-        tasks.push(task); // Ajouter à la fin si non important
-    }
+  // Réorganiser selon l'importance
+  if (task.important) {
+    tasks.unshift(task); // Ajouter au début si important
+  } else {
+    tasks.push(task); // Ajouter à la fin si non important
+  }
 
-    console.log('Tasks after reordering:', tasks);
+  console.log('Tasks after reordering:', tasks);
 
-    // Sauvegarder dans le fichier JSON
-    serialize(jsonDbPath, tasks);
+  // Sauvegarder dans le fichier JSON
+  serialize(jsonDbPath, tasks);
 
-    // Retourner la tâche mise à jour
-    return task;
+  // Retourner la tâche mise à jour
+  return task;
 }
 
 // Fonction pour marquer une tâche comme complétée
 export function toggleCompletion(id) {
-    const tasks = parse(jsonDbPath);
-    const task = tasks.find(task => task.id === id);
-    if (!task) {
-        throw new Error(`Task with id ${id} not found`);
-    }
-    task.completed = !task.completed;
-    serialize(jsonDbPath, tasks);
+  const tasks = parse(jsonDbPath);
+  const task = tasks.find((task) => task.id === id);
+  if (!task) {
+    throw new Error(`Task with id ${id} not found`);
+  }
+  task.completed = !task.completed;
+  serialize(jsonDbPath, tasks);
 
-    return task;
+  return task;
 }
 
 // Fonction pour mettre à jour une tâche
 export function updateTask(index, newDescription) {
-    const tasks = allTasks();
-    tasks[index].description = newDescription;
+  const tasks = allTasks();
+  tasks[index].description = newDescription;
 
-    serialize(jsonDbPath, tasks);
+  serialize(jsonDbPath, tasks);
 
-    return tasks[index];
+  return tasks[index];
 }
 
 // Fonction pour trouver une tâche par son id
 export function findTask(id) {
-    const tasks = allTasks();
-    return tasks.find(task => task.id === id);
+  const tasks = allTasks();
+  return tasks.find((task) => task.id === id);
 }
 
 export function findTaskIndex(id) {
-    const tasks = allTasks();
-    return tasks.findIndex(task => task.id === id);
+  const tasks = allTasks();
+  return tasks.findIndex((task) => task.id === id);
 }
 
 // Pour le filtre par défaut
 export function getDefaultFilter() {
-    return 'none';
+  return 'none';
 }
 
 export function writeFilterState(filter) {
-    serialize(filterStatePath, { filterState: filter });
+  serialize(filterStatePath, { filterState: filter });
 }
 
 export function getFilteredList(filter) {
-    const tasks = allTasks();
+  const tasks = allTasks();
 
-    if (filter === 'completed') {
-        return tasks.filter(task => task.completed);
-    } else if (filter === 'todo') {
-        return tasks.filter(task => !task.completed);
-    } else if (filter === 'important') {
-        return tasks.filter(task => task.important);
-    } else {
-        return tasks;
-    } // Si le filtre est 'none', on retourne toutes les tâches
+  if (filter === 'completed') {
+    return tasks.filter((task) => task.completed);
+  } else if (filter === 'todo') {
+    return tasks.filter((task) => !task.completed);
+  } else if (filter === 'important') {
+    return tasks.filter((task) => task.important);
+  } else {
+    return tasks;
+  } // Si le filtre est 'none', on retourne toutes les tâches
 }
 
 export function getFilterState() {
-    return DATA.filterState;
+  return DATA.filterState;
 }

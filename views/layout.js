@@ -1,4 +1,4 @@
-const layout = (content) => /*html*/`
+const layout = (content) => /*html*/ `
     <!DOCTYPE html>
     <html lang="fr">
     <head>

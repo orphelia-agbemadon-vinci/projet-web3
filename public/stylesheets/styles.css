@@ -1,278 +1,292 @@
 /* Style global */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: 'Roboto', sans-serif; /* Utiliser une police moderne */
-    background: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); /* Dégradé mauve/rose */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Roboto', sans-serif; /* Utiliser une police moderne */
+  background: linear-gradient(
+    to top,
+    #ff9a9e 0%,
+    #fecfef 99%,
+    #fecfef 100%
+  ); /* Dégradé mauve/rose */
 }
 
 /* Conteneur principal */
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 50px;
-    width: auto;
-    max-width: 100%; 
-    text-align: center;
-    transition: transform 0.2s ease-in-out;
-    margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+  width: auto;
+  max-width: 100%;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+  margin: auto;
 }
 
 #search {
-    flex: 1;
-    width: 100%;
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: medium;
-    color: #333;
-    border-radius: 8px;
-    margin-bottom: 5%;
-    background-color: transparent;
-    background-color: rgba(255, 255, 255, 0.2); /* Couleur de fond semi-transparente */
-    backdrop-filter: blur(10px); /* Appliquer un flou */
-    -webkit-backdrop-filter: blur(10px);
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: medium;
+  color: #333;
+  border-radius: 8px;
+  margin-bottom: 5%;
+  background-color: transparent;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Couleur de fond semi-transparente */
+  backdrop-filter: blur(10px); /* Appliquer un flou */
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .container:hover {
-    transform: scale(1.02);
+  transform: scale(1.02);
 }
 
 /* Conteneur du titre */
 .title-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /* Espacement entre le logo et le titre */
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Espacement entre le logo et le titre */
+  margin-bottom: 20px;
 }
 
 .title-container .logo {
-    max-width: 100px;
-    height: auto;
+  max-width: 100px;
+  height: auto;
 }
 
 .title-container2 .logo {
-    max-width: 100px;
-    height: auto;
-    text-align: center;
+  max-width: 100px;
+  height: auto;
+  text-align: center;
 }
 
 /* Titre principal */
 .title-container h1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem; /* Augmenter la taille de la police */
-    color: #333;
-    margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem; /* Augmenter la taille de la police */
+  color: #333;
+  margin: 0;
 }
 
 /* Formulaire d'ajout de tâche */
 form#add-task-form {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    width: 400px;
-    align-items: center;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 400px;
+  align-items: center;
+  margin: 0 auto;
 }
 
 form#add-task-form input {
-    flex: 1;
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #a8a7a7;
-    border-radius: 8px;
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #a8a7a7;
+  border-radius: 8px;
 }
 
 form#add-task-form button {
-    padding: 10px 20px;
-    background-color: #ff536c; 
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  background-color: #ff536c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 form#add-task-form button:hover {
-    background-color: #db445a; /* Couleur rose plus vive au survol */
+  background-color: #db445a; /* Couleur rose plus vive au survol */
 }
 
 /* Liste des tâches */
 #task-list {
-    width: 100%;
-    margin-top: 10px;
-    text-align: left;
+  width: 100%;
+  margin-top: 10px;
+  text-align: left;
 }
 
 .todolist {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.todolist th, .todolist td {
-    padding: 10px;
-    text-align: left;
-    border-top: 1px solid white;
+.todolist th,
+.todolist td {
+  padding: 10px;
+  text-align: left;
+  border-top: 1px solid white;
 }
 
 .todolist tr:hover {
-    background-color: #f3f3f3;
+  background-color: #f3f3f3;
 }
 
 /* Style pour barrer le texte des tâches complétées */
 .check-box {
-    width: 10%;
-    text-align: center;
+  width: 10%;
+  text-align: center;
 }
 
 .task-col {
-    width: 70%;
+  width: 70%;
 }
 
 .completed label {
-    text-decoration: line-through;
-    color: gray;
+  text-decoration: line-through;
+  color: gray;
 }
 
 /* Icônes et actions */
-.star-button, .delete-button, .edit-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin: 0 5px;
-    font-size: 24px;
-    color: inherit;
+.star-button,
+.delete-button,
+.edit-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 5px;
+  font-size: 24px;
+  color: inherit;
 }
 
 .star-button {
-    color: gold;
+  color: gold;
 }
 
 .delete-button {
-    color: red;
-    float: right;
+  color: red;
+  float: right;
 }
 
-
-
 .edit-button {
-    color: lightblue;
+  color: lightblue;
 }
 
 /* Boutons de filtrage */
 #filters {
-    height: 50px;
-    width: 100%;
-    border: none;
-    overflow: hidden;
-    justify-content: center;
+  height: 50px;
+  width: 100%;
+  border: none;
+  overflow: hidden;
+  justify-content: center;
 }
 
 #filters::-moz-focus-inner {
-    border: 0;
+  border: 0;
 }
 
 #filters::-moz-selection {
-    background-color: #ccc;
+  background-color: #ccc;
 }
 
 #filters:focus {
-    outline: none;
+  outline: none;
 }
 
 #filters option {
-    width: fit-content;
-    background-color: #bde0fe;
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 10px 15px;
-    text-align: center;
-    margin: 0 5px 0 5px;
-    display: inline-block;
-    cursor: pointer;
-    border:none;
-    border-radius: 8px;
-    color: black;
+  width: fit-content;
+  background-color: #bde0fe;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 15px;
+  text-align: center;
+  margin: 0 5px 0 5px;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  color: black;
 }
 
 #filters option:hover {
-    background-color: #ccc;
+  background-color: #ccc;
 }
 
 #filters option:checked {
-    background-color: #ff536c;
-    color: white;
+  background-color: #ff536c;
+  color: white;
 }
 
 /* Ligne de séparation */
 .separator {
-    border: none;
-    border-top: 3px solid #ddd; /* Couleur et épaisseur de la ligne */
-    margin: 20px 0; /* Espacement au-dessus et en dessous de la ligne */
- 
+  border: none;
+  border-top: 3px solid #ddd; /* Couleur et épaisseur de la ligne */
+  margin: 20px 0; /* Espacement au-dessus et en dessous de la ligne */
 }
 /* Conteneur pour centrer le bouton Tout supprimer */
 .delete-all-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px; /* Espacement au-dessus du conteneur */
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Espacement au-dessus du conteneur */
 }
 
 /* Bouton Tout supprimer */
 #delete-all-button {
-    padding: 15px 30px;
-    background-color: #ff536c; 
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    margin-top: 10px; 
+  padding: 15px 30px;
+  background-color: #ff536c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
 }
 
 #delete-all-button:hover {
-    background-color:   #db445a; 
-    transform: scale(1.05); 
+  background-color: #db445a;
+  transform: scale(1.05);
 }
 
 /*Bouton de retour*/
 
 .back-button-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .back-button {
-    padding: 10px 15px;
-    background-color: #ff536c; 
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    margin-top: 5px; 
+  padding: 10px 15px;
+  background-color: #ff536c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
 }
 
 .back-button:hover {
-    background-color: #db445a; 
-    transform: scale(1.05); 
+  background-color: #db445a;
+  transform: scale(1.05);
 }

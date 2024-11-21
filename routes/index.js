@@ -7,15 +7,14 @@ const router = express.Router();
 
 // Affiche la page principale avec la liste des tâches
 router.get('/', (req, res) => {
-    writeFilterState('none');
-    res.send(homePage());
+  writeFilterState('none');
+  res.send(homePage());
 });
 
 // Affiche la page principale avec la liste des tâches
 router.get('/about', (req, res) => {
-    writeFilterState('none');
-    res.send(aboutPage());
+  writeFilterState('none');
+  res.send(aboutPage());
 });
-
 
 export default router;

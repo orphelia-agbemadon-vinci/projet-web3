@@ -11,17 +11,21 @@ const createSubtaskList = (subtasks, task) => /*html*/ `
         </form>
         <div id="subtask-title">
             <table class="todolist">
-                ${subtasks.map(subtask => createASubtask(subtask, task)).join('')}
+                ${subtasks.map((subtask) => createASubtask(subtask, task)).join('')}
             </table>
         </div>
-        ${subtasks.length > 0 ? `
+        ${
+          subtasks.length > 0
+            ? `
             <!-- Ligne de séparation -->
             <hr class="separator">
             <!-- Bouton Tout supprimer -->
             <div class="delete-all-container">
                 <button id="delete-all-button" class="delete-all-button" hx-delete="/tasks/subtasks/delete-all/${task.id}" hx-target="#subtask-list" hx-swap="innerHTML" hx-confirm="Êtes-vous sûr(e) de vouloir supprimer toutes les sous-tâches ?\nCette action est irréversible.">Supprimer toutes les sous-tâches</button>
             </div>
-        ` : ''}
+        `
+            : ''
+        }
     </div>
 `;
 

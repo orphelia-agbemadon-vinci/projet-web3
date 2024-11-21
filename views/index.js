@@ -2,10 +2,10 @@ import { allTasks } from '../models/Task.js';
 import createFilteredList from './tasks/filteredList.js';
 
 const homePage = () => {
-    const tasks = allTasks();
-    const filteredTasks = tasks.filter(task => task); // Filtre par défaut "none" au démarrage
-    
-    return /*html*/`
+  const tasks = allTasks();
+  const filteredTasks = tasks.filter((task) => task); // Filtre par défaut "none" au démarrage
+
+  return /*html*/ `
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -68,6 +68,7 @@ const homePage = () => {
         </main>
     </body>
     </html>
-`};
+`;
+};
 
 export default homePage;

@@ -1,6 +1,7 @@
 import layout from '../layout.js';
 
-const aboutPage = () => layout(/*html*/`
+const aboutPage = () =>
+  layout(/*html*/ `
 <section class="container">
     <h1>À propos de DunDeal®</h1>
     <p>DunDeal® est un gestionnaire de tâches simple et efficace conçu pour
