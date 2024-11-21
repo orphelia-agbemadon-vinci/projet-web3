@@ -1,8 +1,8 @@
-import createTask from './task.js';
+import createATask from './createATask.js';
 
 const createFilteredList = (tasks, filter) => /*html*/ `
     <table class="todolist">
-        ${tasks.map((task) => createTask(task)).join('')}
+        ${tasks.map((task) => createATask(task)).join('')}
     </table>
     <div>
         ${

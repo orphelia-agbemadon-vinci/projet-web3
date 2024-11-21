@@ -1,14 +1,8 @@
 import express from 'express';
-import { findTask} from '../models/Task.js';
-import { 
-    addSubTask, 
-    deleteSubTask, 
-    deleteAllSubTasks, 
-    toggleSubTaskCompletion, 
-    getTaskDetailsWithSubtasks
-} from '../models/Subtask.js';
-import createSubtaskList from '../views/subtasks/subtaskList.js';
-import createASubtask from '../views/subtasks/subtask.js';
+import Task from '../models/Task.js';
+import Subtask from '../models/Subtask.js';
+import createSubtaskList from '../views/subtasks/createSubtaskList.js';
+import createASubtask from '../views/subtasks/createASubtask.js';
 import layout from '../views/layout.js';
 
 const router = express.Router();
@@ -17,7 +11,7 @@ const router = express.Router();
 router.get('/:id', (req, res) => {
   const id = parseInt(req.params.id);
   try {
-    const taskDetails = getTaskDetailsWithSubtasks(id);
+    const taskDetails = Subtask.getTaskDetailsWithSubtasks(id);
     const { task, subTasks } = taskDetails;
     res.send(layout(createSubtaskList(subTasks, task)));
   } catch {
@@ -31,8 +25,8 @@ router.post('/add/:taskId', (req, res) => {
   const { subtask } = req.body;
 
   try {
-    const subTask = addSubTask(taskId, subtask);
-    const task = findTask(taskId);
+    Subtask.addSubTask(taskId, subtask);
+    const task = Task.findTask(taskId);
     res.send(createSubtaskList(task.subtasks, task));
   } catch (error) {
     res.status(404).send(error.message);
@@ -45,8 +39,8 @@ router.post('/toggle-subtask/:taskId/:subId', (req, res) => {
   const subId = parseInt(req.params.subId);
 
   try {
-    const subTask = toggleSubTaskCompletion(taskId, subId);
-    const task = findTask(taskId);
+    const subTask = Subtask.toggleSubTaskCompletion(taskId, subId);
+    const task = Task.findTask(taskId);
     res.send(createASubtask(subTask, task));
   } catch (error) {
     res.status(404).send(error.message);
@@ -58,16 +52,15 @@ router.delete('/delete/:taskId/:subId', (req, res) => {
   const taskId = parseInt(req.params.taskId);
   const subId = parseInt(req.params.subId);
 
-  if (taskId !== -1) {
-    const deletedSubTask = deleteSubTask(taskId, subId);
+  try {
+    const deletedSubTask = Subtask.deleteSubTask(taskId, subId);
     if (deletedSubTask) {
-      const task = findTask(taskId);
       res.send();
     } else {
       res.status(404).send('Sous-tâche non trouvée');
     }
-  } else {
-    res.status(404).send('Tâche non trouvée');
+  } catch (error) {
+    res.status(404).send(error.message);
   }
 });
 
@@ -75,7 +68,7 @@ router.delete('/delete/:taskId/:subId', (req, res) => {
 router.delete('/delete-all/:taskId', (req, res) => {
   const taskId = parseInt(req.params.taskId);
   try {
-    const task = deleteAllSubTasks(taskId);
+    const task = Subtask.deleteAllSubTasks(taskId);
     res.send(createSubtaskList(task.subtasks, task));
   } catch (error) {
     res.status(404).send(error.message);

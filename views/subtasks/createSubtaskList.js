@@ -1,4 +1,4 @@
-import createASubtask from './subtask.js';
+import createASubtask from './createASubtask.js';
 
 const createSubtaskList = (subtasks, task) => /*html*/ `
     <div id="subtask-list">

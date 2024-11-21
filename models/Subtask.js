@@ -133,3 +133,12 @@ export function getTaskDetailsWithSubtasks(id) {
   const subTasks = getAllSubTasks(id);
   return { task, subTasks };
 }
+
+export default {
+  addSubTask,
+  deleteSubTask,
+  deleteAllSubTasks,
+  toggleSubTaskCompletion,
+  getAllSubTasks,
+  getTaskDetailsWithSubtasks,
+};

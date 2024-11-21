@@ -1,5 +1,5 @@
 import { allTasks } from '../models/Task.js';
-import createFilteredList from './tasks/filteredList.js';
+import createFilteredList from './tasks/createFilteredList.js';
 
 const homePage = () => {
   const tasks = allTasks();

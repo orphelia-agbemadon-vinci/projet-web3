@@ -217,3 +217,20 @@ export function getFilteredList(filter) {
 export function getFilterState() {
   return DATA.filterState;
 }
+
+export default {
+  allTasks,
+  createTask,
+  createFilteredTask,
+  deleteTaskById,
+  deleteAllTasks,
+  toggleImportance,
+  toggleCompletion,
+  updateTask,
+  findTask,
+  findTaskIndex,
+  getDefaultFilter,
+  writeFilterState,
+  getFilteredList,
+  getFilterState,
+};
