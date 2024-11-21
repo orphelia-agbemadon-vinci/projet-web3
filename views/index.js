@@ -2,10 +2,10 @@ import { allTasks } from '../models/Task.js';
 import createFilteredList from './tasks/createFilteredList.js';
 
 const homePage = () => {
-  const tasks = allTasks();
-  const filteredTasks = tasks.filter((task) => task); // Filtre par défaut "none" au démarrage
+    const tasks = allTasks();
+    const filteredTasks = tasks.filter((task) => task); // Filtre par défaut "none" au démarrage
 
-  return /*html*/ `
+    return /*html*/ `
     <!DOCTYPE html>
     <html lang="fr">
     <head>
@@ -29,16 +29,27 @@ const homePage = () => {
                         DunDeal
                     </h1>
                 </div>
-                <div class="search">
-                    <input
-                        type="search"
-                        id="search"
-                        name="search"
-                        placeholder="Recherche d'une tâche..."
-                        hx-post="/tasks/search"
-                        hx-trigger="keyup changed delay:100ms"
-                        hx-target="#task-list"
-                        hx-include="#filters">
+                <div id="search-container">
+                <input
+                    type="search"
+                    id="search"
+                    name="search"
+                    placeholder="Recherche d'une tâche..."
+                    hx-post="/tasks/search"
+                    hx-trigger="keyup changed delay:100ms"
+                    hx-target="#task-list"
+                    hx-include="#filters">
+                </div>
+
+                <div id="subtask-search-container" style="display: none">
+                <input
+                    type="search"
+                    id="subtask-search"
+                    name="subtask-search"
+                    placeholder="Recherche d'une sous-tâche..."
+                    hx-post="/tasks/subtasks/search"
+                    hx-trigger="keyup changed delay:100ms"
+                    hx-target="#subtask-list">
                 </div>
             </section>
             <section class="container">

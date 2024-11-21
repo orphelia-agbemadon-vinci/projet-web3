@@ -1,10 +1,8 @@
 # projet-web3 : [HTMX](https://htmx.org) (groupe 10)
 
 ## Gestionnaire de tâches (*To-Do List*) avec [HTMX](https://htmx.org) & [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-_DunDeal. Chaque tâche, une affaire réglée._
 
-
-#### Auteurs
+#### Membres
 - Orphelia Agbemadon
 - Sinem Bayrak
 - Melda Gonen
@@ -40,19 +38,13 @@ L'objectif principal est de minimiser les scripts [JavaScript](https://developer
 
 ## Guide d'installation
 
-1. Cloner ou télécharger le dossier *projet-web3* directement via [GitHub](https://github.com/orphelia-agbemadon-vinci/projet-web3) ou via le terminal :
+1. Télécharger directement via le [répertoire GitHub](https://github.com/orphelia-agbemadon-vinci/projet-web3) ou cloner le projet :
 
 ```bash
 git clone https://github.com/orphelia-agbemadon-vinci/projet-web3
 ```
 
 2. Installer les dépendances nécessaires :
-
-```bash
-npm install
-npm install express
-```
-ou
 
 ```bash
 npm i
@@ -65,7 +57,7 @@ npm i express
 npm run dev
 ```
 
-4. Lancer le serveur sur le navigateur (de préférence Chrome ou Firefox) via : http://localhost:3000.
+4. Lancer le serveur sur le navigateur (de préférence [Chrome](https://www.google.com/chrome/) ou [Firefox](https://www.mozilla.org/en-US/firefox/new/)) via : http://localhost:3000.
 
 ## Architecture de l'application
 

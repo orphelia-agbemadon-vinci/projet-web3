@@ -13,11 +13,12 @@ const createATask = (task) => /*html*/ `
         </td>
         <!-- Colonne pour le texte de la tâche avec condition pour barrer le texte -->
         <td class="task-col ${task.completed ? 'completed' : ''}">
-        <a 
+        <a  id="task"
             hx-get="/tasks/subtasks/${task.id}" 
             hx-push-url="false" 
             hx-target="#tasks-manager" 
-            hx-swap="innerHTML">
+            hx-swap="innerHTML"
+            hx-on:click="document.getElementById('search-container').style.display = 'none'; document.getElementById('subtask-search-container').style.display = 'block';">
             <label class="task-link">${task.description}</label>
         </a>
         </td>
