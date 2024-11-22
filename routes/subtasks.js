@@ -30,10 +30,12 @@ router.post("/add/:taskId", (req, res) => {
 
   try {
     Subtask.addSubTask(taskId, subtask);
-    const task = Task.findTask(taskId);
-    res.send(createSubtaskList(task.subtasks, task));
+    const { task, subTasks } = Subtask.getTaskDetailsWithSubtasks(taskId);
+    taskListId = taskId;
+
+    res.send(createSubtaskList(subTasks, task));
   } catch (error) {
-    res.status(404).send(error.message);
+    res.status(500).send(error.message);
   }
 });
 
@@ -44,7 +46,9 @@ router.post("/toggle-subtask/:taskId/:subId", (req, res) => {
 
   try {
     const subTask = Subtask.toggleSubTaskCompletion(taskId, subId);
+
     const task = Task.findTask(taskId);
+
     res.send(createASubtask(subTask, task));
   } catch (error) {
     res.status(404).send(error.message);

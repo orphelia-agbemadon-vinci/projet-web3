@@ -1,13 +1,12 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse, serialize } from "../utils/json.js";
-import DATA from "../data/filterState.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, "/../data/tasks.js");
-const filterStatePath = path.join(__dirname, "/../data/filterState.js");
+const filterStatePath = path.join(__dirname, "/../cache/filterState.js");
 
 /**
  * Lit toutes les tâches.
@@ -101,14 +100,12 @@ export function deleteAllTasks() {
  */
 export function toggleImportance(id) {
   const tasks = allTasks();
-  console.log("All tasks:", tasks);
   const taskIndex = tasks.findIndex((task) => task.id === id);
   if (taskIndex === -1) {
     console.error(`Task with id ${id} not found.`);
     return null;
   }
-  console.log("Found task index:", taskIndex);
-  console.log("Task before update:", tasks[taskIndex]);
+
   tasks[taskIndex].important = !tasks[taskIndex].important;
   const [task] = tasks.splice(taskIndex, 1);
   // Réorganiser selon l'importance
@@ -117,8 +114,9 @@ export function toggleImportance(id) {
   } else {
     tasks.push(task); // Ajouter à la fin si non important
   }
-  console.log("Tasks after reordering:", tasks);
+
   serialize(jsonDbPath, tasks);
+
   return task;
 }
 
@@ -141,18 +139,22 @@ export function toggleCompletion(id) {
 }
 
 /**
- * Met à jour la description d'une tâche.
- * @param {number} index - L'indice de la tâche.
+ * Met à jour la description d'une tâche par son ID.
+ * @param {number} id - L'ID de la tâche.
  * @param {string} newDescription - La nouvelle description de la tâche.
- * @returns {object} La tâche mise à jour.
+ * @returns {object|null} La tâche mise à jour ou null si non trouvée.
  */
-export function updateTask(index, newDescription) {
+export function updateTaskById(id, newDescription) {
   const tasks = allTasks();
-  tasks[index].description = newDescription;
+  const taskIndex = tasks.findIndex((task) => task.id === id);
+  if (taskIndex === -1) {
+    return null;
+  }
+  tasks[taskIndex].description = newDescription;
 
   serialize(jsonDbPath, tasks);
 
-  return tasks[index];
+  return tasks[taskIndex];
 }
 
 /**
@@ -184,14 +186,6 @@ export function getDefaultFilter() {
 }
 
 /**
- * Écrit l'état du filtre dans le fichier JSON.
- * @param {string} filter - L'état du filtre.
- */
-export function writeFilterState(filter) {
-  serialize(filterStatePath, { filterState: filter });
-}
-
-/**
  * Récupère la liste des tâches filtrées.
  * @param {string} filter - Le type de filtre à appliquer.
  * @returns {Array} La liste des tâches filtrées.
@@ -211,11 +205,20 @@ export function getFilteredList(filter) {
 }
 
 /**
- * Récupère l'état actuel du filtre.
- * @returns {string} L'état actuel du filtre.
+ * Écrit l'état du filtre dans le fichier JSON.
+ * @param {string} filter - L'état du filtre.
  */
-export function getFilterState() {
-  return DATA.filterState;
+export function writeFilterState(filter) {
+  serialize(filterStatePath, { filterState: filter });
+}
+
+/**
+ * Lit l'état du filtre depuis le fichier JSON.
+ * @returns {string} L'état du filtre.
+ */
+export function readFilterState() {
+  const data = parse(filterStatePath);
+  return data.filterState;
 }
 
 export default {
@@ -226,11 +229,11 @@ export default {
   deleteAllTasks,
   toggleImportance,
   toggleCompletion,
-  updateTask,
+  updateTaskById,
   findTask,
   findTaskIndex,
   getDefaultFilter,
-  writeFilterState,
   getFilteredList,
-  getFilterState,
+  writeFilterState,
+  readFilterState,
 };

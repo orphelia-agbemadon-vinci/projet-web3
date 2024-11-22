@@ -16,13 +16,11 @@ const layout = (content) => /*html*/ `
                 <div id="title-container2" class="title-container2">
                     <!-- Bouton retour -->
                     <div class="back-button-container">
-                        <button class="back-button" onclick="window.location.href='/'">
+                        <button class="back-button" hx-on:click="window.location.href='/'">
                             <i class="fa fa-arrow-left"></i> Retour
                         </button>
                     </div>
-                    <ul id="list-section">
-                        <!-- Section pour afficher la liste des sous-tâches -->
-                    </ul>
+
                 </div>
             </nav>
         </header>

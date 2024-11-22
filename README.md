@@ -21,9 +21,10 @@ L'objectif principal est de minimiser les scripts [JavaScript](https://developer
 ## Fonctionnalités
 
 - **Création de tâches** : Ajouter une nouvelle tâche sans rechargement de la page.
-- **Suppression de tâches** : Supprimer une tâche instantanément.
 
-- **Supprimer toutes les tâches** : Supprimer l'ensemble de tâches créées
+- **Suppression de tâches et de sous-tâches** : Supprimer une tâche ou une sous-tâche instantanément.
+
+- **Supprimer toutes les tâches et les sous-tâches** : Supprimer l'ensemble de tâches ou de sous-tâches créées
 
 - **Renommer une tâche** : Renommer la description d'une .
 
@@ -34,12 +35,14 @@ L'objectif principal est de minimiser les scripts [JavaScript](https://developer
 - **Filtrage des tâches** : Filtrer les tâches selon leurs critères (À faire, Terminées, Importantes).
 
 - **Recherche de tâches** : Rechercher une tâche selon sa description.
+
 - **Création de sous-tâches** : Ajouter une nouvelle sous tâche sans rechargement de la page.
-- **Suppression de sous-tâches** : Supprimer une sous-tâche instantanément.
 
 - **Recherche de sous-tâches** : Rechercher une sous-tâche selon sa description.
 
 ## Guide d'installation
+
+⚠️ Installations prérequises : [Node.js](https://nodejs.org/fr) et [Nodemon](https://docs.npmjs.com/).
 
 1. Télécharger directement via le [répertoire GitHub](https://github.com/orphelia-agbemadon-vinci/projet-web3) ou cloner le projet :
 
@@ -64,7 +67,9 @@ npm run dev
 
 ## Architecture de l'application
 
-**data/** : Contient les fichiers [JSON](https://www.json.org/json-en.html) utilisés comme base de données légère pour stocker les tâches et les listes de manière persistante.
+**cache/** : Contient le fichier qui stocke les données [JSON](https://www.json.org/json-en.html) de l'état du filtre des tâches durant la navigation.
+
+**data/** : Contient le fichier avec des données [JSON](https://www.json.org/json-en.html) utilisés comme base de données légère pour stocker les tâches de manière persistante.
 
 **models/** : Contient les fichiers [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) pour la gestion des données et des opérations _CRUD_ (_Create, Read, Update, Delete_) sur les tâches et les listes.
 
@@ -90,7 +95,7 @@ npm run dev
 ### Outils et bibliothèques
 
 - [HTMX](https://htmx.org) : pour les requêtes [AJAX](https://developer.mozilla.org/en-US/docs/Glossary/AJAX) sans rechargement et la mise à jour dynamique des éléments.
-- [npm](https://docs.npmjs.com) : Gestionnaire de paquets pour [Node.js](https://nodejs.org/fr).
+- [Nodemon](https://docs.npmjs.com) : Gestionnaire de paquets pour [Node.js](https://nodejs.org/fr).
 - [Node.js](https://nodejs.org/fr) & [Express](https://expressjs.com) : pour la structure de l'application et la gestion des routes.
 - [Prettier](https://prettier.io) : Un formateur de code qui assure un style de code cohérent en appliquant des règles de formatage définies.
 - [ESLint](https://eslint.org) : Un outil de vérification de code qui aide à détecter les erreurs de syntaxe et de logique dans le code.

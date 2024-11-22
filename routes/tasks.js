@@ -11,7 +11,7 @@ const router = express.Router();
 
 // Initialisation des tâches et de l'état du filtre
 let tasks = Task.allTasks();
-let filterState = Task.getFilterState();
+let filterState = Task.getDefaultFilter();
 
 // Route pour afficher la liste des tâches.
 router.get("/", (req, res) => {
@@ -20,58 +20,68 @@ router.get("/", (req, res) => {
     return;
   }
   const tasks = Task.allTasks();
-  res.send(createTasksList(tasks));
-});
+  filterState = Task.getDefaultFilter();
 
-// Route pour récupérer toutes les tâches
-router.get("/all", (req, res) => {
-  const tasks = Task.allTasks();
+  Task.writeFilterState(filterState);
+
   res.send(createTasksList(tasks));
 });
 
 // Route pour filtrer les tâches selon leur type
 router.get("/filter/:type", (req, res) => {
   const { type } = req.params;
+  tasks = Task.allTasks();
+  let filteredTasks = Task.allTasks();
 
-  let filteredTasks;
   if (type === "completed") {
     filteredTasks = tasks.filter((task) => task.completed);
+
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche complétée");
       filterState = type;
+      Task.writeFilterState(filterState);
       return;
     }
   } else if (type === "todo") {
     filteredTasks = tasks.filter((task) => !task.completed);
+
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche à faire");
       filterState = type;
+      Task.writeFilterState(filterState);
       return;
     }
   } else if (type === "important") {
     filteredTasks = tasks.filter((task) => task.important);
+
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche importante");
       filterState = type;
+      Task.writeFilterState(filterState);
       return;
     }
   } else if (type === "none") {
     filteredTasks = tasks;
+
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche");
       filterState = type;
+      Task.writeFilterState(filterState);
       return;
     }
   }
   filterState = type;
-  console.log("Filter state:", filterState);
+  Task.writeFilterState(filterState);
   res.send(createFilteredList(filteredTasks, type));
 });
 
 // Route pour afficher le formulaire de modification pour une tâche
 router.get("/edit/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
-  const task = tasks.find((t) => t.id === taskId);
+  let filteredTasks = Task.getFilteredList(filterState);
+
+  const task = filteredTasks.find((t) => t.id === taskId);
+
   if (task) {
     res.send(createEditTask(task));
   } else {
@@ -93,7 +103,6 @@ router.post("/add", (req, res) => {
 
   let filteredTasks = Task.getFilteredList(filterState);
 
-  Task.writeFilterState(filterState);
   res.send(createFilteredList(filteredTasks, filterState));
 });
 
@@ -103,7 +112,6 @@ router.post("/toggle-important/:id", (req, res) => {
   Task.toggleImportance(id);
   let filteredTasks = Task.getFilteredList(filterState);
 
-  Task.writeFilterState(filterState);
   res.send(createFilteredList(filteredTasks, filterState));
 });
 
@@ -113,7 +121,6 @@ router.post("/toggle-complete/:id", (req, res) => {
   Task.toggleCompletion(id);
   let filteredTasks = Task.getFilteredList(filterState);
 
-  Task.writeFilterState(filterState);
   res.send(createFilteredList(filteredTasks, filterState)); // Renvoyer la tâche mise à jour
 });
 
@@ -146,11 +153,11 @@ router.post("/search", (req, res) => {
 router.patch("/edit/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
   const description = req.body.description;
-  const taskIndex = tasks.findIndex((t) => t.id === taskId);
-  if (taskIndex !== -1) {
-    Task.updateTask(taskIndex, description);
-    tasks = Task.allTasks(); // Mise à jour de la liste des tâches
-    res.send(createATask(tasks[taskIndex]));
+
+  const updatedTask = Task.updateTaskById(taskId, description);
+
+  if (updatedTask) {
+    res.send(createATask(updatedTask));
   } else {
     res.status(404).send("Task not found");
   }
@@ -174,7 +181,10 @@ router.delete("/delete/:id", (req, res) => {
 // Route pour supprimer toutes les tâches
 router.delete("/delete-all", (req, res) => {
   tasks = Task.deleteAllTasks();
-  res.send(createFilteredList(tasks, filterState));
+
+  let filteredTasks = Task.getFilteredList(filterState);
+
+  res.send(createFilteredList(filteredTasks, filterState));
 });
 
 export default router;
