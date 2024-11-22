@@ -16,7 +16,7 @@ export function parse(filePath, defaultArray = []) {
   }
   const fileContent = fs.readFileSync(filePath, "utf8");
   const jsonData = fileContent.match(
-    /const DATA = (\[.*\]);\n\nexport default DATA;/s
+    /const DATA = (\[.*\]|\{.*\});\n\nexport default DATA;/s
   )[1];
   try {
     return JSON.parse(jsonData);
