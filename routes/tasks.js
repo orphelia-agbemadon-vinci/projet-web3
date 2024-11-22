@@ -11,7 +11,7 @@ const router = express.Router();
 
 // Initialisation des tâches et de l'état du filtre
 let tasks = Task.allTasks();
-let filterState = Task.getFilterState();
+let filterState = Task.getDefaultFilter();
 
 // Route pour afficher la liste des tâches.
 router.get("/", (req, res) => {
@@ -20,25 +20,30 @@ router.get("/", (req, res) => {
     return;
   }
   const tasks = Task.allTasks();
+  filterState = Task.getDefaultFilter();
+
   res.send(createTasksList(tasks));
 });
 
 // Route pour récupérer toutes les tâches
 router.get("/all", (req, res) => {
   const tasks = Task.allTasks();
+  filterState = Task.getDefaultFilter();
+
   res.send(createTasksList(tasks));
 });
 
 // Route pour filtrer les tâches selon leur type
 router.get("/filter/:type", (req, res) => {
   const { type } = req.params;
-
-  let filteredTasks;
+  tasks = Task.allTasks();
+  let filteredTasks = Task.allTasks();
   if (type === "completed") {
     filteredTasks = tasks.filter((task) => task.completed);
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche complétée");
       filterState = type;
+
       return;
     }
   } else if (type === "todo") {
@@ -46,6 +51,7 @@ router.get("/filter/:type", (req, res) => {
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche à faire");
       filterState = type;
+
       return;
     }
   } else if (type === "important") {
@@ -53,6 +59,7 @@ router.get("/filter/:type", (req, res) => {
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche importante");
       filterState = type;
+
       return;
     }
   } else if (type === "none") {
@@ -60,11 +67,12 @@ router.get("/filter/:type", (req, res) => {
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche");
       filterState = type;
+
       return;
     }
   }
   filterState = type;
-  console.log("Filter state:", filterState);
+
   res.send(createFilteredList(filteredTasks, type));
 });
 
@@ -93,7 +101,6 @@ router.post("/add", (req, res) => {
 
   let filteredTasks = Task.getFilteredList(filterState);
 
-  Task.writeFilterState(filterState);
   res.send(createFilteredList(filteredTasks, filterState));
 });
 
@@ -103,7 +110,6 @@ router.post("/toggle-important/:id", (req, res) => {
   Task.toggleImportance(id);
   let filteredTasks = Task.getFilteredList(filterState);
 
-  Task.writeFilterState(filterState);
   res.send(createFilteredList(filteredTasks, filterState));
 });
 
@@ -113,7 +119,6 @@ router.post("/toggle-complete/:id", (req, res) => {
   Task.toggleCompletion(id);
   let filteredTasks = Task.getFilteredList(filterState);
 
-  Task.writeFilterState(filterState);
   res.send(createFilteredList(filteredTasks, filterState)); // Renvoyer la tâche mise à jour
 });
 

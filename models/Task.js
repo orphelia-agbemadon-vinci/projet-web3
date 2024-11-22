@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, "/../data/tasks.js");
-const filterStatePath = path.join(__dirname, "/../cache/filterState.js");
+
 
 /**
  * Lit toutes les tâches.
@@ -100,14 +100,12 @@ export function deleteAllTasks() {
  */
 export function toggleImportance(id) {
   const tasks = allTasks();
-  console.log("All tasks:", tasks);
   const taskIndex = tasks.findIndex((task) => task.id === id);
   if (taskIndex === -1) {
     console.error(`Task with id ${id} not found.`);
     return null;
   }
-  console.log("Found task index:", taskIndex);
-  console.log("Task before update:", tasks[taskIndex]);
+
   tasks[taskIndex].important = !tasks[taskIndex].important;
   const [task] = tasks.splice(taskIndex, 1);
   // Réorganiser selon l'importance
@@ -116,8 +114,9 @@ export function toggleImportance(id) {
   } else {
     tasks.push(task); // Ajouter à la fin si non important
   }
-  console.log("Tasks after reordering:", tasks);
+
   serialize(jsonDbPath, tasks);
+
   return task;
 }
 
@@ -183,14 +182,6 @@ export function getDefaultFilter() {
 }
 
 /**
- * Écrit l'état du filtre dans le fichier JSON.
- * @param {string} filter - L'état du filtre.
- */
-export function writeFilterState(filter) {
-  serialize(filterStatePath, { filterState: filter });
-}
-
-/**
  * Récupère la liste des tâches filtrées.
  * @param {string} filter - Le type de filtre à appliquer.
  * @returns {Array} La liste des tâches filtrées.
@@ -210,7 +201,7 @@ export function getFilteredList(filter) {
 }
 
 export function getFilterState() {
-  return parse(filterStatePath).filterState;
+  return filterState;
 }
 
 export default {
@@ -225,7 +216,6 @@ export default {
   findTask,
   findTaskIndex,
   getDefaultFilter,
-  writeFilterState,
   getFilteredList,
   getFilterState,
 };

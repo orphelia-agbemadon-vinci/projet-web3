@@ -36,7 +36,7 @@ const homePage = () => {
                     name="search"
                     placeholder="Recherche d'une tâche..."
                     hx-post="/tasks/search"
-                    hx-trigger="keyup changed delay:100ms"
+                    hx-trigger="keyup changed delay:10ms"
                     hx-target="#task-list"
                     hx-include="#filters">
                 </div>
@@ -48,7 +48,7 @@ const homePage = () => {
                     name="subtaskSearch"
                     placeholder="Recherche d'une sous-tâche..."
                     hx-post="/tasks/subtasks/search"
-                    hx-trigger="keyup changed delay:100ms"
+                    hx-trigger="keyup changed delay:10ms"
                     hx-target="#subtask-list">
                 </div>
             </section>
@@ -70,7 +70,7 @@ const homePage = () => {
                     <!-- Formulaire d'ajout de tâche -->
                     <form id="add-task-form" hx-on::after-request="document.querySelector('form').reset()" hx-post="/tasks/add" hx-target="#task-list" hx-swap="innerHTML">
                         <input type="text" id="task-input" name="description" placeholder="Nouvelle tâche..." required>
-                        <button>+</button>
+                        <button hx-trigger="load">+</button>
                     </form>
                     <!-- Liste des tâches -->
                     <div id="task-list">
