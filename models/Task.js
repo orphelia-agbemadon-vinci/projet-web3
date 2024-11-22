@@ -209,7 +209,6 @@ export function getFilteredList(filter) {
   } // Si le filtre est 'none', on retourne toutes les tâches
 }
 
-
 export default {
   allTasks,
   createTask,

@@ -3,7 +3,7 @@ import createASubtask from "./createASubtask.js";
 const createSubtaskList = (subtasks, task) => /*html*/ `
     <div id="subtask-list">
         <div>
-            <h2>${task.description}</h2>
+            <h2 class="${task.completed ? "completed" : ""}">${task.description}</h2>
         </div>
         <form id="add-task-form" 
             hx-post="/tasks/subtasks/add/${task.id}" 
