@@ -1,13 +1,12 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parse, serialize } from "../utils/json.js";
-import DATA from "../data/filterState.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, "/../data/tasks.js");
-const filterStatePath = path.join(__dirname, "/../data/filterState.js");
+const filterStatePath = path.join(__dirname, "/../cache/filterState.js");
 
 /**
  * Lit toutes les tâches.
@@ -210,13 +209,6 @@ export function getFilteredList(filter) {
   } // Si le filtre est 'none', on retourne toutes les tâches
 }
 
-/**
- * Récupère l'état actuel du filtre.
- * @returns {string} L'état actuel du filtre.
- */
-export function getFilterState() {
-  return DATA.filterState;
-}
 
 export default {
   allTasks,
@@ -232,5 +224,4 @@ export default {
   getDefaultFilter,
   writeFilterState,
   getFilteredList,
-  getFilterState,
 };
