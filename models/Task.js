@@ -139,20 +139,11 @@ export function toggleCompletion(id) {
 }
 
 /**
- * Met à jour la description d'une tâche.
- * @param {number} index - L'indice de la tâche.
+ * Met à jour la description d'une tâche par son ID.
+ * @param {number} id - L'ID de la tâche.
  * @param {string} newDescription - La nouvelle description de la tâche.
- * @returns {object} La tâche mise à jour.
+ * @returns {object|null} La tâche mise à jour ou null si non trouvée.
  */
-export function updateTask(index, newDescription) {
-  const tasks = allTasks();
-  tasks[index].description = newDescription;
-
-  serialize(jsonDbPath, tasks);
-
-  return tasks[index];
-}
-
 export function updateTaskById(id, newDescription) {
   const tasks = allTasks();
   const taskIndex = tasks.findIndex((task) => task.id === id);
@@ -238,7 +229,7 @@ export default {
   deleteAllTasks,
   toggleImportance,
   toggleCompletion,
-  updateTask,
+  updateTaskById,
   findTask,
   findTaskIndex,
   getDefaultFilter,

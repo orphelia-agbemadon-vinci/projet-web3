@@ -46,7 +46,9 @@ router.post("/toggle-subtask/:taskId/:subId", (req, res) => {
 
   try {
     const subTask = Subtask.toggleSubTaskCompletion(taskId, subId);
+
     const task = Task.findTask(taskId);
+
     res.send(createASubtask(subTask, task));
   } catch (error) {
     res.status(404).send(error.message);

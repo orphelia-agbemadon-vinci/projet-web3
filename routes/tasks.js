@@ -1,6 +1,6 @@
 import express from "express";
 
-import Task, { updateTaskById } from "../models/Task.js";
+import Task from "../models/Task.js";
 
 import createTasksList from "../views/tasks/createTasksList.js";
 import createFilteredList from "../views/tasks/createFilteredList.js";
@@ -32,8 +32,10 @@ router.get("/filter/:type", (req, res) => {
   const { type } = req.params;
   tasks = Task.allTasks();
   let filteredTasks = Task.allTasks();
+
   if (type === "completed") {
     filteredTasks = tasks.filter((task) => task.completed);
+
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche complétée");
       filterState = type;
@@ -42,6 +44,7 @@ router.get("/filter/:type", (req, res) => {
     }
   } else if (type === "todo") {
     filteredTasks = tasks.filter((task) => !task.completed);
+
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche à faire");
       filterState = type;
@@ -50,6 +53,7 @@ router.get("/filter/:type", (req, res) => {
     }
   } else if (type === "important") {
     filteredTasks = tasks.filter((task) => task.important);
+
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche importante");
       filterState = type;
@@ -58,6 +62,7 @@ router.get("/filter/:type", (req, res) => {
     }
   } else if (type === "none") {
     filteredTasks = tasks;
+
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche");
       filterState = type;
@@ -74,9 +79,9 @@ router.get("/filter/:type", (req, res) => {
 router.get("/edit/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
   let filteredTasks = Task.getFilteredList(filterState);
-  
+
   const task = filteredTasks.find((t) => t.id === taskId);
-  console.log(taskId + "\n" + task);
+
   if (task) {
     res.send(createEditTask(task));
   } else {
@@ -149,12 +154,9 @@ router.patch("/edit/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
   const description = req.body.description;
 
-  //let filteredTasks = Task.getFilteredList(filterState);
-  const updatedTask = updateTaskById(taskId, description);
+  const updatedTask = Task.updateTaskById(taskId, description);
 
   if (updatedTask) {
-    //Task.updateTask(taskIndex, description);
-    //tasks = Task.allTasks(); // Mise à jour de la liste des tâches
     res.send(createATask(updatedTask));
   } else {
     res.status(404).send("Task not found");
