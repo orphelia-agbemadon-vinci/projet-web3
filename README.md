@@ -21,9 +21,10 @@ L'objectif principal est de minimiser les scripts [JavaScript](https://developer
 ## Fonctionnalités
 
 - **Création de tâches** : Ajouter une nouvelle tâche sans rechargement de la page.
-- **Suppression de tâches** : Supprimer une tâche instantanément.
 
-- **Supprimer toutes les tâches** : Supprimer l'ensemble de tâches créées
+- **Suppression de tâches et de sous-tâches** : Supprimer une tâche ou une sous-tâche instantanément.
+
+- **Supprimer toutes les tâches et les sous-tâches** : Supprimer l'ensemble de tâches ou de sous-tâches créées
 
 - **Renommer une tâche** : Renommer la description d'une .
 
@@ -34,8 +35,8 @@ L'objectif principal est de minimiser les scripts [JavaScript](https://developer
 - **Filtrage des tâches** : Filtrer les tâches selon leurs critères (À faire, Terminées, Importantes).
 
 - **Recherche de tâches** : Rechercher une tâche selon sa description.
+
 - **Création de sous-tâches** : Ajouter une nouvelle sous tâche sans rechargement de la page.
-- **Suppression de sous-tâches** : Supprimer une sous-tâche instantanément.
 
 - **Recherche de sous-tâches** : Rechercher une sous-tâche selon sa description.
 
