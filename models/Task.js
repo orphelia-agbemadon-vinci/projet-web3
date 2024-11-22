@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const jsonDbPath = path.join(__dirname, "/../data/tasks.js");
-
+const filterStatePath = path.join(__dirname, "/../cache/filterState.js");
 
 /**
  * Lit toutes les tâches.
@@ -200,8 +200,21 @@ export function getFilteredList(filter) {
   } // Si le filtre est 'none', on retourne toutes les tâches
 }
 
-export function getFilterState() {
-  return filterState;
+/**
+ * Écrit l'état du filtre dans le fichier JSON.
+ * @param {string} filter - L'état du filtre.
+ */
+export function writeFilterState(filter) {
+  serialize(filterStatePath, { filterState: filter });
+}
+
+/**
+ * Lit l'état du filtre depuis le fichier JSON.
+ * @returns {string} L'état du filtre.
+ */
+export function readFilterState() {
+  const data = parse(filterStatePath);
+  return data.filterState;
 }
 
 export default {
@@ -217,5 +230,6 @@ export default {
   findTaskIndex,
   getDefaultFilter,
   getFilteredList,
-  getFilterState,
+  writeFilterState,
+  readFilterState,
 };

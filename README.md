@@ -66,7 +66,9 @@ npm run dev
 
 ## Architecture de l'application
 
-**data/** : Contient les fichiers [JSON](https://www.json.org/json-en.html) utilisés comme base de données légère pour stocker les tâches de manière persistante.
+**cache/** : Contient le fichier qui stocke les données [JSON](https://www.json.org/json-en.html) de l'état du filtre des tâches durant la navigation.
+
+**data/** : Contient le fichier avec des données [JSON](https://www.json.org/json-en.html) utilisés comme base de données légère pour stocker les tâches de manière persistante.
 
 **models/** : Contient les fichiers [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) pour la gestion des données et des opérations _CRUD_ (_Create, Read, Update, Delete_) sur les tâches et les listes.
 

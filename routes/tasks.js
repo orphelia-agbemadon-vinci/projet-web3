@@ -22,13 +22,7 @@ router.get("/", (req, res) => {
   const tasks = Task.allTasks();
   filterState = Task.getDefaultFilter();
 
-  res.send(createTasksList(tasks));
-});
-
-// Route pour récupérer toutes les tâches
-router.get("/all", (req, res) => {
-  const tasks = Task.allTasks();
-  filterState = Task.getDefaultFilter();
+  Task.writeFilterState(filterState);
 
   res.send(createTasksList(tasks));
 });
@@ -43,7 +37,7 @@ router.get("/filter/:type", (req, res) => {
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche complétée");
       filterState = type;
-
+      Task.writeFilterState(filterState);
       return;
     }
   } else if (type === "todo") {
@@ -51,7 +45,7 @@ router.get("/filter/:type", (req, res) => {
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche à faire");
       filterState = type;
-
+      Task.writeFilterState(filterState);
       return;
     }
   } else if (type === "important") {
@@ -59,7 +53,7 @@ router.get("/filter/:type", (req, res) => {
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche importante");
       filterState = type;
-
+      Task.writeFilterState(filterState);
       return;
     }
   } else if (type === "none") {
@@ -67,12 +61,12 @@ router.get("/filter/:type", (req, res) => {
     if (filteredTasks.length === 0) {
       res.send("Aucune tâche");
       filterState = type;
-
+      Task.writeFilterState(filterState);
       return;
     }
   }
   filterState = type;
-
+  Task.writeFilterState(filterState);
   res.send(createFilteredList(filteredTasks, type));
 });
 
