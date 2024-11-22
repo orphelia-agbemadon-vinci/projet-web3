@@ -1,6 +1,6 @@
 import express from "express";
 
-import Task from "../models/Task.js";
+import Task, { updateTaskById } from "../models/Task.js";
 
 import createTasksList from "../views/tasks/createTasksList.js";
 import createFilteredList from "../views/tasks/createFilteredList.js";
@@ -73,7 +73,10 @@ router.get("/filter/:type", (req, res) => {
 // Route pour afficher le formulaire de modification pour une tâche
 router.get("/edit/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
-  const task = tasks.find((t) => t.id === taskId);
+  let filteredTasks = Task.getFilteredList(filterState);
+  
+  const task = filteredTasks.find((t) => t.id === taskId);
+  console.log(taskId + "\n" + task);
   if (task) {
     res.send(createEditTask(task));
   } else {
@@ -145,11 +148,14 @@ router.post("/search", (req, res) => {
 router.patch("/edit/:id", (req, res) => {
   const taskId = parseInt(req.params.id);
   const description = req.body.description;
-  const taskIndex = tasks.findIndex((t) => t.id === taskId);
-  if (taskIndex !== -1) {
-    Task.updateTask(taskIndex, description);
-    tasks = Task.allTasks(); // Mise à jour de la liste des tâches
-    res.send(createATask(tasks[taskIndex]));
+
+  //let filteredTasks = Task.getFilteredList(filterState);
+  const updatedTask = updateTaskById(taskId, description);
+
+  if (updatedTask) {
+    //Task.updateTask(taskIndex, description);
+    //tasks = Task.allTasks(); // Mise à jour de la liste des tâches
+    res.send(createATask(updatedTask));
   } else {
     res.status(404).send("Task not found");
   }
@@ -173,7 +179,10 @@ router.delete("/delete/:id", (req, res) => {
 // Route pour supprimer toutes les tâches
 router.delete("/delete-all", (req, res) => {
   tasks = Task.deleteAllTasks();
-  res.send(createFilteredList(tasks, filterState));
+
+  let filteredTasks = Task.getFilteredList(filterState);
+
+  res.send(createFilteredList(filteredTasks, filterState));
 });
 
 export default router;

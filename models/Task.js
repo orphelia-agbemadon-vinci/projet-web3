@@ -153,6 +153,19 @@ export function updateTask(index, newDescription) {
   return tasks[index];
 }
 
+export function updateTaskById(id, newDescription) {
+  const tasks = allTasks();
+  const taskIndex = tasks.findIndex((task) => task.id === id);
+  if (taskIndex === -1) {
+    return null;
+  }
+  tasks[taskIndex].description = newDescription;
+
+  serialize(jsonDbPath, tasks);
+
+  return tasks[taskIndex];
+}
+
 /**
  * Trouve une tâche par son ID.
  * @param {number} id - L'ID de la tâche.
