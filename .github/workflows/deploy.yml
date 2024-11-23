@@ -20,10 +20,10 @@ jobs:
     - run: npm install
 
     - name: Install PM2
-      run: npm install pm2
+      run: npm install pm2 -g
 
     - name: Restart application with PM2
-      run: pm2 start ecosystem.config.js --env production
+      run: pm2 start app.js
 
     - name: Display deployment URL
       run: |
