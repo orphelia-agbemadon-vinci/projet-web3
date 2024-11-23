@@ -18,7 +18,13 @@ jobs:
       with:
         node-version: 16.x
     - run: npm install
-    - run: pm2 restart dundeal
+
+    - name: Install PM2
+      run: npm install pm2 -g
+
+    - name: Restart application with PM2
+      run: pm2 restart dundeal
 
     - name: Display deployment URL
-      run: "Your site has been deployed successfully. You can access it at: [URL_DE_VOTRE_SITE]"
+      run: |
+        echo "Your site has been deployed successfully. You can access it at: [URL_DE_VOTRE_SITE]"
