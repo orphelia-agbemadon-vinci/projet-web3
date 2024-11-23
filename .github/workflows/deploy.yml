@@ -23,7 +23,7 @@ jobs:
       run: npm install pm2 -g
 
     - name: Restart application with PM2
-      run: pm2 restart dundeal
+      run: pm2 start ecosystem.config.js --env production
 
     - name: Display deployment URL
       run: |
