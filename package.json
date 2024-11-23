@@ -17,7 +17,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "pm2": "^5.4.3"
   },
   "devDependencies": {
     "eslint": "^9.15.0",
